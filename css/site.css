@@ -1,0 +1,41 @@
+@font-face {
+    font-family: "ABeeZee-Italic";
+    src: url("../fonts/ABeeZee-Italic.otf") format("opentype"),
+    }
+    @font-face {
+        font-family: "ABeeZee-Regular";
+        src: url("../fonts/ABeeZee-Regular.otf") format("opentype"),
+        }
+.navbar{
+    background: #110603d1!important;
+}
+.navbar-brand {
+    font-size: 1.6rem;
+}
+.image {
+    border-radius: 5px!important;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 1);
+    border: 5px solid rgba(255, 255, 255, 1);
+    overflow: hidden;
+  }
+  .heading{
+    font: normal normal normal 40px/1.4em spinnaker,ABeeZee-Regular!important;
+    color: #E33F0E;
+    font-size: 45px;
+    font-weight: bold;
+    font-family: auto;
+  }
+  .intro li {
+    line-height: 1.5em;
+    font: normal normal normal 20px/1.6em futura-lt-w01-light,ABeeZee-Italic;
+    color: #303030b8;
+  }
+  .heading-divider{
+    position: relative;
+    margin: 0px 0px 18px calc((100% - 980px) * 0.5);
+    left: 544px;
+    grid-area: 2 / 1 / 3 / 2;
+    justify-self: start;
+    align-self: start;
+  }
