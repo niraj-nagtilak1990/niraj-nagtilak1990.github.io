@@ -26,11 +26,20 @@
     font-weight: bold;
     font-family: auto;
   }
+
+
   .intro li {
     line-height: 1.5em;
     font: normal normal normal 20px/1.6em futura-lt-w01-light,ABeeZee-Italic;
     color: #303030b8;
   }
+  @media (min-width: 992px) {
+  .heading{
+    border-left: 5px solid;
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+}
   .heading-divider{
     position: relative;
     margin: 0px 0px 18px calc((100% - 980px) * 0.5);
