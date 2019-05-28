@@ -17,21 +17,38 @@
 		<link href="css/site.css" rel="stylesheet" />
 		<script src="bootstrap/js/jquery-3.4.1.min.js"></script>
 		<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-		<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
-		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
-		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="images/favicon/apple-touch-icon.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="images/favicon/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="images/favicon/favicon-16x16.png"
+		/>
 		<link rel="manifest" href="images/favicon/site.webmanifest" />
 
 		<script>
 			$(document).ready(() => {
-				$('[data-toggle="tooltip"]').tooltip({ boundary: "window" });
+				$('[data-toggle="tooltip"]').tooltip({
+					boundary: "window",
+					trigger: "hover"
+				});
 			});
 		</script>
 	</head>
 	<body>
 		<main id="content" role="main">
 			<nav class="navbar navbar-expand-md navbar-dark fixed-top">
-				<a class="navbar-brand" href="#">Niraj Nagtilak</a>
+				<a class="navbar-brand d-block" href="#">Niraj Nagtilak </a>
 				<button
 					class="navbar-toggler"
 					type="button"
@@ -105,146 +122,204 @@
 
 			<footer class="container mb-2">
 				<div class="row">
-					<div class="col-lg-1 col-md-3 col-sm-3 col-3">
-						<a
-							href="mailto:prem.nagtilak@gmail.com"
-							target="_blank"
-							data-content="prem.nagtilak@gmail.com"
-							data-type="mail"
-							data-toggle="tooltip"
-							data-placement="bottom"
-							title="Send me email"
-							style="width: 65px; height: 65px;display: block;"
-						>
-							<img
-								alt="Email"
-								style="width: 65px; height: 65px; object-fit: cover;"
-								src="images/mail.png"
-						/></a>
-					</div>
-					<div class="col-lg-1 col-md-3 col-sm-3 col-3">
-						<a
-							href="https://nirajnagtilak.home.blog/"
-							target="_blank"
-							data-content="prem.nagtilak@gmail.com"
-							data-type="mail"
-							data-toggle="tooltip"
-							data-placement="bottom"
-							title="Follow my blogs"
-							style="width: 65px; height: 65px;display: block;"
-						>
-							<img
-								alt="Blogs"
-								style="width: 65px; height: 65px; object-fit: cover;"
-								src="images/blogs.png"
-						/></a>
-					</div>
-					<div class="col-lg-1 col-md-3 col-sm-3 col-3">
-						<a
-							href="https://github.com/niraj-nagtilak1990"
-							target="_blank"
-							data-content="https://github.com/niraj-nagtilak1990"
-							data-type="external"
-							rel="nofollow"
-							data-toggle="tooltip"
-							data-placement="bottom"
-							title="Follow my Git Hub projects"
-							style="width: 65px; height: 65px;display: block;"
-						>
-							<img
-								id="LnkBr01imageimageimage"
-								alt="Git Hub"
-								data-type="image"
-								itemprop="image"
-								style="width: 65px; height: 65px; object-fit: cover;"
-								src="images/git.png"
-						/></a>
-					</div>
-					<div class="col-lg-1 col-md-3 col-sm-3 col-3">
-						<a
-							href="https://www.linkedin.com/in/niraj-nagtilak/"
-							target="_blank"
-							data-content="https://www.linkedin.com/in/niraj-nagtilak/"
-							data-type="external"
-							rel="nofollow"
-							data-toggle="tooltip"
-							data-placement="bottom"
-							title="Connect with me on Linkedin"
-							style="width: 65px; height: 65px;display: block;"
-						>
-							<img
-								alt="LinkedIn - Black Circle"
-								data-type="image"
-								itemprop="image"
-								style="width: 65px; height: 65px; object-fit: cover;"
-								src="images/linkedin.png"
-						/></a>
+					<div
+						class="col-lg-1 col-md-3 col-sm-12 col-12 bd-callout bd-callout-warning"
+					>
+						<div class="row">
+							<div class="col-3 col-sm-3 ml-md-3">
+								<a
+									href="mailto:prem.nagtilak@gmail.com"
+									target="_blank"
+									data-content="prem.nagtilak@gmail.com"
+									data-type="mail"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Send me email"
+									style="width: 65px; height: 65px;display: block;"
+								>
+									<img
+										alt="Email"
+										style="width: 65px; height: 65px; object-fit: cover;"
+										src="images/mail.png"
+								/></a>
+							</div>
+
+							<div class="col-9 col-sm-9 d-block d-sm-block d-md-none my-auto">
+								<span>Send me email</span>
+							</div>
+						</div>
 					</div>
 					<div
-						class="col-lg-1 col-md-3 col-sm-3 col-3 ml-lg-0 mt-lg-0 ml-5 mt-4"
+						class="col-lg-1 col-md-3 col-sm-12 col-12 bd-callout bd-callout-warning"
 					>
-						<a
-							href="https://www.facebook.com/niraj.nagtilak"
-							target="_blank"
-							data-content="https://www.facebook.com/niraj.nagtilak"
-							data-type="external"
-							rel="nofollow"
-							data-toggle="tooltip"
-							data-placement="bottom"
-							title="Follow me on facebook"
-							style="width: 65px; height: 65px;display: block;"
-						>
-							<img
-								alt="Facebook - Black Circle"
-								data-type="image"
-								itemprop="image"
-								style="width: 65px; height: 65px; object-fit: cover;"
-								src="images/fb.png"
-						/></a>
+						<div class="row mt-6">
+							<div class="col-3 col-sm-3 ml-md-3">
+								<a
+									href="https://nirajnagtilak.home.blog/"
+									target="_blank"
+									data-content="prem.nagtilak@gmail.com"
+									data-type="mail"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Follow my blogs"
+									style="width: 65px; height: 65px;display: block;"
+								>
+									<img
+										alt="Blogs"
+										style="width: 65px; height: 65px; object-fit: cover;"
+										src="images/blogs.png"
+								/></a>
+							</div>
+							<div class="col-9 col-sm-9 d-block d-sm-block d-md-none my-auto">
+								<span>Follow my blogs</span>
+							</div>
+						</div>
 					</div>
 					<div
-						class="col-lg-1 col-md-3 col-sm-3 col-3 ml-lg-0 mt-lg-0 ml-3 mt-4"
+						class="col-lg-1 col-md-3 col-sm-12 col-12 bd-callout bd-callout-warning"
 					>
-						<a
-							href="https://twitter.com/prem_nagtilak"
-							target="_blank"
-							data-content="https://twitter.com/prem_nagtilak"
-							data-type="external"
-							rel="nofollow"
-							data-toggle="tooltip"
-							data-placement="bottom"
-							title="Follow me on twitter"
-							style="width: 65px; height: 65px;display: block;"
-						>
-							<img
-								alt="Twitter - Black Circle"
-								data-type="image"
-								itemprop="image"
-								style="width: 65px; height: 65px; object-fit: cover;"
-								src="images/twitter.png"
-						/></a>
+						<div class="row mt-6">
+							<div class="col-3 col-sm-3 ml-md-3">
+								<a
+									href="https://github.com/niraj-nagtilak1990"
+									target="_blank"
+									data-content="https://github.com/niraj-nagtilak1990"
+									data-type="external"
+									rel="nofollow"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Follow my Git Hub projects"
+									style="width: 65px; height: 65px;display: block;"
+								>
+									<img
+										id="LnkBr01imageimageimage"
+										alt="Git Hub"
+										data-type="image"
+										itemprop="image"
+										style="width: 65px; height: 65px; object-fit: cover;"
+										src="images/git.png"
+								/></a>
+							</div>
+							<div class="col-9 col-sm-9 d-block d-sm-block d-md-none my-auto">
+								<span>Follow my Git Hub projects</span>
+							</div>
+						</div>
 					</div>
 					<div
-						class="col-lg-1 col-md-3 col-sm-3 col-3 ml-lg-0 mt-lg-0 ml-3 mt-4"
+						class="col-lg-1 col-md-3 col-sm-12 col-12 bd-callout bd-callout-warning"
 					>
-						<a
-							href="https://www.instagram.com/iampremnagtilak/"
-							target="_blank"
-							data-content="https://www.instagram.com/iampremnagtilak/"
-							data-type="external"
-							rel="nofollow"
-							data-toggle="tooltip"
-							data-placement="bottom"
-							title="Follow me on instagram"
-							style="width: 65px; height: 65px;display: block;"
-						>
-							<img
-								alt="Instagram - Black Circle"
-								data-type="image"
-								itemprop="image"
-								style="width: 65px; height: 65px; object-fit: cover;"
-								src="images/insta.png"
-						/></a>
+						<div class="row mt-6">
+							<div class="col-3 col-sm-3 ml-md-3">
+								<a
+									href="https://www.linkedin.com/in/niraj-nagtilak/"
+									target="_blank"
+									data-content="https://www.linkedin.com/in/niraj-nagtilak/"
+									data-type="external"
+									rel="nofollow"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Connect with me on Linkedin"
+									style="width: 65px; height: 65px;display: block;"
+								>
+									<img
+										alt="LinkedIn - Black Circle"
+										data-type="image"
+										itemprop="image"
+										style="width: 65px; height: 65px; object-fit: cover;"
+										src="images/linkedin.png"
+								/></a>
+							</div>
+							<div class="col-9 col-sm-9 d-block d-sm-block d-md-none my-auto">
+								<span>Connect with me on Linkedin</span>
+							</div>
+						</div>
+					</div>
+					<div
+						class="col-lg-1 col-md-4 col-sm-12 col-12 bd-callout bd-callout-warning ml-lg-0 mt-lg-0 ml-md-5 mt-md-5"
+					>
+						<div class="row mt-6">
+							<div class="col-3 col-sm-3">
+								<a
+									href="https://www.facebook.com/niraj.nagtilak"
+									target="_blank"
+									data-content="https://www.facebook.com/niraj.nagtilak"
+									data-type="external"
+									rel="nofollow"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Follow me on facebook"
+									style="width: 65px; height: 65px;display: block;"
+								>
+									<img
+										alt="Facebook - Black Circle"
+										data-type="image"
+										itemprop="image"
+										style="width: 65px; height: 65px; object-fit: cover;"
+										src="images/fb.png"
+								/></a>
+							</div>
+							<div class="col-9 col-sm-9 d-block d-sm-block d-md-none my-auto">
+								<span>Follow me on facebook</span>
+							</div>
+						</div>
+					</div>
+					<div
+						class="col-lg-1 col-md-4 col-sm-12 col-12 bd-callout bd-callout-warning ml-lg-0 mt-lg-0 mt-md-5"
+					>
+						<div class="row mt-6">
+							<div class="col-3 col-sm-3">
+								<a
+									href="https://twitter.com/prem_nagtilak"
+									target="_blank"
+									data-content="https://twitter.com/prem_nagtilak"
+									data-type="external"
+									rel="nofollow"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Follow me on twitter"
+									style="width: 65px; height: 65px;display: block;"
+								>
+									<img
+										alt="Twitter - Black Circle"
+										data-type="image"
+										itemprop="image"
+										style="width: 65px; height: 65px; object-fit: cover;"
+										src="images/twitter.png"
+								/></a>
+							</div>
+							<div class="col-9 col-sm-9 d-block d-sm-block d-md-none my-auto">
+								<span>Follow me on twitter</span>
+							</div>
+						</div>
+					</div>
+					<div
+						class="col-lg-1 col-md-3 col-sm-12 col-12 bd-callout bd-callout-warning ml-lg-0 mt-lg-0 mt-md-5"
+					>
+						<div class="row mt-6">
+							<div class="col-3 col-sm-3">
+								<a
+									href="https://www.instagram.com/iampremnagtilak/"
+									target="_blank"
+									data-content="https://www.instagram.com/iampremnagtilak/"
+									data-type="external"
+									rel="nofollow"
+									data-toggle="tooltip"
+									data-placement="bottom"
+									title="Follow me on instagram"
+									style="width: 65px; height: 65px;display: block;"
+								>
+									<img
+										alt="Instagram - Black Circle"
+										data-type="image"
+										itemprop="image"
+										style="width: 65px; height: 65px; object-fit: cover;"
+										src="images/insta.png"
+								/></a>
+							</div>
+							<div class="col-9 col-sm-9 d-block d-sm-block d-md-none my-auto">
+								<span>Follow me on instagram</span>
+							</div>
+						</div>
 					</div>
 					<div
 						class="col-lg-5 text-lg-right text-md-center text-center my-lg-auto mt-5"
