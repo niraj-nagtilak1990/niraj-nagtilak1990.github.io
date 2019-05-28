@@ -58,4 +58,66 @@
     margin-left: 5px;
 }
 }
- 
+.mail{
+  background: url('../images/mail-b.png');
+  background-size: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+.mail:hover {
+  background-image: url('../images/mail-c.png');
+}
+.blog{
+  background: url('../images/blog-b.png');
+  background-size: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+.blog:hover {
+  background-image: url('../images/blog-c.png');
+}
+.git{
+  background: url('../images/git-b.png');
+  background-size: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+.git:hover {
+  background-image: url('../images/git-c.png');
+}
+.linkedin{
+  background: url('../images/linkedin-b.png');
+  background-size: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+.linkedin:hover {
+  background-image: url('../images/linkedin-c.png');
+}
+.fb{
+  background: url('../images/fb-b.png');
+  background-size: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+.fb:hover {
+  background-image: url('../images/fb-c.png');
+}
+.twitter{
+  background: url('../images/twitter-b.png');
+  background-size: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+.twitter:hover {
+  background-image: url('../images/twitter-c.png');
+}
+.insta{
+  background: url('../images/insta-b.png');
+  background-size: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+.insta:hover {
+  background-image: url('../images/insta-c.png');
+}
