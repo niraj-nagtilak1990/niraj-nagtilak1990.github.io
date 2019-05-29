@@ -130,3 +130,8 @@
 .insta:hover {
   background-image: url('../images/insta-c.png');
 }
+@media (min-width: 300px) and (max-width: 767.98px) {
+  .tooltip {
+          display:none!important;
+          }
+}
