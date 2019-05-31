@@ -3,7 +3,10 @@
 	<head>
 		<title>Niraj Nagtilak</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+		/>
 		<meta name="description" content="Niraj Nagtilak personal website" />
 		<meta name="author" content="Niraj Nagtilak" />
 		<meta name="generator" content="Niraj Nagtilak" />
@@ -38,6 +41,14 @@
 				$('[data-toggle="tooltip"]').tooltip({
 					boundary: "window",
 					trigger: "hover"
+				});
+				$(".bd-callout").on("touchstart.tap", function(e) {
+					window.open(
+						$(this)
+							.find("a")
+							.attr("href"),
+						"_blank"
+					);
 				});
 			});
 		</script>
