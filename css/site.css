@@ -165,7 +165,9 @@
   }
 
   @media (min-width: 300px) and (max-width: 767.98px) {
-   
+   .intro ul{
+     margin-bottom: 0px!important;
+   }
     .carousel-item span  {
       line-height: 1em;
       font-size: 20px!important;
