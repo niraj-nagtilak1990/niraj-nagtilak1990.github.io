@@ -39,15 +39,16 @@
 		<script>
             function gaEvent(action, label, redirectUrl)
             {
-                ga('send', {
-                    hitType: 'event',
-                    eventCategory: 'Contact me',
-                    eventAction: action,
-                    eventLabel: label,
-                    event_callback: function() {
-                        window.open(redirectUrl, '_blank');
-                    }
-                    });                   
+				gtag('event',
+                action,
+                {
+                    'event_category': 'Contact me',
+                    'event_label': label,
+                    'event_callback': function () {
+						window.open(redirectUrl, '_blank');
+                    },
+                    'event_timeout': 2000
+                });             
             }
 			$(document).ready(() => {
 				$(".carousel").carousel();
