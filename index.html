@@ -37,15 +37,17 @@
 		<link rel="manifest" href="images/favicon/site.webmanifest" />
 
 		<script>
-            function gaEvent(action, label)
+            function gaEvent(action, label, redirectUrl)
             {
                 ga('send', {
                     hitType: 'event',
                     eventCategory: 'Contact me',
                     eventAction: action,
-                    eventLabel: label
-                    });
-                    return true;
+                    eventLabel: label,
+                    event_callback: function() {
+                        window.open(redirectUrl, '_blank');
+                    }
+                    });                   
             }
 			$(document).ready(() => {
 				$(".carousel").carousel();
@@ -53,15 +55,7 @@
 					boundary: "window",
 					trigger: "hover"
 				});
-				$(".bd-callout").on("click", function(e) {
-					window.open(
-						$(this)
-							.find("a")
-							.attr("href"),
-						"_blank"
-					);
-				});
-			});
+							});
 		</script>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140818427-1"></script>
@@ -320,15 +314,13 @@
 						<div class="row bd-callout bd-callout-warning">
 							<div class="col-3 col-sm-3 ml-md-3 ml-lg-0">
 								<a
-									href="mailto:prem.nagtilak@gmail.com"
-									target="_blank"
 									data-content="prem.nagtilak@gmail.com"
 									data-type="mail"
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Send me email"
 									style="width: 65px; height: 65px;display: block;"
-                                    onclick="gaEvent('Gmail','Sent email');"
+                                    onclick="gaEvent('Gmail','Sent email','mailto:prem.nagtilak@gmail.com');"
 								>
 									<div class="mail"></div>
 								</a>
@@ -343,15 +335,13 @@
 						<div class="row bd-callout bd-callout-warning mt-6">
 							<div class="col-3 col-sm-3 ml-md-3 ml-lg-0">
 								<a
-									href="https://nirajnagtilak.home.blog/"
-									target="_blank"
 									data-content="https://nirajnagtilak.home.blog/"
 									data-type="mail"
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow my blogs"
 									style="width: 65px; height: 65px;display: block;"
-                                    onclick="gaEvent('Blogs','Viewed blogs');"
+                                    onclick="gaEvent('Blogs','Viewed blogs','https://nirajnagtilak.home.blog/');"
 
 								>
 									<div class="blog"></div
@@ -366,8 +356,6 @@
 						<div class="row bd-callout bd-callout-warning mt-6">
 							<div class="col-3 col-sm-3 ml-md-3 ml-lg-0">
 								<a
-									href="https://github.com/niraj-nagtilak1990"
-									target="_blank"
 									data-content="https://github.com/niraj-nagtilak1990"
 									data-type="external"
 									rel="nofollow"
@@ -375,7 +363,7 @@
 									data-placement="bottom"
 									title="Follow my Git Hub projects"
 									style="width: 65px; height: 65px;display: block;"
-                                    onclick="gaEvent('GitHub','Viewed GitHub Projects');"
+                                    onclick="gaEvent('GitHub','Viewed GitHub Projects','https://github.com/niraj-nagtilak1990');"
 
 								>
 									<div class="git"></div>
@@ -390,8 +378,6 @@
 						<div class="row bd-callout bd-callout-warning mt-6">
 							<div class="col-3 col-sm-3 ml-md-3 ml-lg-0">
 								<a
-									href="https://www.linkedin.com/in/niraj-nagtilak/"
-									target="_blank"
 									data-content="https://www.linkedin.com/in/niraj-nagtilak/"
 									data-type="external"
 									rel="nofollow"
@@ -399,7 +385,7 @@
 									data-placement="bottom"
 									title="Follow me on Linkedin"
 									style="width: 65px; height: 65px;display: block;"
-                                    onclick="gaEvent('Linkedin','Viewed Linkedin Profile');"
+                                    onclick="gaEvent('Linkedin','Viewed Linkedin Profile','https://www.linkedin.com/in/niraj-nagtilak/');"
 								>
 									<div class="linkedin"></div
 								></a>
@@ -415,8 +401,6 @@
 						<div class="row bd-callout bd-callout-warning mt-6">
 							<div class="col-3 col-sm-3">
 								<a
-									href="https://www.facebook.com/niraj.nagtilak"
-									target="_blank"
 									data-content="https://www.facebook.com/niraj.nagtilak"
 									data-type="external"
 									rel="nofollow"
@@ -424,7 +408,7 @@
 									data-placement="bottom"
 									title="Follow me on facebook"
 									style="width: 65px; height: 65px;display: block;"
-                                    onclick="gaEvent('Facebook','Viewed Facebook Profile');"
+                                    onclick="gaEvent('Facebook','Viewed Facebook Profile','https://www.facebook.com/niraj.nagtilak');"
 								>
 									<div class="fb"></div
 								></a>
@@ -440,8 +424,6 @@
 						<div class="row bd-callout bd-callout-warning mt-6">
 							<div class="col-3 col-sm-3">
 								<a
-									href="https://twitter.com/prem_nagtilak"
-									target="_blank"
 									data-content="https://twitter.com/prem_nagtilak"
 									data-type="external"
 									rel="nofollow"
@@ -449,7 +431,7 @@
 									data-placement="bottom"
 									title="Follow me on twitter"
 									style="width: 65px; height: 65px;display: block;"
-                                    onclick="gaEvent('Twitter','Viewed Twitter Profile');"
+                                    onclick="gaEvent('Twitter','Viewed Twitter Profile','https://twitter.com/prem_nagtilak');"
 								>
 									<div class="twitter"></div
 								></a>
@@ -465,8 +447,6 @@
 						<div class="row bd-callout bd-callout-warning mt-6">
 							<div class="col-3 col-sm-3">
 								<a
-									href="https://www.instagram.com/iampremnagtilak/"
-									target="_blank"
 									data-content="https://www.instagram.com/iampremnagtilak/"
 									data-type="external"
 									rel="nofollow"
@@ -474,7 +454,7 @@
 									data-placement="bottom"
 									title="Follow me on instagram"
 									style="width: 65px; height: 65px;display: block;"
-                                    onclick="gaEvent('Instagram','Viewed Instagram Profile');"
+                                    onclick="gaEvent('Instagram','Viewed Instagram Profile','https://www.instagram.com/iampremnagtilak/');"
 								>
 									<div class="insta"></div
 								></a>
