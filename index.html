@@ -37,6 +37,16 @@
 		<link rel="manifest" href="images/favicon/site.webmanifest" />
 
 		<script>
+            function gaEvent(action, label)
+            {
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'Contact me',
+                    eventAction: action,
+                    eventLabel: label
+                    });
+                    return true;
+            }
 			$(document).ready(() => {
 				$(".carousel").carousel();
 				$('[data-toggle="tooltip"]').tooltip({
@@ -318,6 +328,7 @@
 									data-placement="bottom"
 									title="Send me email"
 									style="width: 65px; height: 65px;display: block;"
+                                    onclick="gaEvent('Gmail','Sent email');"
 								>
 									<div class="mail"></div>
 								</a>
@@ -334,12 +345,14 @@
 								<a
 									href="https://nirajnagtilak.home.blog/"
 									target="_blank"
-									data-content="prem.nagtilak@gmail.com"
+									data-content="https://nirajnagtilak.home.blog/"
 									data-type="mail"
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow my blogs"
 									style="width: 65px; height: 65px;display: block;"
+                                    onclick="gaEvent('Blogs','Viewed blogs');"
+
 								>
 									<div class="blog"></div
 								></a>
@@ -362,6 +375,8 @@
 									data-placement="bottom"
 									title="Follow my Git Hub projects"
 									style="width: 65px; height: 65px;display: block;"
+                                    onclick="gaEvent('GitHub','Viewed GitHub Projects');"
+
 								>
 									<div class="git"></div>
 								</a>
@@ -384,6 +399,7 @@
 									data-placement="bottom"
 									title="Follow me on Linkedin"
 									style="width: 65px; height: 65px;display: block;"
+                                    onclick="gaEvent('Linkedin','Viewed Linkedin Profile');"
 								>
 									<div class="linkedin"></div
 								></a>
@@ -408,6 +424,7 @@
 									data-placement="bottom"
 									title="Follow me on facebook"
 									style="width: 65px; height: 65px;display: block;"
+                                    onclick="gaEvent('Facebook','Viewed Facebook Profile');"
 								>
 									<div class="fb"></div
 								></a>
@@ -432,6 +449,7 @@
 									data-placement="bottom"
 									title="Follow me on twitter"
 									style="width: 65px; height: 65px;display: block;"
+                                    onclick="gaEvent('Twitter','Viewed Twitter Profile');"
 								>
 									<div class="twitter"></div
 								></a>
@@ -456,6 +474,7 @@
 									data-placement="bottom"
 									title="Follow me on instagram"
 									style="width: 65px; height: 65px;display: block;"
+                                    onclick="gaEvent('Instagram','Viewed Instagram Profile');"
 								>
 									<div class="insta"></div
 								></a>
