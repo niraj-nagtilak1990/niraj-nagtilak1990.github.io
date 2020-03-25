@@ -1,6 +1,8 @@
 const covid19PageUrl =
 	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-cases';
 
+var covid19Data;
+
 $(document).ready(function() {
 	jQuery.ajaxPrefilter(function(options) {
 		if (options.crossDomain && jQuery.support.cors) {
@@ -10,6 +12,9 @@ $(document).ready(function() {
 	gtag('event', 'Covid19');
 	gtag('event', 'page_view');
 	GetCovid19Data();
+	$('#locationWiseAgePieSection #locationFilter').change(function() {
+		updateLocationWisePieChart();
+	});
 });
 
 function GetCovid19Data() {
@@ -38,13 +43,38 @@ function parseHtml(html) {
 	confirmedCasesTable.find('caption').remove();
 	var json = tableToJson(confirmedCasesTable);
 	//render all charts
-	renderAllCharts(json);
+	covid19Data = json;
+	renderAllCharts(covid19Data);
 }
 
 function renderAllCharts(json) {
 	GetLocationWiseLinechart(json);
+	renderLocationWisePieSection(json);
 	//chart loaded, hide loader and show chart
 	showChart();
+}
+function renderLocationWisePieSection(json) {
+	var locations = _.uniq(json.map(x => x.location));
+	_.forEach(locations, function(loc) {
+		$('#locationWiseAgePieSection #locationFilter').append(
+			$('<option></option>')
+				.attr('value', loc)
+				.text(loc)
+		);
+	});
+
+	updateLocationWisePieChart();
+}
+
+function updateLocationWisePieChart() {
+	var selectedLocation = $(
+		'#locationWiseAgePieSection #locationFilter option:selected'
+	).val();
+
+	var sortedCovid19Data = _.sortBy(covid19Data, ['location', 'age']);
+	var ageData = _.filter(sortedCovid19Data, { location: selectedLocation });
+	var ageCounts = _.countBy(ageData, 'age');
+	GetLocationWisePiechart(ageCounts);
 }
 
 function tableToJson(table) {
@@ -53,12 +83,17 @@ function tableToJson(table) {
 		.find('tbody tr')
 		.each(function(index, row) {
 			data.push({
-				location: $(row)
-					.find('td:nth-child(2)')
-					.text(),
-				age: $(row)
-					.find('td:nth-child(3)')
-					.text(),
+				location: $.trim(
+					$(row)
+						.find('td:nth-child(2)')
+						.text()
+				),
+				age:
+					'age ' +
+					$(row)
+						.find('td:nth-child(3)')
+						.text()
+						.replace('s', ''),
 				gender: $(row)
 					.find('td:nth-child(4)')
 					.text()
@@ -88,27 +123,32 @@ function GetLocationWiseLinechart(chartData) {
 		options: {}
 	});
 }
-function GetLocationWiseAgePiechart(chartData) {
+
+function GetLocationWisePiechart(ageCount) {
 	var ctx = document
 		.getElementById('locationWiseAgePieChart')
 		.getContext('2d');
 	var chart = new Chart(ctx, {
-		type: 'line',
+		type: 'bar',
 		data: {
-			labels: Object.keys(_.countBy(chartData, 'location')),
 			datasets: [
 				{
-					label: 'Confirmed Cases age group by location ',
+					label: 'Confirmed Cases',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: Object.values(_.countBy(chartData, 'location'))
+					data: Object.values(ageCount)
 				}
-			]
-		},
+			],
 
+			// These labels appear in the legend and in the tooltips when hovering different arcs
+			labels: Object.keys(ageCount)
+		},
 		// Configuration options go here
 		options: {}
 	});
+	chart.update();
+	if (window.bar != undefined) window.bar.destroy();
+	window.bar = chart;
 }
 
 function showChart() {
