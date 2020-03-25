@@ -42,6 +42,7 @@ function parseHtml(html) {
 
 	confirmedCasesTable.find('caption').remove();
 	var json = tableToJson(confirmedCasesTable);
+	json = _.sortBy(json, 'location');
 	//render all charts
 	covid19Data = json;
 	renderAllCharts(covid19Data);
