@@ -7,6 +7,8 @@ $(document).ready(function() {
 			options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
 		}
 	});
+	gtag('event', 'Covid19');
+	gtag('event', 'page_view');
 	GetCovid19Data();
 });
 
@@ -35,8 +37,14 @@ function parseHtml(html) {
 
 	confirmedCasesTable.find('caption').remove();
 	var json = tableToJson(confirmedCasesTable);
+	//render all charts
+	renderAllCharts(json);
+}
 
-	GetPiechart(json);
+function renderAllCharts(json) {
+	GetLocationWiseLinechart(json);
+	//chart loaded, hide loader and show chart
+	showChart();
 }
 
 function tableToJson(table) {
@@ -56,23 +64,19 @@ function tableToJson(table) {
 					.text()
 			});
 		});
-	//location wise count
 
 	return data;
 }
 
-function GetPiechart(chartData) {
-	var ctx = document.getElementById('pieChart').getContext('2d');
+function GetLocationWiseLinechart(chartData) {
+	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
 	var chart = new Chart(ctx, {
-		// The type of chart we want to create
 		type: 'line',
-
-		// The data for our dataset
 		data: {
 			labels: Object.keys(_.countBy(chartData, 'location')),
 			datasets: [
 				{
-					label: 'Cases by location',
+					label: 'Confirmed Cases by location',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
 					data: Object.values(_.countBy(chartData, 'location'))
@@ -83,8 +87,28 @@ function GetPiechart(chartData) {
 		// Configuration options go here
 		options: {}
 	});
-	//chart loaded, hide loader and show chart
-	showChart();
+}
+function GetLocationWiseAgePiechart(chartData) {
+	var ctx = document
+		.getElementById('locationWiseAgePieChart')
+		.getContext('2d');
+	var chart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: Object.keys(_.countBy(chartData, 'location')),
+			datasets: [
+				{
+					label: 'Confirmed Cases age group by location ',
+					backgroundColor: 'rgb(255, 99, 132)',
+					borderColor: 'rgb(255, 99, 132)',
+					data: Object.values(_.countBy(chartData, 'location'))
+				}
+			]
+		},
+
+		// Configuration options go here
+		options: {}
+	});
 }
 
 function showChart() {
