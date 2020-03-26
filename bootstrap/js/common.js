@@ -98,8 +98,13 @@ function tableToJson(table) {
 				rowData.location &&
 				rowData.location != '' &&
 				rowData.location.toLowerCase() != 'total'
-			)
+			) {
+				rowData.location = rowData.location.replace(
+					'Capital and Coast',
+					'Wellingon'
+				);
 				data.push(rowData);
+			}
 		});
 
 	return data;
