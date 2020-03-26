@@ -34,12 +34,10 @@ function parseHtml(html) {
 	var summaryHtml = $(html)
 		.find('h2:contains("Summary")')
 		.next();
+	summaryHtml.css({ width: '80%' });
 	$('#summary').append(summaryHtml);
 
-	var confirmedCasesTable = $(html)
-		.find('h2:contains("Confirmed cases")')
-		.next();
-
+	var confirmedCasesTable = $(html).find('table.table-style-two');
 	confirmedCasesTable.find('caption').remove();
 	var json = tableToJson(confirmedCasesTable);
 	json = _.sortBy(json, 'location');
@@ -50,7 +48,7 @@ function parseHtml(html) {
 
 function renderAllCharts(json) {
 	GetLocationWiseLinechart(json);
-	renderLocationWisePieSection(json);
+	//renderLocationWisePieSection(json);
 	//chart loaded, hide loader and show chart
 	showChart();
 }
@@ -83,22 +81,25 @@ function tableToJson(table) {
 	$(table)
 		.find('tbody tr')
 		.each(function(index, row) {
-			data.push({
+			var rowData = {
 				location: $.trim(
 					$(row)
-						.find('td:nth-child(2)')
+						.find('td:nth-child(1)')
 						.text()
 				),
-				age:
-					'age ' +
-					$(row)
-						.find('td:nth-child(3)')
-						.text()
-						.replace('s', ''),
-				gender: $(row)
-					.find('td:nth-child(4)')
+				cCases: $(row)
+					.find('td:nth-child(2)')
+					.text(),
+				pCases: $(row)
+					.find('td:nth-child(3)')
 					.text()
-			});
+			};
+			if (
+				rowData.location &&
+				rowData.location != '' &&
+				rowData.location.toLowerCase() != 'total'
+			)
+				data.push(rowData);
 		});
 
 	return data;
@@ -109,13 +110,13 @@ function GetLocationWiseLinechart(chartData) {
 	var chart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: Object.keys(_.countBy(chartData, 'location')),
+			labels: chartData.map(x => x.location),
 			datasets: [
 				{
 					label: 'Confirmed Cases by location',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: Object.values(_.countBy(chartData, 'location'))
+					data: chartData.map(x => x.cCases)
 				}
 			]
 		},

@@ -24,7 +24,7 @@
 		<script src="bootstrap/js/Chart.min.js"></script>
 		<script src="bootstrap/js/jquery.tabletojson.min.js"></script>
 		<script src="bootstrap/js/loadash.js"></script>
-		<script src="bootstrap/js/common.js?version=2" ></script>
+		<script src="bootstrap/js/common.js?version=3" ></script>
 
 		<link
 			rel="apple-touch-icon"
@@ -74,7 +74,7 @@
 			<main role="main">
                 <div class="container" style="margin-top:80px;">
                     <div id="covidData" style="display: none;"> 
-					<h3>Total Covid19 confirmed cases in New Zealand</h3>
+					<h3>Total Covid19 cases in New Zealand</h3>
 					<div id="summary"></div>
 					<h4>
 						Note: The below mentioned information is pulled from
@@ -87,7 +87,7 @@
 					</h2>
                     <canvas id="locationWiseLineChart"></canvas>
                     <br/>
-                <div class="row" id="locationWiseAgePieSection">
+                <div class="row" id="locationWiseAgePieSection" style="display: none;">
                     <div class="col-lg-12 mx-auto" style="font-size:20px;text-align: center;margin-bottom: 10px;">
                         <span>Select location:</span>
                         <select id="locationFilter">
