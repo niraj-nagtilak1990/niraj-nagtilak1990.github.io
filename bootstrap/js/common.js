@@ -34,7 +34,7 @@ function parseHtml(html) {
 	var summaryHtml = $(html)
 		.find('h2:contains("Summary")')
 		.next();
-	summaryHtml.css({ width: '80%' });
+	summaryHtml.css({ width: '100%' });
 	$('#summary').append(summaryHtml);
 
 	var confirmedCasesTable = $(html).find('table.table-style-two');

@@ -1,193 +1,202 @@
 @font-face {
-    font-family: "ABeeZee-Italic";
-    src: url("../fonts/ABeeZee-Italic.otf") format("opentype"),
-    }
-    @font-face {
-        font-family: "ABeeZee-Regular";
-        src: url("../fonts/ABeeZee-Regular.otf") format("opentype"),
-        }
-.navbar{
-    background:hsla(13, 82%, 2%, 0.87)!important;
+	font-family: 'ABeeZee-Italic';
+	src: url('../fonts/ABeeZee-Italic.otf') format('opentype');
+}
+@font-face {
+	font-family: 'ABeeZee-Regular';
+	src: url('../fonts/ABeeZee-Regular.otf') format('opentype');
+}
+.navbar {
+	background: hsla(13, 82%, 2%, 0.87) !important;
 }
 .navbar-brand {
-    font-size: 1.6rem;
+	font-size: 1.6rem;
 }
 .image {
-    border-radius: 30px!important;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 1);
-    border: 5px solid rgba(255, 255, 255, 1);
-    overflow: hidden;
-  }
-  .heading{
-    font: normal normal normal 40px/1.4em spinnaker,ABeeZee-Regular!important;
-    color: #E33F0E;
-    font-size: 45px;
-    font-weight: bold;
-    font-family: auto;
-  }
+	border-radius: 30px !important;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	background-color: rgba(255, 255, 255, 1);
+	border: 5px solid rgba(255, 255, 255, 1);
+	overflow: hidden;
+}
+.heading {
+	font: normal normal normal 40px/1.4em spinnaker, ABeeZee-Regular !important;
+	color: #e33f0e;
+	font-size: 45px;
+	font-weight: bold;
+	font-family: auto;
+}
 
-
-  .intro li {
-    line-height: 1.5em;
-    font: normal normal normal 20px/1.6em futura-lt-w01-light,ABeeZee-Italic;
-    color: #303030b8;
-  }
-  @media (min-width: 992px) {
-  .heading{
-    border-left: 5px solid;
-    margin-left: 10px;
-    padding-left: 10px;
-  }
+.intro li {
+	line-height: 1.5em;
+	font: normal normal normal 20px/1.6em futura-lt-w01-light, ABeeZee-Italic;
+	color: #303030b8;
 }
-  .heading-divider{
-    position: relative;
-    margin: 0px 0px 18px calc((100% - 980px) * 0.5);
-    left: 544px;
-    grid-area: 2 / 1 / 3 / 2;
-    justify-self: start;
-    align-self: start;
-  }
-  footer{
-    line-height: 1.5em;
-    font: normal normal normal 20px/1.6em futura-lt-w01-light,ABeeZee-Italic;
-    color:hsla(13, 82%, 2%, 0.87);
-  }
-  @media (min-width: 300px) and (max-width: 767.98px) {
-  .bd-callout-warning {
-    border-left-color: #E33F0E!important;
+@media (min-width: 992px) {
+	.heading {
+		border-left: 5px solid;
+		margin-left: 10px;
+		padding-left: 10px;
+	}
 }
-.bd-callout {
-    padding: 1.25rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid #eee;
-    border-left-width: .25rem;
-    border-radius: .25rem;
+.heading-divider {
+	position: relative;
+	margin: 0px 0px 18px calc((100% - 980px) * 0.5);
+	left: 544px;
+	grid-area: 2 / 1 / 3 / 2;
+	justify-self: start;
+	align-self: start;
 }
-}
-.mail{
-  background: url('../images/mail-b.png');
-  background-size: 65px;
-  height: 65px;
-  object-fit: cover;
-}
-.mail:hover {
-  background-image: url('../images/mail-c.png');
-}
-.blog{
-  background: url('../images/blog-b.png');
-  background-size: 65px;
-  height: 65px;
-  object-fit: cover;
-}
-.blog:hover {
-  background-image: url('../images/blog-c.png');
-}
-.git{
-  background: url('../images/git-b.png');
-  background-size: 65px;
-  height: 65px;
-  object-fit: cover;
-}
-.git:hover {
-  background-image: url('../images/git-c.png');
-}
-.linkedin{
-  background: url('../images/linkedin-b.png');
-  background-size: 65px;
-  height: 65px;
-  object-fit: cover;
-}
-.linkedin:hover {
-  background-image: url('../images/linkedin-c.png');
-}
-.fb{
-  background: url('../images/fb-b.png');
-  background-size: 65px;
-  height: 65px;
-  object-fit: cover;
-}
-.fb:hover {
-  background-image: url('../images/fb-c.png');
-}
-.twitter{
-  background: url('../images/twitter-b.png');
-  background-size: 65px;
-  height: 65px;
-  object-fit: cover;
-}
-.twitter:hover {
-  background-image: url('../images/twitter-c.png');
-}
-.insta{
-  background: url('../images/insta-b.png');
-  background-size: 65px;
-  height: 65px;
-  object-fit: cover;
-}
-.insta:hover {
-  background-image: url('../images/insta-c.png');
+footer {
+	line-height: 1.5em;
+	font: normal normal normal 20px/1.6em futura-lt-w01-light, ABeeZee-Italic;
+	color: hsla(13, 82%, 2%, 0.87);
 }
 @media (min-width: 300px) and (max-width: 767.98px) {
-  .tooltip {
-          display:none!important;
-          }
+	.bd-callout-warning {
+		border-left-color: #e33f0e !important;
+	}
+	.bd-callout {
+		padding: 1.25rem;
+		margin-top: 0.5rem;
+		margin-bottom: 0.5rem;
+		border: 1px solid #eee;
+		border-left-width: 0.25rem;
+		border-radius: 0.25rem;
+	}
 }
-.carousel{
-  border-radius: 5px!important;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  background-color:#b9b2b224;
-  border: 10px solid rgba(255, 255, 255, 1);
-  overflow: hidden;
-  color: #303030b8;
-  }
-  @media (min-width: 768px){
-    .carousel {
-            height: 400px;
-            }
-  }
-  @media (min-width: 300px) and (max-width: 767.98px) {
-    .carousel {
-      height: 300px;
-      }
-  }
-  .carousel-item div{
-    text-align: right;
-  }
-  .carousel span,  .carousel h4{
-    line-height: 1em;
-    font-family:ABeeZee-Regular;
-    color: #303030b8;
-  }
-  .carousel div{
-    font-family:ABeeZee-Italic!important;
-  }
+.mail {
+	background: url('../images/mail-b.png');
+	background-size: 65px;
+	height: 65px;
+	object-fit: cover;
+}
+.mail:hover {
+	background-image: url('../images/mail-c.png');
+}
+.blog {
+	background: url('../images/blog-b.png');
+	background-size: 65px;
+	height: 65px;
+	object-fit: cover;
+}
+.blog:hover {
+	background-image: url('../images/blog-c.png');
+}
+.git {
+	background: url('../images/git-b.png');
+	background-size: 65px;
+	height: 65px;
+	object-fit: cover;
+}
+.git:hover {
+	background-image: url('../images/git-c.png');
+}
+.linkedin {
+	background: url('../images/linkedin-b.png');
+	background-size: 65px;
+	height: 65px;
+	object-fit: cover;
+}
+.linkedin:hover {
+	background-image: url('../images/linkedin-c.png');
+}
+.fb {
+	background: url('../images/fb-b.png');
+	background-size: 65px;
+	height: 65px;
+	object-fit: cover;
+}
+.fb:hover {
+	background-image: url('../images/fb-c.png');
+}
+.twitter {
+	background: url('../images/twitter-b.png');
+	background-size: 65px;
+	height: 65px;
+	object-fit: cover;
+}
+.twitter:hover {
+	background-image: url('../images/twitter-c.png');
+}
+.insta {
+	background: url('../images/insta-b.png');
+	background-size: 65px;
+	height: 65px;
+	object-fit: cover;
+}
+.insta:hover {
+	background-image: url('../images/insta-c.png');
+}
+@media (min-width: 300px) and (max-width: 767.98px) {
+	.tooltip {
+		display: none !important;
+	}
+}
+.carousel {
+	border-radius: 5px !important;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	background-color: #b9b2b224;
+	border: 10px solid rgba(255, 255, 255, 1);
+	overflow: hidden;
+	color: #303030b8;
+}
+@media (min-width: 768px) {
+	.carousel {
+		height: 400px;
+	}
+}
+@media (min-width: 300px) and (max-width: 767.98px) {
+	.carousel {
+		height: 300px;
+	}
+}
+.carousel-item div {
+	text-align: right;
+}
+.carousel span,
+.carousel h4 {
+	line-height: 1em;
+	font-family: ABeeZee-Regular;
+	color: #303030b8;
+}
+.carousel div {
+	font-family: ABeeZee-Italic !important;
+}
 
-  @media (min-width: 300px) and (max-width: 767.98px) {
-   .intro ul{
-     margin-bottom: 0px!important;
-   }
-    .carousel-item span  {
-      line-height: 1em;
-      font-size: 20px!important;
-      }
-      .carousel-item div{
-        font-size: 16px;
-        margin: 10px;
-      }
-  }
-  @media (min-width: 768px){
-     .carousel-item span  {
-      line-height: 1.2em;
-      font-size: 40px!important;
-      }
-      .carousel-item div{
-        font-size: 20px;
-        margin: 10px;
-      }
-  }
-  .carousel-indicators li{
-    background-color: #303030b8!important;
-  }
-  .bd-callout a {cursor: pointer;}
+@media (min-width: 300px) and (max-width: 767.98px) {
+	.intro ul {
+		margin-bottom: 0px !important;
+	}
+	.carousel-item span {
+		line-height: 1em;
+		font-size: 20px !important;
+	}
+	.carousel-item div {
+		font-size: 16px;
+		margin: 10px;
+	}
+}
+@media (min-width: 768px) {
+	.carousel-item span {
+		line-height: 1.2em;
+		font-size: 40px !important;
+	}
+	.carousel-item div {
+		font-size: 20px;
+		margin: 10px;
+	}
+}
+.carousel-indicators li {
+	background-color: #303030b8 !important;
+}
+.bd-callout a {
+	cursor: pointer;
+}
+.body-bg {
+	background: url(../images/stay-home.png);
+	background-size: 30%;
+	background-repeat: no-repeat;
+	background-position-y: top;
+	background-position-x: right;
+}
