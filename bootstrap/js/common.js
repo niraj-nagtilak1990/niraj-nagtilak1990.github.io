@@ -1,7 +1,12 @@
 const covid19PageUrl =
 	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-cases';
 
+const covid19DetailsPageUrl =
+	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-cases/covid-19-current-cases-details';
+
 var covid19Data;
+
+var covid19DetailsData;
 
 $(document).ready(function() {
 	jQuery.ajaxPrefilter(function(options) {
@@ -37,7 +42,9 @@ function parseHtml(html) {
 	summaryHtml.css({ width: '100%' });
 	$('#summary').append(summaryHtml);
 
-	var confirmedCasesTable = $(html).find('table.table-style-two');
+	var confirmedCasesTable = $(html).find(
+		'table.table-style-two:contains("DHB")'
+	);
 	confirmedCasesTable.find('caption').remove();
 	var json = tableToJson(confirmedCasesTable);
 	json = _.sortBy(json, 'location');
