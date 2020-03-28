@@ -1,65 +1,74 @@
-const covid19PageUrl =
-	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-cases';
+const covid19BaseUrl =
+	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-situation';
+const covid19CurrentCasesUrl = `${covid19BaseUrl}/covid-19-current-cases`;
+const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-current-cases-details`;
 
-const covid19DetailsPageUrl =
-	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-cases/covid-19-current-cases-details';
-
-var covid19Data;
-
-var covid19DetailsData;
+var covid19DetailJson;
 
 $(document).ready(function() {
+	//Cross domain request helper with herokuapp
 	jQuery.ajaxPrefilter(function(options) {
-		if (options.crossDomain && jQuery.support.cors) {
+		if (
+			options.crossDomain &&
+			jQuery.support.cors &&
+			options.url.indexOf(covid19BaseUrl) >= 0
+		) {
 			options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
 		}
 	});
+	//Google analytics register page view
 	gtag('event', 'Covid19');
 	gtag('event', 'page_view');
-	GetCovid19Data();
+
+	//Get NZ current cases and details page
+	GetData(covid19CurrentCasesUrl, parseCurrentCasesPageHtml);
+	GetData(covid19CurrentCasesDetailsUrl, parseCurrentCasesDetailsPageHtml);
+
+	//Dropown fileter for location wise age chart
 	$('#locationWiseAgePieSection #locationFilter').change(function() {
 		updateLocationWisePieChart();
 	});
 });
 
-function GetCovid19Data() {
+function GetData(url, callback) {
 	$.ajax({
 		method: 'GET',
 		dataType: 'html',
-		url: covid19PageUrl,
+		url: url,
 		crossDomain: true,
 		crossOrigin: true,
-		success: function(data) {
-			parseHtml(data);
-		}
+		success: callback
 	});
 }
 
-function parseHtml(html) {
+function parseCurrentCasesPageHtml(html) {
+	//get summary table
 	var summaryHtml = $(html)
 		.find('h2:contains("Summary")')
 		.next();
 	summaryHtml.css({ width: '100%' });
 	$('#summary').append(summaryHtml);
-
-	var confirmedCasesTable = $(html).find(
-		'table.table-style-two:contains("DHB")'
-	);
+}
+function parseCurrentCasesDetailsPageHtml(html) {
+	var confirmedCasesTable = $(html)
+		.find('table.table-style-two')
+		.first();
 	confirmedCasesTable.find('caption').remove();
-	var json = tableToJson(confirmedCasesTable);
+	var json = currentCaseDetailsTableToJson(confirmedCasesTable);
 	json = _.sortBy(json, 'location');
 	//render all charts
-	covid19Data = json;
-	renderAllCharts(covid19Data);
+	covid19DetailJson = json;
+
+	renderAllNZCharts();
 }
 
-function renderAllCharts(json) {
-	GetLocationWiseLinechart(json);
-	//renderLocationWisePieSection(json);
+function renderAllNZCharts() {
+	getLocationWiseLinechart(covid19DetailJson);
+	renderLocationWiseBarSection(covid19DetailJson);
 	//chart loaded, hide loader and show chart
 	showChart();
 }
-function renderLocationWisePieSection(json) {
+function renderLocationWiseBarSection(json) {
 	var locations = _.uniq(json.map(x => x.location));
 	_.forEach(locations, function(loc) {
 		$('#locationWiseAgePieSection #locationFilter').append(
@@ -77,58 +86,54 @@ function updateLocationWisePieChart() {
 		'#locationWiseAgePieSection #locationFilter option:selected'
 	).val();
 
-	var sortedCovid19Data = _.sortBy(covid19Data, ['location', 'age']);
+	var sortedCovid19Data = _.sortBy(covid19DetailJson, ['location', 'age']);
 	var ageData = _.filter(sortedCovid19Data, { location: selectedLocation });
 	var ageCounts = _.countBy(ageData, 'age');
-	GetLocationWisePiechart(ageCounts);
+	getLocationWisePiechart(ageCounts);
 }
 
-function tableToJson(table) {
+function currentCaseDetailsTableToJson(table) {
 	var data = [];
 	$(table)
 		.find('tbody tr')
 		.each(function(index, row) {
-			var rowData = {
+			var parseRow = {
 				location: $.trim(
 					$(row)
-						.find('td:nth-child(1)')
+						.find('td:nth-child(4)')
 						.text()
 				),
-				cCases: $(row)
-					.find('td:nth-child(2)')
-					.text(),
-				pCases: $(row)
+				age: $(row)
 					.find('td:nth-child(3)')
+					.text(),
+				gender: $(row)
+					.find('td:nth-child(2)')
 					.text()
 			};
-			if (
-				rowData.location &&
-				rowData.location != '' &&
-				rowData.location.toLowerCase() != 'total'
-			) {
-				rowData.location = rowData.location.replace(
-					'Capital and Coast',
-					'Wellingon'
-				);
-				data.push(rowData);
+			if ($.trim(parseRow.age) === '') {
+				parseRow.age = 'TBD';
 			}
+			if (parseRow.location == 'Capital and Coast')
+				parseRow.location = 'Wellington';
+			data.push(parseRow);
 		});
 
 	return data;
 }
 
-function GetLocationWiseLinechart(chartData) {
+function getLocationWiseLinechart(chartData) {
+	const countData = _.countBy(chartData, 'location');
 	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
 	var chart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: chartData.map(x => x.location),
+			labels: Object.keys(countData),
 			datasets: [
 				{
 					label: 'Confirmed Cases by location',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: chartData.map(x => x.cCases)
+					data: Object.values(countData)
 				}
 			]
 		},
@@ -138,10 +143,8 @@ function GetLocationWiseLinechart(chartData) {
 	});
 }
 
-function GetLocationWisePiechart(ageCount) {
-	var ctx = document
-		.getElementById('locationWiseAgePieChart')
-		.getContext('2d');
+function getLocationWisePiechart(ageCount) {
+	var ctx = document.getElementById('locationWiseBarChart').getContext('2d');
 	var chart = new Chart(ctx, {
 		type: 'bar',
 		data: {
