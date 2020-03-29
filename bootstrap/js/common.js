@@ -51,7 +51,7 @@ function parseCurrentCasesPageHtml(html) {
 }
 function parseCurrentCasesDetailsPageHtml(html) {
 	var confirmedCasesTable = $(html)
-		.find('table.table-style-two')
+		.find('table.table-style-two:contains("Confirmed")')
 		.first();
 	confirmedCasesTable.find('caption').remove();
 	var json = currentCaseDetailsTableToJson(confirmedCasesTable);
