@@ -1,45 +1,87 @@
 const covid19BaseUrl =
-		'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-situation',
-	covid19CurrentCasesUrl = `${covid19BaseUrl}/covid-19-current-cases`,
-	covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-current-cases-details`;
-var covid19DetailJson, covid19LocationData;
-function GetData(t, e) {
+	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-situation';
+const covid19CurrentCasesUrl = `${covid19BaseUrl}/covid-19-current-cases`;
+const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-current-cases-details`;
+
+var covid19DetailJson;
+var covid19LocationData;
+
+$(document).ready(function() {
+	//Cross domain request helper with herokuapp
+	jQuery.ajaxPrefilter(function(options) {
+		if (
+			options.crossDomain &&
+			jQuery.support.cors &&
+			options.url.indexOf(covid19BaseUrl) >= 0
+		) {
+			options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+		}
+	});
+	//Google analytics register page view
+	gtag('event', 'Covid19');
+	gtag('event', 'page_view');
+
+	//Get NZ current cases and details page
+	GetData(covid19CurrentCasesUrl, parseCurrentCasesPageHtml);
+	GetData(covid19CurrentCasesDetailsUrl, parseCurrentCasesDetailsPageHtml);
+
+	//Dropown fileter for location wise age chart
+	$('#locationWiseAgePieSection #locationFilter').change(function() {
+		updateLocationWisePieChart();
+		getLocationWiseTimelinechart();
+	});
+});
+
+function GetData(url, callback) {
 	$.ajax({
 		method: 'GET',
 		dataType: 'html',
-		url: t,
-		crossDomain: !0,
-		crossOrigin: !0,
-		success: e
+		url: url,
+		crossDomain: true,
+		crossOrigin: true,
+		success: callback
 	});
 }
-function parseCurrentCasesPageHtml(t) {
-	var e = $(t)
+
+function parseCurrentCasesPageHtml(html) {
+	//get summary table
+	var summaryHtml = $(html)
 		.find('h2:contains("Summary")')
 		.next();
-	e.css({ width: '100%' }), $('#summary').append(e);
+	summaryHtml.css({ width: '100%' });
+	$('#summary').append(summaryHtml);
 }
-function parseCurrentCasesDetailsPageHtml(t) {
-	var e = $(t).find('.table-style-two:contains("Confirmed")');
-	e.find('caption').remove();
-	var a = currentCaseDetailsTableToJson(e);
-	(a = _.sortBy(a, 'location')), (covid19DetailJson = a), renderAllNZCharts();
+function parseCurrentCasesDetailsPageHtml(html) {
+	var confirmedCasesTable = $(html).find(
+		'.table-style-two:contains("Confirmed")'
+	);
+	confirmedCasesTable.find('caption').remove();
+	var json = currentCaseDetailsTableToJson(confirmedCasesTable);
+	json = _.sortBy(json, 'location');
+	//render all charts
+	covid19DetailJson = json;
+
+	renderAllNZCharts();
 }
+
 function renderAllNZCharts() {
-	getLocationWiseLinechart(covid19DetailJson),
-		renderLocationWiseBarSection(covid19DetailJson),
-		showChart();
+	getLocationWiseLinechart(covid19DetailJson);
+	renderLocationWiseBarSection(covid19DetailJson);
+	//chart loaded, hide loader and show chart
+	showChart();
 }
-function renderLocationWiseBarSection(t) {
-	var e = _.uniq(t.map(t => t.location));
-	_.forEach(e, function(t) {
+function renderLocationWiseBarSection(json) {
+	var locations = _.uniq(json.map(x => x.location));
+	_.forEach(locations, function(loc) {
 		$('#locationWiseAgePieSection #locationFilter').append(
 			$('<option></option>')
-				.attr('value', t)
-				.text(t)
+				.attr('value', loc)
+				.text(loc)
 		);
-	}),
-		updateLocationWisePieChart();
+	});
+
+	updateLocationWisePieChart();
+	getLocationWiseTimelinechart();
 }
 function getSelectionLocation() {
 	return $(
@@ -47,133 +89,185 @@ function getSelectionLocation() {
 	).val();
 }
 function updateLocationWisePieChart() {
-	var t = _.sortBy(covid19DetailJson, ['location', 'age']);
-	covid19LocationData = _.filter(t, { location: getSelectionLocation() });
-	const e = _.uniq(covid19DetailJson.map(t => $.trim(t.age))).sort();
-	var a = _.filter(covid19LocationData, { gender: 'Male' }),
-		o = _.filter(covid19LocationData, { gender: 'Female' });
-	getLocationWiseBarchart(
-		e,
-		addMissingAgegroups(_.countBy(a, 'age'), e),
-		addMissingAgegroups(_.countBy(o, 'age'), e)
-	);
-}
-function addMissingAgegroups(t, e) {
-	_.forEach(e, function(e) {
-		_.includes(Object.keys(t), e) || (t[$.trim(e)] = 0);
+	var sortedCovid19Data = _.sortBy(covid19DetailJson, ['location', 'age']);
+	covid19LocationData = _.filter(sortedCovid19Data, {
+		location: getSelectionLocation()
 	});
-	var a = [],
-		o = Object.keys(t).sort();
-	return _.forEach(o, e => (a[e] = t[e])), a;
+	const allAgeGrops = _.uniq(
+		covid19DetailJson.map(x => $.trim(x.age))
+	).sort();
+	//find distinct age groups
+	//Iterate over male and female couts and insert the age group with 0 count
+	var maleData = _.filter(covid19LocationData, { gender: 'Male' });
+	var femaleData = _.filter(covid19LocationData, { gender: 'Female' });
+
+	var maleCounts = addMissingAgegroups(
+		_.countBy(maleData, 'age'),
+		allAgeGrops
+	);
+	var femaleCounts = addMissingAgegroups(
+		_.countBy(femaleData, 'age'),
+		allAgeGrops
+	);
+
+	getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts);
 }
-function currentCaseDetailsTableToJson(t) {
-	var e = [];
-	return (
-		$(t)
-			.find('tbody tr')
-			.each(function(t, a) {
-				var o = {
-					date: $.trim(
-						$(a)
-							.find('td:nth-child(1)')
-							.text()
-					),
-					location: $.trim(
-						$(a)
-							.find('td:nth-child(4)')
-							.text()
-					),
-					age: $(a)
-						.find('td:nth-child(3)')
-						.text(),
-					gender: $(a)
-						.find('td:nth-child(2)')
+
+function addMissingAgegroups(data, allAgeGroups) {
+	//add missing group with age -
+	_.forEach(allAgeGroups, function(ageGroup) {
+		if (!_.includes(Object.keys(data), ageGroup))
+			data[$.trim(ageGroup)] = 0;
+	});
+
+	var sortedKeyData = [];
+	//sort prop names
+	var keys = Object.keys(data).sort();
+	_.forEach(keys, key => (sortedKeyData[key] = data[key]));
+
+	return sortedKeyData;
+}
+
+function currentCaseDetailsTableToJson(table) {
+	var data = [];
+	$(table)
+		.find('tbody tr')
+		.each(function(index, row) {
+			var parseRow = {
+				date: $.trim(
+					$(row)
+						.find('td:nth-child(1)')
 						.text()
-				};
-				(o = formatCaseDataRow(o)), e.push(o);
-			}),
-		e
-	);
+				),
+				location: $.trim(
+					$(row)
+						.find('td:nth-child(4)')
+						.text()
+				),
+				age: $(row)
+					.find('td:nth-child(3)')
+					.text(),
+				gender: $(row)
+					.find('td:nth-child(2)')
+					.text()
+			};
+			parseRow = formatCaseDataRow(parseRow);
+			data.push(parseRow);
+		});
+
+	return data;
 }
-function formatCaseDataRow(t) {
-	return (
-		'' === $.trim(t.age) && (t.age = 'Unknown'),
-		'' === $.trim(t.gender) && (t.gender = 'Unknown'),
-		'Capital and Coast' == t.location && (t.location = 'Wellington'),
-		(t.date = moment(t.date, 'DD-MM-YYYY').toDate()),
-		t
-	);
+
+function formatCaseDataRow(parseRow) {
+	if ($.trim(parseRow.age) === '') {
+		parseRow.age = 'Unknown';
+	}
+	if ($.trim(parseRow.gender) === '') {
+		parseRow.gender = 'Unknown';
+	}
+	if (parseRow.location == 'Capital and Coast') {
+		parseRow.location = 'Wellington';
+	}
+	parseRow.date = moment(parseRow.date, 'DD-MM-YYYY').toDate();
+
+	return parseRow;
 }
-function getLocationWiseLinechart(t) {
-	const e = _.countBy(t, 'location');
-	var a = document.getElementById('locationWiseLineChart').getContext('2d');
-	new Chart(a, {
+
+function getLocationWiseLinechart(chartData) {
+	const countData = _.countBy(chartData, 'location');
+	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
+	var chart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: Object.keys(e),
+			labels: Object.keys(countData),
 			datasets: [
 				{
-					fill: !1,
+					fill: false,
 					label: 'Confirmed Cases by location',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: Object.values(e)
+					data: Object.values(countData)
 				}
 			]
 		}
 	});
 }
-function getLocationWiseBarchart(t, e, a) {
-	(e = Object.values(e)), (a = Object.values(a));
-	const o = covid19LocationData.length;
-	var n = document.getElementById('locationWiseBarChart').getContext('2d'),
-		i = new Chart(n, {
-			type: 'bar',
-			options: {
-				title: {
-					display: !0,
-					text: `Total ${o} confirmed cases by Age group (years)`,
-					fontSize: 20
-				}
-			},
-			data: {
-				datasets: [
-					{
-						label: 'Female',
-						backgroundColor: 'rgb(255, 99, 132)',
-						borderColor: 'rgb(255, 99, 132)',
-						data: a
-					},
-					{
-						label: 'Male',
-						backgroundColor: 'rgb(255, 128, 0)',
-						borderColor: 'rgb(255, 128, 0)',
-						data: e
-					}
-				],
-				labels: t
+
+function getLocationWiseTimelinechart() {
+	const timelineData = _.countBy(
+		covid19LocationData.map(x => moment(x.date).format('DD MMM')).sort()
+	);
+	const total = covid19LocationData.length;
+
+	var ctx = document
+		.getElementById('locationWiseTimelineChart')
+		.getContext('2d');
+	var chart = new Chart(ctx, {
+		type: 'line',
+		options: {
+			title: {
+				display: true,
+				text: `Timeline for Total ${total} cases confirmed in ${getSelectionLocation()}`,
+				fontSize: 20
 			}
-		});
-	i.update(), null != window.bar && window.bar.destroy(), (window.bar = i);
+		},
+		data: {
+			labels: Object.keys(timelineData),
+			datasets: [
+				{
+					fill: false,
+					label: `Confirmed Cases`,
+					backgroundColor: 'rgb(255, 99, 132)',
+					borderColor: 'rgb(255, 99, 132)',
+					data: Object.values(timelineData)
+				}
+			]
+		}
+	});
+	chart.update();
+	if (window.timelineChart != undefined) window.timelineChart.destroy();
+	window.timelineChart = chart;
 }
+function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
+	maleCounts = Object.values(maleCounts);
+	femaleCounts = Object.values(femaleCounts);
+	const total = covid19LocationData.length;
+	var ctx = document.getElementById('locationWiseBarChart').getContext('2d');
+	var chart = new Chart(ctx, {
+		type: 'bar',
+		options: {
+			title: {
+				display: true,
+				text: `Total ${total} cases by Age group (years)`,
+				fontSize: 20
+			}
+		},
+		data: {
+			datasets: [
+				{
+					label: 'Female',
+					backgroundColor: 'rgb(255, 99, 132)',
+					borderColor: 'rgb(255, 99, 132)',
+					data: femaleCounts
+				},
+				{
+					label: 'Male',
+					backgroundColor: 'rgb(255, 128, 0)',
+					borderColor: 'rgb(255, 128, 0)',
+					data: maleCounts
+				}
+			],
+
+			// These labels appear in the legend and in the tooltips when hovering different arcs
+			labels: allAgeGrops
+		}
+	});
+	chart.update();
+	if (window.bar != undefined) window.bar.destroy();
+	window.bar = chart;
+}
+
 function showChart() {
-	$('#loading').hide(), $('#covidData').show();
+	$('#loading').hide();
+	$('#covidData').show();
 }
-$(document).ready(function() {
-	jQuery.ajaxPrefilter(function(t) {
-		t.crossDomain &&
-			jQuery.support.cors &&
-			t.url.indexOf(covid19BaseUrl) >= 0 &&
-			(t.url = 'https://cors-anywhere.herokuapp.com/' + t.url);
-	}),
-		gtag('event', 'Covid19'),
-		gtag('event', 'page_view'),
-		GetData(covid19CurrentCasesUrl, parseCurrentCasesPageHtml),
-		GetData(
-			covid19CurrentCasesDetailsUrl,
-			parseCurrentCasesDetailsPageHtml
-		),
-		$('#locationWiseAgePieSection #locationFilter').change(function() {
-			updateLocationWisePieChart();
-		});
-});
