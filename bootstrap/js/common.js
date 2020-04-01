@@ -7,6 +7,14 @@ var covid19DetailJson;
 var covid19LocationData;
 
 $(document).ready(function() {
+	window.onresize = function() {
+		if (this.window.timelineChart && this.window.timelineChart.resize) {
+			this.window.timelineChart.resize();
+		}
+		if (this.window.genderChart && this.window.genderChart.resize) {
+			this.window.genderChart.resize();
+		}
+	};
 	//Cross domain request helper with herokuapp
 	jQuery.ajaxPrefilter(function(options) {
 		if (
@@ -267,8 +275,8 @@ function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 		}
 	});
 	chart.update();
-	if (window.bar != undefined) window.bar.destroy();
-	window.bar = chart;
+	if (window.genderChart != undefined) window.genderChart.destroy();
+	window.genderChart = chart;
 }
 
 function showChart() {
