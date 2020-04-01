@@ -14,7 +14,8 @@ $(document).ready(function() {
 			jQuery.support.cors &&
 			options.url.indexOf(covid19BaseUrl) >= 0
 		) {
-			options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+			options.url =
+				'https://nirajcorsanywhere.herokuapp.com/' + options.url;
 		}
 	});
 	//Google analytics register page view
@@ -25,7 +26,7 @@ $(document).ready(function() {
 	GetData(covid19CurrentCasesUrl, parseCurrentCasesPageHtml);
 	GetData(covid19CurrentCasesDetailsUrl, parseCurrentCasesDetailsPageHtml);
 
-	//Dropown fileter for location wise age chart
+	//Dropown filter for location wise age chart
 	$('#locationWiseAgePieSection #locationFilter').change(function() {
 		updateLocationWisePieChart();
 		getLocationWiseTimelinechart();
