@@ -178,7 +178,7 @@ function getLocationWiseLinechart(chartData) {
 	const countData = _.countBy(chartData, 'location');
 	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
 	var chart = new Chart(ctx, {
-		type: 'line',
+		type: 'bar',
 		data: {
 			labels: Object.keys(countData),
 			datasets: [
@@ -195,9 +195,12 @@ function getLocationWiseLinechart(chartData) {
 }
 
 function getLocationWiseTimelinechart() {
-	const timelineData = _.countBy(
+	const cumulativeSum = (sum => value => (sum += value))(0);
+	var timelineData = _.countBy(
 		covid19LocationData.map(x => moment(x.date).format('DD MMM')).sort()
 	);
+	const timelineLabels = Object.keys(timelineData);
+	timelineData = Object.values(timelineData).map(cumulativeSum);
 	const total = covid19LocationData.length;
 
 	var ctx = document
@@ -213,14 +216,14 @@ function getLocationWiseTimelinechart() {
 			}
 		},
 		data: {
-			labels: Object.keys(timelineData),
+			labels: timelineLabels,
 			datasets: [
 				{
 					fill: false,
 					label: `Confirmed Cases`,
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: Object.values(timelineData)
+					data: timelineData
 				}
 			]
 		}
