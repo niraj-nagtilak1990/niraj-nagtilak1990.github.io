@@ -8,12 +8,7 @@ var covid19LocationData;
 
 $(document).ready(function() {
 	window.onresize = function() {
-		if (this.window.timelineChart && this.window.timelineChart.resize) {
-			this.window.timelineChart.resize();
-		}
-		if (this.window.genderChart && this.window.genderChart.resize) {
-			this.window.genderChart.resize();
-		}
+		this.resizeCharts();
 	};
 	//Cross domain request helper with herokuapp
 	jQuery.ajaxPrefilter(function(options) {
@@ -22,8 +17,9 @@ $(document).ready(function() {
 			jQuery.support.cors &&
 			options.url.indexOf(covid19BaseUrl) >= 0
 		) {
-			options.url =
-				'https://nirajcorsanywhere.herokuapp.com/' + options.url;
+			options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+			//https://cors-anywhere.herokuapp.com/
+			//https://nirajcorsanywhere.herokuapp.com/
 		}
 	});
 	//Google analytics register page view
@@ -38,8 +34,18 @@ $(document).ready(function() {
 	$('#locationWiseAgePieSection #locationFilter').change(function() {
 		updateLocationWisePieChart();
 		getLocationWiseTimelinechart();
+		resizeCharts();
 	});
 });
+
+function resizeCharts() {
+	if (this.window.timelineChart && this.window.timelineChart.resize) {
+		this.window.timelineChart.resize();
+	}
+	if (this.window.genderChart && this.window.genderChart.resize) {
+		this.window.genderChart.resize();
+	}
+}
 
 function GetData(url, callback) {
 	$.ajax({
