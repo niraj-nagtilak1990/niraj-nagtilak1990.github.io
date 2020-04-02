@@ -156,7 +156,7 @@ function getLocationWiseTimelinechart() {
 		options: {
 			title: {
 				display: true,
-				text: `Timeline for Total ${total} cases confirmed in ${getSelectionLocation()}`,
+				text: `${getSelectionLocation()} Timeline : total ${total} cases`,
 				fontSize: 20
 			},
 			responsive: true,
@@ -179,21 +179,66 @@ function getLocationWiseTimelinechart() {
 	if (window.timelineChart != undefined) window.timelineChart.destroy();
 	window.timelineChart = chart;
 }
+
+var barOptions_stacked = {
+	title: {
+		display: true,
+		text: '',
+		fontSize: 20
+	},
+	hover: {
+		animationDuration: 0
+	},
+	scales: {
+		xAxes: [
+			{
+				ticks: {
+					beginAtZero: true,
+					fontFamily: "'Open Sans Bold', sans-serif",
+					fontSize: 11
+				},
+				scaleLabel: {
+					display: false
+				},
+				gridLines: {},
+				stacked: true
+			}
+		],
+		yAxes: [
+			{
+				gridLines: {
+					display: false,
+					color: '#fff',
+					zeroLineColor: '#fff',
+					zeroLineWidth: 0
+				},
+				ticks: {
+					fontFamily: "'Open Sans Bold', sans-serif",
+					fontSize: 11
+				},
+				stacked: true
+			}
+		]
+	},
+	legend: {
+		display: true
+	},
+
+	pointLabelFontFamily: 'Quadon Extra Bold',
+	scaleFontFamily: 'Quadon Extra Bold'
+};
 function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 	maleCounts = Object.values(maleCounts);
 	femaleCounts = Object.values(femaleCounts);
 	const total = covid19LocationData.length;
+
+	barOptions_stacked.title.text = `${getSelectionLocation()} Age group (years) : total ${total} cases`;
+
 	var ctx = getContext('locationWiseBarChart');
 
 	var chart = new Chart(ctx, {
 		type: 'bar',
-		options: {
-			title: {
-				display: true,
-				text: `Total ${total} cases by Age group (years)`,
-				fontSize: 20
-			}
-		},
+		options: barOptions_stacked,
 		data: {
 			datasets: [
 				{
@@ -204,8 +249,8 @@ function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 				},
 				{
 					label: 'Male',
-					backgroundColor: 'rgb(255, 128, 0)',
-					borderColor: 'rgb(255, 128, 0)',
+					backgroundColor: 'rgba(68, 85, 191, 0.7)',
+					borderColor: 'rgba(68, 85, 191, 0.7)',
 					data: maleCounts
 				}
 			],
