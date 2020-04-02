@@ -200,3 +200,6 @@ footer {
 	background-position-y: top;
 	background-position-x: right;
 }
+canvas {
+	width: 100% !important;
+}

@@ -17,7 +17,8 @@ $(document).ready(function() {
 			jQuery.support.cors &&
 			options.url.indexOf(covid19BaseUrl) >= 0
 		) {
-			options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+			options.url =
+				'https://nirajcorsanywhere.herokuapp.com/' + options.url;
 			//https://cors-anywhere.herokuapp.com/
 			//https://nirajcorsanywhere.herokuapp.com/
 		}
@@ -40,9 +41,11 @@ $(document).ready(function() {
 
 function resizeCharts() {
 	if (this.window.timelineChart && this.window.timelineChart.resize) {
+		this.window.timelineChart.update();
 		this.window.timelineChart.resize();
 	}
 	if (this.window.genderChart && this.window.genderChart.resize) {
+		this.window.genderChart.update();
 		this.window.genderChart.resize();
 	}
 }
@@ -208,6 +211,14 @@ function getLocationWiseLinechart(chartData) {
 	});
 }
 
+function getContext(canvasId) {
+	var $canvas = $(`<canvas id="${canvasId}"></canvas>`);
+	$(`#${canvasId}-holder`).empty();
+	$(`#${canvasId}-holder`).append($canvas);
+
+	return document.getElementById(canvasId).getContext('2d');
+}
+
 function getLocationWiseTimelinechart() {
 	const cumulativeSum = (sum => value => (sum += value))(0);
 	var timelineData = _.countBy(
@@ -217,9 +228,7 @@ function getLocationWiseTimelinechart() {
 	timelineData = Object.values(timelineData).map(cumulativeSum);
 	const total = covid19LocationData.length;
 
-	var ctx = document
-		.getElementById('locationWiseTimelineChart')
-		.getContext('2d');
+	var ctx = getContext('locationWiseTimelineChart');
 	var chart = new Chart(ctx, {
 		type: 'line',
 		options: {
@@ -227,7 +236,9 @@ function getLocationWiseTimelinechart() {
 				display: true,
 				text: `Timeline for Total ${total} cases confirmed in ${getSelectionLocation()}`,
 				fontSize: 20
-			}
+			},
+			responsive: true,
+			maintainAspectRatio: true
 		},
 		data: {
 			labels: timelineLabels,
@@ -250,7 +261,8 @@ function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 	maleCounts = Object.values(maleCounts);
 	femaleCounts = Object.values(femaleCounts);
 	const total = covid19LocationData.length;
-	var ctx = document.getElementById('locationWiseBarChart').getContext('2d');
+	var ctx = getContext('locationWiseBarChart');
+
 	var chart = new Chart(ctx, {
 		type: 'bar',
 		options: {
