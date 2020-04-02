@@ -10,19 +10,6 @@ $(document).ready(function() {
 	window.onresize = function() {
 		this.resizeCharts();
 	};
-	//Cross domain request helper with herokuapp
-	jQuery.ajaxPrefilter(function(options) {
-		if (
-			options.crossDomain &&
-			jQuery.support.cors &&
-			options.url.indexOf(covid19BaseUrl) >= 0
-		) {
-			options.url =
-				'https://nirajcorsanywhere.herokuapp.com/' + options.url;
-			//https://cors-anywhere.herokuapp.com/
-			//https://nirajcorsanywhere.herokuapp.com/
-		}
-	});
 	//Google analytics register page view
 	gtag('event', 'Covid19');
 	gtag('event', 'page_view');
@@ -38,17 +25,6 @@ $(document).ready(function() {
 		resizeCharts();
 	});
 });
-
-function resizeCharts() {
-	if (this.window.timelineChart && this.window.timelineChart.resize) {
-		this.window.timelineChart.update();
-		this.window.timelineChart.resize();
-	}
-	if (this.window.genderChart && this.window.genderChart.resize) {
-		this.window.genderChart.update();
-		this.window.genderChart.resize();
-	}
-}
 
 function GetData(url, callback) {
 	$.ajax({
@@ -70,9 +46,9 @@ function parseCurrentCasesPageHtml(html) {
 	$('#summary').append(summaryHtml);
 }
 function parseCurrentCasesDetailsPageHtml(html) {
-	var confirmedCasesTable = $(html).find(
-		'.table-style-two:contains("Confirmed")'
-	);
+	var confirmedCasesTable = $(html)
+		.find('.table-style-two:contains("Confirmed")')
+		.first();
 	confirmedCasesTable.find('caption').remove();
 	var json = currentCaseDetailsTableToJson(confirmedCasesTable);
 	json = _.sortBy(json, 'location');
@@ -145,52 +121,6 @@ function addMissingAgegroups(data, allAgeGroups) {
 
 	return sortedKeyData;
 }
-
-function currentCaseDetailsTableToJson(table) {
-	var data = [];
-	$(table)
-		.find('tbody tr')
-		.each(function(index, row) {
-			var parseRow = {
-				date: $.trim(
-					$(row)
-						.find('td:nth-child(1)')
-						.text()
-				),
-				location: $.trim(
-					$(row)
-						.find('td:nth-child(4)')
-						.text()
-				),
-				age: $(row)
-					.find('td:nth-child(3)')
-					.text(),
-				gender: $(row)
-					.find('td:nth-child(2)')
-					.text()
-			};
-			parseRow = formatCaseDataRow(parseRow);
-			data.push(parseRow);
-		});
-
-	return data;
-}
-
-function formatCaseDataRow(parseRow) {
-	if ($.trim(parseRow.age) === '') {
-		parseRow.age = 'Unknown';
-	}
-	if ($.trim(parseRow.gender) === '') {
-		parseRow.gender = 'Unknown';
-	}
-	if (parseRow.location == 'Capital and Coast') {
-		parseRow.location = 'Wellington';
-	}
-	parseRow.date = moment(parseRow.date, 'DD-MM-YYYY').toDate();
-
-	return parseRow;
-}
-
 function getLocationWiseLinechart(chartData) {
 	const countData = _.countBy(chartData, 'location');
 	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
@@ -209,14 +139,6 @@ function getLocationWiseLinechart(chartData) {
 			]
 		}
 	});
-}
-
-function getContext(canvasId) {
-	var $canvas = $(`<canvas id="${canvasId}"></canvas>`);
-	$(`#${canvasId}-holder`).empty();
-	$(`#${canvasId}-holder`).append($canvas);
-
-	return document.getElementById(canvasId).getContext('2d');
 }
 
 function getLocationWiseTimelinechart() {
