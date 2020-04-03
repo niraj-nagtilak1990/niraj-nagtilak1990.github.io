@@ -5,13 +5,14 @@ const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-curren
 
 var covid19DetailJson;
 var covid19LocationData;
-
-var isMobile;
-
+function isMobile() {
+	return window.matchMedia(
+		'only screen and (max-width: 600px) and (orientation: portrait)'
+	).matches;
+}
 $(document).ready(function() {
-	isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
 	window.onresize = function() {
-		this.resizeCharts();
+		this.renderAllNZCharts();
 	};
 	//Google analytics register page view
 	gtag('event', 'Covid19');
@@ -151,7 +152,7 @@ var locationBarOptions = {
 				var meta = chartInstance.controller.getDatasetMeta(i);
 				meta.data.forEach(function(bar, index) {
 					var data = dataset.data[index];
-					if (!isMobile)
+					if (!isMobile())
 						ctx.fillText(data, bar._model.x, bar._model.y - 5);
 					else
 						ctx.fillText(data, bar._model.x + 15, bar._model.y + 5);
@@ -207,7 +208,7 @@ function getLocationWiseLinechart(chartData) {
 	var ctx = getContext('locationWiseLineChart');
 
 	var chart = new Chart(ctx, {
-		type: isMobile ? 'horizontalBar' : 'bar',
+		type: isMobile() ? 'horizontalBar' : 'bar',
 		data: {
 			labels: Object.keys(countData),
 			datasets: [

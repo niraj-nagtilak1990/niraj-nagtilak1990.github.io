@@ -9,17 +9,18 @@ function resizeCharts() {
 		this.window.genderChart.resize();
 	}
 }
+
 function getContext(canvasId) {
 	var $canvas = $(`<canvas id="${canvasId}"></canvas>`);
-	if (isMobile) {
+	if (isMobile()) {
 		if (canvasId == 'locationWiseLineChart') {
-			$canvas.attr('height', '400');
+			$canvas.attr('height', '500');
 		}
 		if (canvasId == 'locationWiseBarChart') {
 			$canvas.attr('height', '300');
 		}
 		if (canvasId == 'locationWiseTimelineChart') {
-			$canvas.attr('height', '450');
+			$canvas.attr('height', '500');
 		}
 	}
 	$(`#${canvasId}-holder`).empty();
