@@ -13,13 +13,13 @@ function getContext(canvasId) {
 	var $canvas = $(`<canvas id="${canvasId}"></canvas>`);
 	if (isMobile) {
 		if (canvasId == 'locationWiseLineChart') {
-			$canvas.attr('height', '380');
+			$canvas.attr('height', '400');
 		}
 		if (canvasId == 'locationWiseBarChart') {
 			$canvas.attr('height', '300');
 		}
 		if (canvasId == 'locationWiseTimelineChart') {
-			$canvas.attr('height', '320');
+			$canvas.attr('height', '450');
 		}
 	}
 	$(`#${canvasId}-holder`).empty();
