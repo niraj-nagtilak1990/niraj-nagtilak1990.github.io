@@ -121,6 +121,39 @@ function addMissingAgegroups(data, allAgeGroups) {
 
 	return sortedKeyData;
 }
+var locationBarOptions = {
+	events: false,
+	tooltips: {
+		enabled: false
+	},
+	hover: {
+		animationDuration: 0
+	},
+	animation: {
+		duration: 1,
+		onComplete: function() {
+			var chartInstance = this.chart,
+				ctx = chartInstance.ctx;
+			ctx.font = Chart.helpers.fontString(
+				Chart.defaults.global.defaultFontSize,
+				'Bold',
+				Chart.defaults.global.defaultFontFamily
+			);
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'bottom';
+			ctx.defaultFontColor = '#6E6A6A';
+			ctx.fillStyle = ctx.defaultFontColor;
+
+			this.data.datasets.forEach(function(dataset, i) {
+				var meta = chartInstance.controller.getDatasetMeta(i);
+				meta.data.forEach(function(bar, index) {
+					var data = dataset.data[index];
+					ctx.fillText(data, bar._model.x, bar._model.y - 5);
+				});
+			});
+		}
+	}
+};
 function getLocationWiseLinechart(chartData) {
 	const countData = _.countBy(chartData, 'location');
 	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
@@ -137,16 +170,19 @@ function getLocationWiseLinechart(chartData) {
 					data: Object.values(countData)
 				}
 			]
-		}
+		},
+		options: locationBarOptions
 	});
 }
 
 function getLocationWiseTimelinechart() {
 	const cumulativeSum = (sum => value => (sum += value))(0);
 	var timelineData = _.countBy(
-		covid19LocationData.map(x => moment(x.date).format('DD MMM')).sort()
+		covid19LocationData.map(x => moment(x.date).format('YYYYMMDD')).sort()
 	);
-	const timelineLabels = Object.keys(timelineData);
+	const timelineLabels = Object.keys(timelineData).map(x =>
+		moment(x, 'YYYYMMDD').format('DD MMM')
+	);
 	timelineData = Object.values(timelineData).map(cumulativeSum);
 	const total = covid19LocationData.length;
 
@@ -160,7 +196,8 @@ function getLocationWiseTimelinechart() {
 				fontSize: 20
 			},
 			responsive: true,
-			maintainAspectRatio: true
+			maintainAspectRatio: true,
+			...locationBarOptions
 		},
 		data: {
 			labels: timelineLabels,
