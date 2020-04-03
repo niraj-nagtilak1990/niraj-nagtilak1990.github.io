@@ -148,7 +148,48 @@ var locationBarOptions = {
 				var meta = chartInstance.controller.getDatasetMeta(i);
 				meta.data.forEach(function(bar, index) {
 					var data = dataset.data[index];
-					ctx.fillText(data, bar._model.x, bar._model.y - 5);
+					ctx.fillText(data, bar._model.x + 15, bar._model.y + 5);
+				});
+			});
+		}
+	}
+};
+var timelineOptions = {
+	events: false,
+	tooltips: {
+		enabled: false
+	},
+	hover: {
+		animationDuration: 0
+	},
+	animation: {
+		duration: 1,
+		onComplete: function() {
+			var chartInstance = this.chart,
+				ctx = chartInstance.ctx;
+			ctx.font = Chart.helpers.fontString(
+				Chart.defaults.global.defaultFontSize,
+				'Bold',
+				Chart.defaults.global.defaultFontFamily
+			);
+			ctx.textAlign = 'center';
+			ctx.textBaseline = 'bottom';
+			ctx.defaultFontColor = '#6E6A6A';
+			ctx.fillStyle = ctx.defaultFontColor;
+
+			this.data.datasets.forEach(function(dataset, i) {
+				var meta = chartInstance.controller.getDatasetMeta(i);
+				meta.data.forEach(function(bar, index) {
+					var data = dataset.data[index];
+					var xFiller = 0;
+					if (parseInt(data) > 99) {
+						xFiller = 10;
+					}
+					ctx.fillText(
+						data,
+						bar._model.x - xFiller,
+						bar._model.y - 10
+					);
 				});
 			});
 		}
@@ -158,7 +199,7 @@ function getLocationWiseLinechart(chartData) {
 	const countData = _.countBy(chartData, 'location');
 	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
 	var chart = new Chart(ctx, {
-		type: 'bar',
+		type: 'horizontalBar',
 		data: {
 			labels: Object.keys(countData),
 			datasets: [
@@ -197,7 +238,7 @@ function getLocationWiseTimelinechart() {
 			},
 			responsive: true,
 			maintainAspectRatio: true,
-			...locationBarOptions
+			...timelineOptions
 		},
 		data: {
 			labels: timelineLabels,
