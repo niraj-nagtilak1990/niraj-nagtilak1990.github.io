@@ -11,6 +11,17 @@ function resizeCharts() {
 }
 function getContext(canvasId) {
 	var $canvas = $(`<canvas id="${canvasId}"></canvas>`);
+	if (isMobile) {
+		if (canvasId == 'locationWiseLineChart') {
+			$canvas.attr('height', '380');
+		}
+		if (canvasId == 'locationWiseBarChart') {
+			$canvas.attr('height', '300');
+		}
+		if (canvasId == 'locationWiseTimelineChart') {
+			$canvas.attr('height', '320');
+		}
+	}
 	$(`#${canvasId}-holder`).empty();
 	$(`#${canvasId}-holder`).append($canvas);
 

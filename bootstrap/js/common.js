@@ -6,7 +6,10 @@ const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-curren
 var covid19DetailJson;
 var covid19LocationData;
 
+var isMobile;
+
 $(document).ready(function() {
+	isMobile = window.matchMedia('only screen and (max-width: 760px)').matches;
 	window.onresize = function() {
 		this.resizeCharts();
 	};
@@ -148,7 +151,10 @@ var locationBarOptions = {
 				var meta = chartInstance.controller.getDatasetMeta(i);
 				meta.data.forEach(function(bar, index) {
 					var data = dataset.data[index];
-					ctx.fillText(data, bar._model.x + 15, bar._model.y + 5);
+					if (!isMobile)
+						ctx.fillText(data, bar._model.x, bar._model.y - 5);
+					else
+						ctx.fillText(data, bar._model.x + 15, bar._model.y + 5);
 				});
 			});
 		}
@@ -185,6 +191,7 @@ var timelineOptions = {
 					if (parseInt(data) > 99) {
 						xFiller = 10;
 					}
+
 					ctx.fillText(
 						data,
 						bar._model.x - xFiller,
@@ -197,9 +204,10 @@ var timelineOptions = {
 };
 function getLocationWiseLinechart(chartData) {
 	const countData = _.countBy(chartData, 'location');
-	var ctx = document.getElementById('locationWiseLineChart').getContext('2d');
+	var ctx = getContext('locationWiseLineChart');
+
 	var chart = new Chart(ctx, {
-		type: 'horizontalBar',
+		type: isMobile ? 'horizontalBar' : 'bar',
 		data: {
 			labels: Object.keys(countData),
 			datasets: [
