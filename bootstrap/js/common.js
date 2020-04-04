@@ -5,14 +5,34 @@ const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-curren
 
 var covid19DetailJson;
 var covid19LocationData;
-function isMobile() {
-	return window.matchMedia(
-		'only screen and (max-width: 600px) and (orientation: portrait)'
-	).matches;
-}
+
 $(document).ready(function() {
 	window.onresize = function() {
-		this.renderAllNZCharts();
+		const resizedInMobilePortrait =
+			this.isMobile() &&
+			!isHorizontalBarChart(this.window.nzLocationChart);
+
+		const switchedToLandscape =
+			this.isLandscape() &&
+			isHorizontalBarChart(this.window.nzLocationChart);
+
+		const mobileSizeToDesktopJump =
+			!this.isMobile() &&
+			!this.isLandscape() &&
+			isHorizontalBarChart(this.window.nzLocationChart);
+
+		if (
+			resizedInMobilePortrait ||
+			switchedToLandscape ||
+			mobileSizeToDesktopJump
+		) {
+			// if mobile device rotated then re-draw all charts
+			this.renderAllNZCharts();
+			return;
+		}
+
+		//if on desktop coming back from small screen to big screen then redraw charts
+		this.resizeCharts();
 	};
 	//Google analytics register page view
 	gtag('event', 'Covid19');
@@ -146,22 +166,34 @@ var locationBarOptions = {
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'bottom';
 			ctx.defaultFontColor = '#6E6A6A';
+
 			ctx.fillStyle = ctx.defaultFontColor;
 
 			this.data.datasets.forEach(function(dataset, i) {
 				var meta = chartInstance.controller.getDatasetMeta(i);
+				const bigNum = _.max(dataset.data) - 20;
 				meta.data.forEach(function(bar, index) {
 					var data = dataset.data[index];
 					if (!isMobile())
-						ctx.fillText(data, bar._model.x, bar._model.y - 5);
-					else
-						ctx.fillText(data, bar._model.x + 15, bar._model.y + 5);
+						ctx.fillText(data, bar._model.x, bar._model.y - 2);
+					else {
+						ctx.fillStyle =
+							data >= bigNum ? '#FFFFFF' : ctx.defaultFontColor;
+
+						ctx.fillText(
+							data,
+							data >= bigNum
+								? bar._model.x - 15
+								: bar._model.x + 15,
+							bar._model.y + 7
+						);
+					}
 				});
 			});
 		}
 	}
 };
-var timelineOptions = {
+var timelineOptionsWithTooltip = {
 	events: false,
 	tooltips: {
 		enabled: false
@@ -203,6 +235,7 @@ var timelineOptions = {
 		}
 	}
 };
+
 function getLocationWiseLinechart(chartData) {
 	const countData = _.countBy(chartData, 'location');
 	var ctx = getContext('locationWiseLineChart');
@@ -223,6 +256,8 @@ function getLocationWiseLinechart(chartData) {
 		},
 		options: locationBarOptions
 	});
+	if (window.nzLocationChart != undefined) window.nzLocationChart.destroy();
+	window.nzLocationChart = chart;
 }
 
 function getLocationWiseTimelinechart() {
@@ -236,6 +271,12 @@ function getLocationWiseTimelinechart() {
 	timelineData = Object.values(timelineData).map(cumulativeSum);
 	const total = covid19LocationData.length;
 
+	var constantsTooltipOptions = {};
+
+	if (!isMobile()) {
+		constantsTooltipOptions = timelineOptionsWithTooltip;
+	}
+
 	var ctx = getContext('locationWiseTimelineChart');
 	var chart = new Chart(ctx, {
 		type: 'line',
@@ -247,7 +288,7 @@ function getLocationWiseTimelinechart() {
 			},
 			responsive: true,
 			maintainAspectRatio: true,
-			...timelineOptions
+			...constantsTooltipOptions
 		},
 		data: {
 			labels: timelineLabels,
@@ -262,7 +303,6 @@ function getLocationWiseTimelinechart() {
 			]
 		}
 	});
-	chart.update();
 	if (window.timelineChart != undefined) window.timelineChart.destroy();
 	window.timelineChart = chart;
 }
@@ -346,7 +386,6 @@ function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 			labels: allAgeGrops
 		}
 	});
-	chart.update();
 	if (window.genderChart != undefined) window.genderChart.destroy();
 	window.genderChart = chart;
 }
