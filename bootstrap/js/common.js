@@ -6,8 +6,8 @@ const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-curren
 var covid19DetailJson;
 var covid19LocationData;
 
-$(document).ready(function() {
-	window.onresize = function() {
+$(document).ready(function () {
+	window.onresize = function () {
 		const resizedInMobilePortrait =
 			this.isMobile() &&
 			!isHorizontalBarChart(this.window.nzLocationChart);
@@ -43,7 +43,7 @@ $(document).ready(function() {
 	GetData(covid19CurrentCasesDetailsUrl, parseCurrentCasesDetailsPageHtml);
 
 	//Dropown filter for location wise age chart
-	$('#locationWiseAgePieSection #locationFilter').change(function() {
+	$('#locationWiseAgePieSection #locationFilter').change(function () {
 		updateLocationWisePieChart();
 		getLocationWiseTimelinechart();
 		resizeCharts();
@@ -57,17 +57,18 @@ function GetData(url, callback) {
 		url: url,
 		crossDomain: true,
 		crossOrigin: true,
-		success: callback
+		success: callback,
 	});
 }
 
 function parseCurrentCasesPageHtml(html) {
 	//get summary table
-	var summaryHtml = $(html)
-		.find('h2:contains("Summary")')
-		.next();
+	var summaryHtml = $(html).find('h2:contains("Summary")').next();
 	summaryHtml.css({ width: '100%' });
-	$('#summary').append(summaryHtml);
+	summaryHtml = summaryHtml.html();
+	summaryHtml = summaryHtml.replace('strong', 'span');
+	var table = $('<table class="table"></table>').append(summaryHtml);
+	$('#summary').append(table);
 }
 function parseCurrentCasesDetailsPageHtml(html) {
 	var confirmedCasesTable = $(html)
@@ -89,12 +90,10 @@ function renderAllNZCharts() {
 	showChart();
 }
 function renderLocationWiseBarSection(json) {
-	var locations = _.uniq(json.map(x => x.location));
-	_.forEach(locations, function(loc) {
+	var locations = _.uniq(json.map((x) => x.location));
+	_.forEach(locations, function (loc) {
 		$('#locationWiseAgePieSection #locationFilter').append(
-			$('<option></option>')
-				.attr('value', loc)
-				.text(loc)
+			$('<option></option>').attr('value', loc).text(loc)
 		);
 	});
 
@@ -109,10 +108,10 @@ function getSelectionLocation() {
 function updateLocationWisePieChart() {
 	var sortedCovid19Data = _.sortBy(covid19DetailJson, ['location', 'age']);
 	covid19LocationData = _.filter(sortedCovid19Data, {
-		location: getSelectionLocation()
+		location: getSelectionLocation(),
 	});
 	const allAgeGrops = _.uniq(
-		covid19DetailJson.map(x => $.trim(x.age))
+		covid19DetailJson.map((x) => $.trim(x.age))
 	).sort();
 	//find distinct age groups
 	//Iterate over male and female couts and insert the age group with 0 count
@@ -133,7 +132,7 @@ function updateLocationWisePieChart() {
 
 function addMissingAgegroups(data, allAgeGroups) {
 	//add missing group with age -
-	_.forEach(allAgeGroups, function(ageGroup) {
+	_.forEach(allAgeGroups, function (ageGroup) {
 		if (!_.includes(Object.keys(data), ageGroup))
 			data[$.trim(ageGroup)] = 0;
 	});
@@ -141,21 +140,21 @@ function addMissingAgegroups(data, allAgeGroups) {
 	var sortedKeyData = [];
 	//sort prop names
 	var keys = Object.keys(data).sort();
-	_.forEach(keys, key => (sortedKeyData[key] = data[key]));
+	_.forEach(keys, (key) => (sortedKeyData[key] = data[key]));
 
 	return sortedKeyData;
 }
 var locationBarOptions = {
 	events: false,
 	tooltips: {
-		enabled: false
+		enabled: false,
 	},
 	hover: {
-		animationDuration: 0
+		animationDuration: 0,
 	},
 	animation: {
 		duration: 1,
-		onComplete: function() {
+		onComplete: function () {
 			var chartInstance = this.chart,
 				ctx = chartInstance.ctx;
 			ctx.font = Chart.helpers.fontString(
@@ -169,10 +168,10 @@ var locationBarOptions = {
 
 			ctx.fillStyle = ctx.defaultFontColor;
 
-			this.data.datasets.forEach(function(dataset, i) {
+			this.data.datasets.forEach(function (dataset, i) {
 				var meta = chartInstance.controller.getDatasetMeta(i);
 				const bigNum = _.max(dataset.data) - 20;
-				meta.data.forEach(function(bar, index) {
+				meta.data.forEach(function (bar, index) {
 					var data = dataset.data[index];
 					if (!isMobile())
 						ctx.fillText(data, bar._model.x, bar._model.y - 2);
@@ -190,20 +189,20 @@ var locationBarOptions = {
 					}
 				});
 			});
-		}
-	}
+		},
+	},
 };
 var timelineOptionsWithTooltip = {
 	events: false,
 	tooltips: {
-		enabled: false
+		enabled: false,
 	},
 	hover: {
-		animationDuration: 0
+		animationDuration: 0,
 	},
 	animation: {
 		duration: 1,
-		onComplete: function() {
+		onComplete: function () {
 			var chartInstance = this.chart,
 				ctx = chartInstance.ctx;
 			ctx.font = Chart.helpers.fontString(
@@ -216,9 +215,9 @@ var timelineOptionsWithTooltip = {
 			ctx.defaultFontColor = '#6E6A6A';
 			ctx.fillStyle = ctx.defaultFontColor;
 
-			this.data.datasets.forEach(function(dataset, i) {
+			this.data.datasets.forEach(function (dataset, i) {
 				var meta = chartInstance.controller.getDatasetMeta(i);
-				meta.data.forEach(function(bar, index) {
+				meta.data.forEach(function (bar, index) {
 					var data = dataset.data[index];
 					var xFiller = 0;
 					if (parseInt(data) > 99) {
@@ -232,8 +231,8 @@ var timelineOptionsWithTooltip = {
 					);
 				});
 			});
-		}
-	}
+		},
+	},
 };
 
 function getLocationWiseLinechart(chartData) {
@@ -247,25 +246,25 @@ function getLocationWiseLinechart(chartData) {
 			datasets: [
 				{
 					fill: false,
-					label: 'Confirmed Cases by location',
+					label: 'Confirmed Cases by location in April 2020',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: Object.values(countData)
-				}
-			]
+					data: Object.values(countData),
+				},
+			],
 		},
-		options: locationBarOptions
+		options: locationBarOptions,
 	});
 	if (window.nzLocationChart != undefined) window.nzLocationChart.destroy();
 	window.nzLocationChart = chart;
 }
 
 function getLocationWiseTimelinechart() {
-	const cumulativeSum = (sum => value => (sum += value))(0);
+	const cumulativeSum = ((sum) => (value) => (sum += value))(0);
 	var timelineData = _.countBy(
-		covid19LocationData.map(x => moment(x.date).format('YYYYMMDD')).sort()
+		covid19LocationData.map((x) => moment(x.date).format('YYYYMMDD')).sort()
 	);
-	const timelineLabels = Object.keys(timelineData).map(x =>
+	const timelineLabels = Object.keys(timelineData).map((x) =>
 		moment(x, 'YYYYMMDD').format('DD MMM')
 	);
 	timelineData = Object.values(timelineData).map(cumulativeSum);
@@ -283,25 +282,25 @@ function getLocationWiseTimelinechart() {
 		options: {
 			title: {
 				display: true,
-				text: `${getSelectionLocation()} Timeline : total ${total} cases`,
-				fontSize: 20
+				text: `${getSelectionLocation()} Timeline : total ${total} cases in April 2020`,
+				fontSize: 20,
 			},
 			responsive: true,
 			maintainAspectRatio: true,
-			...constantsTooltipOptions
+			...constantsTooltipOptions,
 		},
 		data: {
 			labels: timelineLabels,
 			datasets: [
 				{
 					fill: false,
-					label: `Confirmed Cases`,
+					label: `Confirmed Cases in April 2020`,
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: timelineData
-				}
-			]
-		}
+					data: timelineData,
+				},
+			],
+		},
 	});
 	if (window.timelineChart != undefined) window.timelineChart.destroy();
 	window.timelineChart = chart;
@@ -311,10 +310,10 @@ var barOptions_stacked = {
 	title: {
 		display: true,
 		text: '',
-		fontSize: 20
+		fontSize: 20,
 	},
 	hover: {
-		animationDuration: 0
+		animationDuration: 0,
 	},
 	scales: {
 		xAxes: [
@@ -322,14 +321,14 @@ var barOptions_stacked = {
 				ticks: {
 					beginAtZero: true,
 					fontFamily: "'Open Sans Bold', sans-serif",
-					fontSize: 11
+					fontSize: 11,
 				},
 				scaleLabel: {
-					display: false
+					display: false,
 				},
 				gridLines: {},
-				stacked: true
-			}
+				stacked: true,
+			},
 		],
 		yAxes: [
 			{
@@ -337,29 +336,29 @@ var barOptions_stacked = {
 					display: false,
 					color: '#fff',
 					zeroLineColor: '#fff',
-					zeroLineWidth: 0
+					zeroLineWidth: 0,
 				},
 				ticks: {
 					fontFamily: "'Open Sans Bold', sans-serif",
-					fontSize: 11
+					fontSize: 11,
 				},
-				stacked: true
-			}
-		]
+				stacked: true,
+			},
+		],
 	},
 	legend: {
-		display: true
+		display: true,
 	},
 
 	pointLabelFontFamily: 'Quadon Extra Bold',
-	scaleFontFamily: 'Quadon Extra Bold'
+	scaleFontFamily: 'Quadon Extra Bold',
 };
 function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 	maleCounts = Object.values(maleCounts);
 	femaleCounts = Object.values(femaleCounts);
 	const total = covid19LocationData.length;
 
-	barOptions_stacked.title.text = `${getSelectionLocation()} Age group (years) : total ${total} cases`;
+	barOptions_stacked.title.text = `${getSelectionLocation()} Age group (years) : total ${total} cases in April 2020`;
 
 	var ctx = getContext('locationWiseBarChart');
 
@@ -372,19 +371,19 @@ function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 					label: 'Female',
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: femaleCounts
+					data: femaleCounts,
 				},
 				{
 					label: 'Male',
 					backgroundColor: 'rgba(68, 85, 191, 0.7)',
 					borderColor: 'rgba(68, 85, 191, 0.7)',
-					data: maleCounts
-				}
+					data: maleCounts,
+				},
 			],
 
 			// These labels appear in the legend and in the tooltips when hovering different arcs
-			labels: allAgeGrops
-		}
+			labels: allAgeGrops,
+		},
 	});
 	if (window.genderChart != undefined) window.genderChart.destroy();
 	window.genderChart = chart;
