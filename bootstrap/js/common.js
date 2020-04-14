@@ -68,6 +68,7 @@ function parseCurrentCasesPageHtml(html) {
 	summaryHtml = summaryHtml.html();
 	summaryHtml = summaryHtml.replace('strong', 'span');
 	var table = $('<table class="table"></table>').append(summaryHtml);
+	$(table).find('tr').first().find('th').css('border-top', 'none');
 	$('#summary').append(table);
 }
 function parseCurrentCasesDetailsPageHtml(html) {
