@@ -13,7 +13,9 @@
 		/>
 		<meta name="author" content="Niraj Nagtilak" />
 		<meta name="generator" content="Niraj Nagtilak" />
-
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="cache-control" content="max-age=0" />
+		<meta http-equiv="cache-control" content="no-cache" />
 		<meta name="docsearch:language" content="en" />
 		<meta name="docsearch:version" content="*" />
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -44,17 +46,17 @@
 				gtag('event', action, {
 					event_category: 'Contact me',
 					event_label: label,
-					event_callback: function() {
+					event_callback: function () {
 						window.open(redirectUrl, '_blank');
 					},
-					event_timeout: 2000
+					event_timeout: 2000,
 				});
 			}
 			$(document).ready(() => {
 				$('.carousel').carousel();
 				$('[data-toggle="tooltip"]').tooltip({
 					boundary: 'window',
-					trigger: 'hover'
+					trigger: 'hover',
 				});
 			});
 		</script>
@@ -91,7 +93,7 @@
 			</nav>
 
 			<main role="main">
-				<div class="container" style="margin-top:80px;">
+				<div class="container" style="margin-top: 80px;">
 					<div class="row">
 						<div class="col-md-12 col-lg-6">
 							<img
@@ -103,7 +105,7 @@
 						<div class="col-md-12 col-lg-6">
 							<h2
 								class="heading text-center text-lg-left mt-lg-0 mt-2"
-								style="line-height:1.2em;"
+								style="line-height: 1.2em;"
 							>
 								Full stack developer
 							</h2>
@@ -159,7 +161,7 @@
 						<div class="col-12 mt-lg-4 mb-lg-4 mt-0 mb-2">
 							<h2
 								class="heading text-center text-lg-left mt-lg-0 mt-2 pt-md-3 pb-md-3"
-								style="line-height:1.2em;"
+								style="line-height: 1.2em;"
 							>
 								Recognitions
 							</h2>
@@ -228,7 +230,7 @@
 										<span>
 											"Despite being from Java background,
 											you have shown true spirit by
-											picking .net in no time!"
+											picking dot net in no time!"
 										</span>
 										<div class="mt-lg-5 mt-md-1 pr-1">
 											Paragyte technologies 2012-2014
@@ -317,7 +319,9 @@
 										</div>
 									</div>
 									<div class="carousel-item p-lg-5 p-2">
-										<span>
+										<span
+											style="font-size: 30px !important;"
+										>
 											"First of all i would like to pass
 											on my sincere thanks for all the
 											work you have done to make this
@@ -332,7 +336,9 @@
 										</div>
 									</div>
 									<div class="carousel-item p-lg-5 p-2">
-										<span style="font-size:25px!important;">
+										<span
+											style="font-size: 25px !important;"
+										>
 											"Niraj was a rockstar developer
 											right from the start - we knew he
 											would be good as soon as we first
@@ -354,7 +360,9 @@
 										</div>
 									</div>
 									<div class="carousel-item p-lg-5 p-2">
-										<span style="font-size:33px!important;">
+										<span
+											style="font-size: 25px !important;"
+										>
 											"Niraj is one of the rare engineers,
 											who is not just understand the
 											problem quickly, but he delivers the
@@ -382,7 +390,7 @@
 				<div class="col-12 p-0">
 					<h2
 						class="heading text-center text-lg-left mt-lg-0 mt-2 pt-md-3 pb-md-3"
-						style="line-height:1.2em;"
+						style="line-height: 1.2em;"
 					>
 						Contact me
 					</h2>
@@ -397,7 +405,11 @@
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Send me email"
-									style="width: 65px; height: 65px;display: block;"
+									style="
+										width: 65px;
+										height: 65px;
+										display: block;
+									"
 									onclick="gaEvent('Gmail','Sent email','mailto:prem.nagtilak@gmail.com');"
 								>
 									<div class="mail"></div>
@@ -420,7 +432,11 @@
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow my blogs"
-									style="width: 65px; height: 65px;display: block;"
+									style="
+										width: 65px;
+										height: 65px;
+										display: block;
+									"
 									onclick="gaEvent('Blogs','Viewed blogs','https://nirajnagtilak.home.blog/');"
 								>
 									<div class="blog"></div
@@ -443,7 +459,11 @@
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow my Git Hub projects"
-									style="width: 65px; height: 65px;display: block;"
+									style="
+										width: 65px;
+										height: 65px;
+										display: block;
+									"
 									onclick="gaEvent('GitHub','Viewed GitHub Projects','https://github.com/niraj-nagtilak1990');"
 								>
 									<div class="git"></div>
@@ -466,7 +486,11 @@
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow me on Linkedin"
-									style="width: 65px; height: 65px;display: block;"
+									style="
+										width: 65px;
+										height: 65px;
+										display: block;
+									"
 									onclick="gaEvent('Linkedin','Viewed Linkedin Profile','https://www.linkedin.com/in/niraj-nagtilak/');"
 								>
 									<div class="linkedin"></div
@@ -491,7 +515,11 @@
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow me on facebook"
-									style="width: 65px; height: 65px;display: block;"
+									style="
+										width: 65px;
+										height: 65px;
+										display: block;
+									"
 									onclick="gaEvent('Facebook','Viewed Facebook Profile','https://www.facebook.com/niraj.nagtilak');"
 								>
 									<div class="fb"></div
@@ -516,7 +544,11 @@
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow me on twitter"
-									style="width: 65px; height: 65px;display: block;"
+									style="
+										width: 65px;
+										height: 65px;
+										display: block;
+									"
 									onclick="gaEvent('Twitter','Viewed Twitter Profile','https://twitter.com/prem_nagtilak');"
 								>
 									<div class="twitter"></div
@@ -541,7 +573,11 @@
 									data-toggle="tooltip"
 									data-placement="bottom"
 									title="Follow me on instagram"
-									style="width: 65px; height: 65px;display: block;"
+									style="
+										width: 65px;
+										height: 65px;
+										display: block;
+									"
 									onclick="gaEvent('Instagram','Viewed Instagram Profile','https://www.instagram.com/iampremnagtilak/');"
 								>
 									<div class="insta"></div
