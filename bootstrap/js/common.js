@@ -5,6 +5,7 @@ const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-curren
 
 var covid19DetailJson;
 var covid19LocationData;
+const monthName = new Date().toLocaleString('default', { month: 'long' });
 
 $(document).ready(function () {
 	window.onresize = function () {
@@ -239,7 +240,18 @@ var timelineOptionsWithTooltip = {
 function getLocationWiseLinechart(chartData) {
 	const countData = _.countBy(chartData, 'location');
 	var ctx = getContext('locationWiseLineChart');
-
+	if (!isMobile()) {
+		locationBarOptions.scales = {
+			yAxes: [
+				{
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax: _.max(Object.values(countData)) + 10,
+					},
+				},
+			],
+		};
+	}
 	var chart = new Chart(ctx, {
 		type: isMobile() ? 'horizontalBar' : 'bar',
 		data: {
@@ -247,7 +259,7 @@ function getLocationWiseLinechart(chartData) {
 			datasets: [
 				{
 					fill: false,
-					label: 'Confirmed Cases by location in April 2020',
+					label: `Confirmed Cases by location in ${monthName} 2020`,
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
 					data: Object.values(countData),
@@ -259,22 +271,64 @@ function getLocationWiseLinechart(chartData) {
 	if (window.nzLocationChart != undefined) window.nzLocationChart.destroy();
 	window.nzLocationChart = chart;
 }
+function getPreviousIndexCount(array, prevIndex) {
+	if (prevIndex == 0) return 0;
+	return array[prevIndex - 1];
+}
+function addMissingDatesInTimeline(timelineLabels, timelineCounts) {
+	//iterate from 1st date of month the to Today
+	for (let index = 1; index <= moment().date(); index++) {
+		var indexDate = moment(moment().format('YYYYMM01'), 'YYYYMMDD').add(
+			index - 1,
+			'days'
+		);
+		//find out and insert if any missing date
+		var insertIndex = timelineLabels.indexOf(indexDate.format('YYYYMMDD'));
+		if (insertIndex === -1) {
+			timelineLabels.splice(index - 1, 0, indexDate.format('YYYYMMDD'));
+			timelineCounts.splice(
+				index - 1,
+				0,
+				getPreviousIndexCount(timelineCounts, index - 1)
+			);
+		}
+	}
 
+	return { timelineLabels, timelineCounts };
+}
 function getLocationWiseTimelinechart() {
 	const cumulativeSum = ((sum) => (value) => (sum += value))(0);
 	var timelineData = _.countBy(
 		covid19LocationData.map((x) => moment(x.date).format('YYYYMMDD')).sort()
 	);
-	const timelineLabels = Object.keys(timelineData).map((x) =>
-		moment(x, 'YYYYMMDD').format('DD MMM')
+	var timelineLabels = Object.keys(timelineData).map((x) =>
+		moment(x, 'YYYYMMDD').format('YYYYMMDD')
 	);
 	timelineData = Object.values(timelineData).map(cumulativeSum);
 	const total = covid19LocationData.length;
 
+	var timelineChartData = addMissingDatesInTimeline(
+		timelineLabels,
+		timelineData
+	);
+	timelineChartData.timelineLabels = timelineChartData.timelineLabels.map(
+		(x) => moment(x, 'YYYYMMDD').format('DD MMMM')
+	);
 	var constantsTooltipOptions = {};
 
 	if (!isMobile()) {
 		constantsTooltipOptions = timelineOptionsWithTooltip;
+		constantsTooltipOptions.scales = {
+			yAxes: [
+				{
+					ticks: {
+						suggestedMin: 0,
+						suggestedMax:
+							_.max(timelineChartData.timelineCounts) + 10,
+					},
+				},
+			],
+		};
 	}
 
 	var ctx = getContext('locationWiseTimelineChart');
@@ -283,7 +337,7 @@ function getLocationWiseTimelinechart() {
 		options: {
 			title: {
 				display: true,
-				text: `${getSelectionLocation()} Timeline : total ${total} cases in April 2020`,
+				text: `${getSelectionLocation()} Timeline : total ${total} cases in ${monthName} 2020`,
 				fontSize: 20,
 			},
 			responsive: true,
@@ -291,19 +345,21 @@ function getLocationWiseTimelinechart() {
 			...constantsTooltipOptions,
 		},
 		data: {
-			labels: timelineLabels,
+			labels: timelineChartData.timelineLabels,
 			datasets: [
 				{
 					fill: false,
-					label: `Confirmed Cases in April 2020`,
+					label: `Confirmed Cases in ${monthName} 2020`,
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
-					data: timelineData,
+					data: timelineChartData.timelineCounts,
 				},
 			],
 		},
 	});
-	if (window.timelineChart != undefined) window.timelineChart.destroy();
+	if (window.timelineChart != undefined) {
+		window.timelineChart.destroy();
+	}
 	window.timelineChart = chart;
 }
 
@@ -359,7 +415,7 @@ function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 	femaleCounts = Object.values(femaleCounts);
 	const total = covid19LocationData.length;
 
-	barOptions_stacked.title.text = `${getSelectionLocation()} Age group (years) : total ${total} cases in April 2020`;
+	barOptions_stacked.title.text = `${getSelectionLocation()} Age group (years) : total ${total} cases in ${monthName} 2020`;
 
 	var ctx = getContext('locationWiseBarChart');
 
