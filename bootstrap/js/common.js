@@ -312,24 +312,23 @@ function getLocationWiseTimelinechart() {
 		timelineData
 	);
 	timelineChartData.timelineLabels = timelineChartData.timelineLabels.map(
-		(x) => moment(x, 'YYYYMMDD').format('DD MMMM')
+		(x) => moment(x, 'YYYYMMDD').format('DD')
 	);
-	var constantsTooltipOptions = {};
 
+	var constantsTooltipOptions = {};
 	if (!isMobile()) {
 		constantsTooltipOptions = timelineOptionsWithTooltip;
-		constantsTooltipOptions.scales = {
-			yAxes: [
-				{
-					ticks: {
-						suggestedMin: 0,
-						suggestedMax:
-							_.max(timelineChartData.timelineCounts) + 10,
-					},
-				},
-			],
-		};
 	}
+	constantsTooltipOptions.scales = {
+		yAxes: [
+			{
+				ticks: {
+					suggestedMin: 0,
+					suggestedMax: _.max(timelineChartData.timelineCounts) + 10,
+				},
+			},
+		],
+	};
 
 	var ctx = getContext('locationWiseTimelineChart');
 	var chart = new Chart(ctx, {
