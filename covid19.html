@@ -59,6 +59,18 @@
 
 		  gtag('config', 'UA-140818427-1');
 		</script>
+		<script>
+			function gaEvent(action, label, redirectUrl) {
+				gtag('event', action, {
+					event_category: 'Contact me',
+					event_label: label,
+					event_callback: function () {
+						window.open(redirectUrl, '_blank');
+					},
+					event_timeout: 2000,
+				});
+			}
+		</script>
 	</head>
 	<body>
 		<main id="content" role="main">
