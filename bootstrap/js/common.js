@@ -6,6 +6,7 @@ const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-curren
 var covid19DetailJson;
 var covid19LocationData;
 const monthName = new Date().toLocaleString('default', { month: 'long' });
+const lastMonthName = moment().add(-1, 'months').format('MMMM');
 
 $(document).ready(function () {
 	window.onresize = function () {
@@ -73,15 +74,26 @@ function parseCurrentCasesPageHtml(html) {
 	$('#summary').append(table);
 }
 function parseCurrentCasesDetailsPageHtml(html) {
+	//current month data
 	var confirmedCasesTable = $(html)
-		.find('.table-style-two:contains("Confirmed")')
+		.find(
+			`.table-style-two:contains("Confirmed COVID-19 cases for ${monthName}")`
+		)
 		.first();
 	confirmedCasesTable.find('caption').remove();
 	var json = currentCaseDetailsTableToJson(confirmedCasesTable);
 	json = _.sortBy(json, 'location');
-	//render all charts
 	covid19DetailJson = json;
+	//last month data
+	confirmedCasesTable = $(html)
+		.find(
+			`.table-style-two:contains("Confirmed COVID-19 cases for ${lastMonthName}")`
+		)
+		.first();
+	confirmedCasesTable.find('caption').remove();
+	json = currentCaseDetailsTableToJson(confirmedCasesTable);
 
+	covid19DetailJson = covid19DetailJson.concat(json);
 	renderAllNZCharts();
 }
 
@@ -259,7 +271,7 @@ function getLocationWiseLinechart(chartData) {
 			datasets: [
 				{
 					fill: false,
-					label: `Confirmed Cases by location in ${monthName} 2020`,
+					label: `Confirmed Cases by location ${lastMonthName}-${monthName} 2020`,
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
 					data: Object.values(countData),
@@ -276,6 +288,27 @@ function getPreviousIndexCount(array, prevIndex) {
 	return array[prevIndex - 1];
 }
 function addMissingDatesInTimeline(timelineLabels, timelineCounts) {
+	//last month data
+	for (
+		let index = 1;
+		index <= moment().add(-1, 'months').endOf('Month').date();
+		index++
+	) {
+		var indexDate = moment(
+			moment().add(-1, 'months').format('YYYYMM01'),
+			'YYYYMMDD'
+		).add(index - 1, 'days');
+		//find out and insert if any missing date
+		var insertIndex = timelineLabels.indexOf(indexDate.format('YYYYMMDD'));
+		if (insertIndex === -1) {
+			timelineLabels.splice(index - 1, 0, indexDate.format('YYYYMMDD'));
+			timelineCounts.splice(
+				index - 1,
+				0,
+				getPreviousIndexCount(timelineCounts, index - 1)
+			);
+		}
+	}
 	//iterate from 1st date of month the to Today
 	for (let index = 1; index <= moment().date(); index++) {
 		var indexDate = moment(moment().format('YYYYMM01'), 'YYYYMMDD').add(
@@ -312,7 +345,7 @@ function getLocationWiseTimelinechart() {
 		timelineData
 	);
 	timelineChartData.timelineLabels = timelineChartData.timelineLabels.map(
-		(x) => moment(x, 'YYYYMMDD').format('DD')
+		(x) => moment(x, 'YYYYMMDD').format('DD MMM')
 	);
 
 	var constantsTooltipOptions = {};
@@ -336,7 +369,7 @@ function getLocationWiseTimelinechart() {
 		options: {
 			title: {
 				display: true,
-				text: `${getSelectionLocation()} Timeline : total ${total} cases in ${monthName} 2020`,
+				text: `${getSelectionLocation()} Timeline : total ${total} cases ${lastMonthName}-${monthName} 2020`,
 				fontSize: 20,
 			},
 			responsive: true,
@@ -348,7 +381,7 @@ function getLocationWiseTimelinechart() {
 			datasets: [
 				{
 					fill: false,
-					label: `Confirmed Cases in ${monthName} 2020`,
+					label: `Confirmed Cases ${lastMonthName}-${monthName} 2020`,
 					backgroundColor: 'rgb(255, 99, 132)',
 					borderColor: 'rgb(255, 99, 132)',
 					data: timelineChartData.timelineCounts,
@@ -414,7 +447,7 @@ function getLocationWiseBarchart(allAgeGrops, maleCounts, femaleCounts) {
 	femaleCounts = Object.values(femaleCounts);
 	const total = covid19LocationData.length;
 
-	barOptions_stacked.title.text = `${getSelectionLocation()} Age group (years) : total ${total} cases in ${monthName} 2020`;
+	barOptions_stacked.title.text = `${getSelectionLocation()} Age group (years) : total ${total} cases ${lastMonthName}-${monthName} 2020`;
 
 	var ctx = getContext('locationWiseBarChart');
 
