@@ -310,9 +310,14 @@ function addMissingDatesInTimeline(timelineLabels, timelineCounts) {
 		}
 	}
 	//iterate from 1st date of month the to Today
-	for (let index = 1; index <= moment().date(); index++) {
+	for (
+		let index = moment().add(-1, 'months').endOf('Month').date() + 1;
+		index <=
+		moment().add(-1, 'months').endOf('Month').date() + moment().date();
+		index++
+	) {
 		var indexDate = moment(moment().format('YYYYMM01'), 'YYYYMMDD').add(
-			index - 1,
+			(index % 30) - 1,
 			'days'
 		);
 		//find out and insert if any missing date
