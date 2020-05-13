@@ -110,6 +110,8 @@ function renderLocationWiseBarSection(json) {
 			$('<option></option>').attr('value', loc).text(loc)
 		);
 	});
+	// on page load select default location to wellington
+	$('#locationWiseAgePieSection #locationFilter').val('Wellington');
 
 	updateLocationWisePieChart();
 	getLocationWiseTimelinechart();
