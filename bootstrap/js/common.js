@@ -1,5 +1,5 @@
 const covid19BaseUrl =
-	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-current-situation';
+	'https://www.health.govt.nz/our-work/diseases-and-conditions/covid-19-novel-coronavirus/covid-19-data-and-statistics';
 const covid19CurrentCasesUrl = `${covid19BaseUrl}/covid-19-current-cases`;
 const covid19CurrentCasesDetailsUrl = `${covid19CurrentCasesUrl}/covid-19-current-cases-details`;
 
