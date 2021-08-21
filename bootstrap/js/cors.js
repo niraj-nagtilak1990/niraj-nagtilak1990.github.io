@@ -7,7 +7,7 @@ $(document).ready(function() {
 			options.url.indexOf(covid19BaseUrl) >= 0
 		) {
 			options.url =
-				'https://nirajcorsanywhere.herokuapp.com/' + options.url;
+				'http://www.whateverorigin.org/get?url=' + options.url;
 			//https://cors-anywhere.herokuapp.com/
 			//https://nirajcorsanywhere.herokuapp.com/
 		}
