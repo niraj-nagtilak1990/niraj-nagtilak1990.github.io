@@ -196,8 +196,12 @@ footer {
 		margin: 10px;
 	}
 }
-
-@media (min-width: 300px) and (max-width: 499px) {
+@media (min-width: 100px) and (max-width: 390px) {
+	.carousel{
+		height: 500px;
+	}
+}
+@media (min-width: 391px) and (max-width: 499px) {
 	.carousel{
 		height: 460px;
 	}
