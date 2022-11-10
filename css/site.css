@@ -9,24 +9,27 @@
 	font-family: 'ABeeZee-Regular';
 	src: url('../fonts/ABeeZee-Regular.otf') format('opentype');
 }
+@font-face {
+	font-family: 'Qrada';
+	src: url('../fonts/Qrada.otf') format('opentype');
+}
 
 .navbar {
 	background: black!important;
 }
-.navbar-brand {
-	font: normal normal normal 65px/1.4em spinnaker, ABeeZee-Regular !important;
-}
+
 .navbar a{
 	line-height: 30px!important;
 	color: #b7a980a3!important;
+	font-family: Qrada!important;
+	font-size: 42px!important;
 }
 .navbarTitleSpan{
 	position: absolute;
-	background: black!important;
-    color: #b7a980;
-	line-height: 26px;
+    background: black!important;
+    color: var(--primary);
     font-weight: 600;
-    left: 21px;
+    left: 48px;
     top: 14px;
 
 }
