@@ -1,5 +1,5 @@
 :root {
-	--primary: #2b757adb;
+	--primary: #b7a980;
   }
 @font-face {
 	font-family: 'ABeeZee-Italic';
@@ -9,11 +9,26 @@
 	font-family: 'ABeeZee-Regular';
 	src: url('../fonts/ABeeZee-Regular.otf') format('opentype');
 }
+
 .navbar {
-	background: hsla(13, 82%, 2%, 0.87) !important;
+	background: black!important;
 }
 .navbar-brand {
-	font-size: 1.6rem;
+	font: normal normal normal 65px/1.4em spinnaker, ABeeZee-Regular !important;
+}
+.navbar a{
+	line-height: 30px!important;
+	color: #b7a980a3!important;
+}
+.navbarTitleSpan{
+	position: absolute;
+	background: black!important;
+    color: #b7a980;
+	line-height: 26px;
+    font-weight: 600;
+    left: 21px;
+    top: 14px;
+
 }
 .image {
 	border-radius: 30px !important;
