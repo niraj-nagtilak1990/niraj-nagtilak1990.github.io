@@ -30,7 +30,8 @@
     color: var(--primary);
     font-weight: 600;
     left: 48px;
-    top: 14px;
+    top: 13px;
+    line-height: 18px;
 
 }
 .image {
