@@ -8,4 +8,4 @@ Allow: /images/*.png
 Allow: /images/*.jpg
 Allow: /images/*.gif
 
-Sitemap: https://niraj.nagtilak.com/sitemap.xml
+Sitemap: https://niraj.nagtilak.com/Sitemap.xml
