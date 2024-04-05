@@ -279,3 +279,6 @@ footer {
 canvas {
 	width: 100% !important;
 }
+#projects-container {
+	height: 600px;
+}
