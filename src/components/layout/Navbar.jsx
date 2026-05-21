@@ -5,6 +5,8 @@ import ThemeSwitcher from '../ui/ThemeSwitcher.jsx';
 const NAV_LINKS = [
   { label: 'About',           href: '#about' },
   { label: 'How I Work',      href: '#traits' },
+  { label: 'Clients',         href: '#clients' },
+  { label: 'Domains',         href: '#domains' },
   { label: 'Experience',      href: '#experience' },
   { label: 'Skills',          href: '#skills' },
   { label: 'Achievements',    href: '#achievements' },

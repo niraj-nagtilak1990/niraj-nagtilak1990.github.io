@@ -1,5 +1,5 @@
 export const clients = [
-  { name: 'DataTorque',                  url: 'https://www.datatatorque.com',                domain: 'datatatorque.com',        category: 'employer' },
+  { name: 'DataTorque',                  url: 'https://www.datatorque.com',                domain: 'datatorque.com',        category: 'employer' },
   { name: 'Mastercard',                  url: 'https://www.mastercard.com',                  domain: 'mastercard.com',          category: 'employer' },
   { name: 'ANZ Bank',                    url: 'https://www.anz.co.nz',                       domain: 'anz.com',                 category: 'employer' },
   { name: 'Capgemini',                   url: 'https://www.capgemini.com',                   domain: 'capgemini.com',           category: 'employer' },

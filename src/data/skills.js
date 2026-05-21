@@ -1,15 +1,20 @@
 export const skillCategories = [
   {
-    label: 'Languages & Frameworks',
+    label: 'Languages & Web Frameworks',
     skills: [
       { name: 'C# / .NET Core', icon: 'SiDotnet' },
       { name: 'ASP.NET Core', icon: 'SiDotnet' },
+      { name: 'ASP.NET MVC', icon: 'SiDotnet' },
       { name: 'TypeScript', icon: 'SiTypescript' },
       { name: 'JavaScript', icon: 'SiJavascript' },
       { name: 'React.js', icon: 'SiReact' },
       { name: 'Vue.js', icon: 'SiVuedotjs' },
+      { name: 'AngularJS', icon: 'SiAngular' },
+      { name: 'jQuery', icon: 'SiJquery' },
+      { name: 'Vite', icon: 'SiVite' },
       { name: 'Redux', icon: 'SiRedux' },
       { name: 'Entity Framework', icon: 'SiDotnet' },
+      { name: 'WinForms', icon: 'SiDotnet' },
     ],
   },
   {
@@ -47,6 +52,8 @@ export const skillCategories = [
       { name: 'Jest', icon: 'SiJest' },
       { name: 'Cypress', icon: 'SiCypress' },
       { name: 'WireMock', icon: 'SiDotnet' },
+      { name: 'Integration Tests', icon: 'SiDotnet' },
+      { name: 'Playwright', icon: 'SiPlaywright' },
     ],
   },
 ];

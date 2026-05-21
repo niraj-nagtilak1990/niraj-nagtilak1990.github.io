@@ -1,9 +1,12 @@
 import {
   SiDotnet, SiTypescript, SiJavascript, SiReact, SiVuedotjs, SiRedux,
   SiKubernetes, SiDocker, SiJenkins, SiGit, SiJest,
+  SiAngular, SiJquery, SiVite,
 } from 'react-icons/si';
 import {
-  FiCloud, FiDatabase, FiTerminal, FiGitBranch, FiCode, FiServer,
+  FiCloud, FiDatabase, FiTerminal, FiGitBranch, FiCode, FiServer, FiPlay,
+  FiCreditCard, FiDollarSign, FiFlag, FiBriefcase, FiPackage, FiFileText,
+  FiRefreshCw, FiRotateCw, FiLayout, FiArrowDown, FiLayers, FiGitMerge,
 } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { skillCategories } from '../../data/skills.js';
@@ -27,6 +30,22 @@ const ICON_MAP = {
   SiOracle:             FiDatabase,
   SiJest:               SiJest,
   SiCypress:            FiCode,
+  SiPlaywright:         FiPlay,
+  SiAngular:            SiAngular,
+  SiJquery:             SiJquery,
+  SiVite:               SiVite,
+  FiCreditCard:         FiCreditCard,
+  FiDollarSign:         FiDollarSign,
+  FiFlag:               FiFlag,
+  FiBriefcase:          FiBriefcase,
+  FiPackage:            FiPackage,
+  FiFileText:           FiFileText,
+  FiRefreshCw:          FiRefreshCw,
+  FiRotateCw:           FiRotateCw,
+  FiLayout:             FiLayout,
+  FiArrowDown:          FiArrowDown,
+  FiLayers:             FiLayers,
+  FiGitMerge:           FiGitMerge,
 };
 
 export default function Skills() {

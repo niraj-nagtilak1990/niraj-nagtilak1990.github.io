@@ -36,6 +36,11 @@ export default function About() {
                 personally.
               </p>
               <p>
+                I have delivered across <strong style={{ color: 'var(--foreground)' }}>banking, payments, government, consulting, and product-based</strong> organisations,
+                giving me a rare perspective on how different sectors think about risk, quality, and delivery.
+                I am equally comfortable in <strong style={{ color: 'var(--foreground)' }}>Waterfall, Agile, Scrum, and Kanban</strong> environments and have led teams through all of them.
+              </p>
+              <p>
                 I have served on technical interview panels across several organisations, interviewing
                 200+ candidates and helping shape engineering hiring standards.
               </p>
@@ -58,6 +63,7 @@ export default function About() {
                 </span>
               ))}
             </div>
+
           </AnimatedSection>
 
           {/* Stats */}

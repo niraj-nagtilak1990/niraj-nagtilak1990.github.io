@@ -5,6 +5,7 @@ import Hero from './components/sections/Hero.jsx';
 import About from './components/sections/About.jsx';
 import Traits from './components/sections/Traits.jsx';
 import Clients from './components/sections/Clients.jsx';
+import Domains from './components/sections/Domains.jsx';
 import Experience from './components/sections/Experience.jsx';
 import Skills from './components/sections/Skills.jsx';
 import Achievements from './components/sections/Achievements.jsx';
@@ -23,6 +24,7 @@ export default function App() {
           <About />
           <Traits />
           <Clients />
+          <Domains />
           <Experience />
           <Skills />
           <Achievements />
