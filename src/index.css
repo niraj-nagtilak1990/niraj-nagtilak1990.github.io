@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Theme: Dark Prestige (gold + prayer-flag red) ─────────────────────── */
+[data-theme="dark-prestige"] {
+  --background: #0D1117;
+  --surface:    #111827;
+  --card:       #161B22;
+  --primary:    #C8A96E;
+  --accent:     #E84545;
+  --foreground: #E6EDF3;
+  --muted:      #8B949E;
+  --border:     #30363D;
+  --gradient-hero: radial-gradient(ellipse at 60% 0%, rgba(200,169,110,0.12) 0%, transparent 60%),
+                   radial-gradient(ellipse at 0% 80%, rgba(232,69,69,0.08) 0%, transparent 50%);
+  --gradient-text: #C8A96E;
+  --nav-bg:     rgba(13,17,23,0.85);
+  --logo-filter: brightness(0) invert(1) opacity(0.75);
+}
+
+/* ── Theme: Modern Light (blue + amber) ───────────────────────────────── */
+[data-theme="modern-light"] {
+  --background: #F8FAFC;
+  --surface:    #F1F5F9;
+  --card:       #FFFFFF;
+  --primary:    #1D4ED8;
+  --accent:     #F59E0B;
+  --foreground: #0F172A;
+  --muted:      #64748B;
+  --border:     #E2E8F0;
+  --gradient-hero: radial-gradient(ellipse at 60% 0%, rgba(29,78,216,0.08) 0%, transparent 60%),
+                   radial-gradient(ellipse at 0% 80%, rgba(245,158,11,0.06) 0%, transparent 50%);
+  --gradient-text: linear-gradient(135deg, #1D4ED8, #7C3AED);
+  --nav-bg:     rgba(248,250,252,0.9);
+  --logo-filter: none;
+}
+
+/* ── Theme: Gradient Dark (violet + cyan) ─────────────────────────────── */
+[data-theme="gradient-dark"] {
+  --background: #0F0F1A;
+  --surface:    #141425;
+  --card:       #1A1A2E;
+  --primary:    #7C3AED;
+  --accent:     #06B6D4;
+  --foreground: #F1F5F9;
+  --muted:      #94A3B8;
+  --border:     #2D2D4A;
+  --gradient-hero: radial-gradient(ellipse at 60% 0%, rgba(124,58,237,0.2) 0%, transparent 60%),
+                   radial-gradient(ellipse at 0% 80%, rgba(6,182,212,0.12) 0%, transparent 50%);
+  --gradient-text: linear-gradient(135deg, #7C3AED, #06B6D4);
+  --nav-bg:     rgba(15,15,26,0.85);
+  --logo-filter: brightness(0) invert(1) opacity(0.75);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ──────────────────────────────────────────────────────── */
+.font-display { font-family: 'Crimson Pro', serif; }
+
+.gradient-text {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-bottom: 0.2em;
+  display: inline-block;
+  line-height: inherit;
+}
+
+[data-theme="dark-prestige"] .gradient-text {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: var(--primary);
+  background-clip: unset;
+  color: var(--primary);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ── Hero background ──────────────────────────────────────────────────── */
+.hero-bg { background: var(--gradient-hero); }
+
+/* ── Glass card ───────────────────────────────────────────────────────── */
+.glass {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+/* ── Animated gradient blob (gradient-dark theme only) ───────────────── */
+[data-theme="gradient-dark"] .blob-1 {
+  background: rgba(124, 58, 237, 0.3);
+  filter: blur(80px);
+}
+[data-theme="gradient-dark"] .blob-2 {
+  background: rgba(6, 182, 212, 0.2);
+  filter: blur(80px);
+}
+
+/* ── Nav active link ──────────────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: var(--primary);
+  transition: width 0.2s;
+}
+.nav-link:hover,
+.nav-link.active {
+  color: var(--foreground);
+}
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* ── Timeline ─────────────────────────────────────────────────────────── */
+.timeline-line {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--primary), transparent);
+}
+
+/* ── Section heading underline ────────────────────────────────────────── */
+.section-heading::after {
+  content: '';
+  display: block;
+  margin-top: 8px;
+  width: 48px;
+  height: 3px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+/* ── Skill badge hover ────────────────────────────────────────────────── */
+.skill-badge {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.skill-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+/* ── Photo gallery lightbox ───────────────────────────────────────────── */
+.photo-overlay {
+  animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Theme switcher dots ──────────────────────────────────────────────── */
+.theme-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.theme-dot:hover { transform: scale(1.2); }
+.theme-dot.active { border-color: var(--foreground); }
+
+/* ── Mobile menu ──────────────────────────────────────────────────────── */
+.mobile-menu {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Button primary ───────────────────────────────────────────────────── */
+.btn-primary {
+  background: var(--primary);
+  color: var(--background);
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn-outline {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-outline:hover {
+  background: var(--primary);
+  color: var(--background);
+  transform: translateY(-1px);
+}
+
+/* ── Recommendation card quote ────────────────────────────────────────── */
+.quote-mark {
+  font-size: 5rem;
+  line-height: 0;
+  color: var(--primary);
+  opacity: 0.2;
+  font-family: Georgia, serif;
+  position: absolute;
+  top: 20px; left: 16px;
+}
+
+/* ── Contact form ─────────────────────────────────────────────────────── */
+.form-input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.form-input::placeholder { color: var(--muted); }
+
+/* ── Client marquee ───────────────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.animate-marquee-reverse {
+  animation: marquee-reverse 30s linear infinite;
+}
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* Invert logos on light themes so they don't disappear */
+[data-theme="light"] .logo-img,
+[data-theme="light-minimal"] .logo-img {
+  filter: none;
+}
+[data-theme="dark-prestige"] .logo-img,
+[data-theme="gradient-dark"] .logo-img {
+  filter: brightness(0) invert(1) opacity(0.8);
+}

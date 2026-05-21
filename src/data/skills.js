@@ -1,0 +1,52 @@
+export const skillCategories = [
+  {
+    label: 'Languages & Frameworks',
+    skills: [
+      { name: 'C# / .NET Core', icon: 'SiDotnet' },
+      { name: 'ASP.NET Core', icon: 'SiDotnet' },
+      { name: 'TypeScript', icon: 'SiTypescript' },
+      { name: 'JavaScript', icon: 'SiJavascript' },
+      { name: 'React.js', icon: 'SiReact' },
+      { name: 'Vue.js', icon: 'SiVuedotjs' },
+      { name: 'Redux', icon: 'SiRedux' },
+      { name: 'Entity Framework', icon: 'SiDotnet' },
+    ],
+  },
+  {
+    label: 'Azure & Cloud',
+    skills: [
+      { name: 'Azure Functions', icon: 'SiMicrosoftazure' },
+      { name: 'Azure Service Bus', icon: 'SiMicrosoftazure' },
+      { name: 'Azure APIM', icon: 'SiMicrosoftazure' },
+      { name: 'Azure B2C', icon: 'SiMicrosoftazure' },
+      { name: 'Application Insights', icon: 'SiMicrosoftazure' },
+      { name: 'Cosmos DB', icon: 'SiMicrosoftazure' },
+      { name: 'Azure DevOps', icon: 'SiAzuredevops' },
+      { name: 'Kubernetes / OpenShift', icon: 'SiKubernetes' },
+    ],
+  },
+  {
+    label: 'DevOps & Infrastructure',
+    skills: [
+      { name: 'GitHub Actions', icon: 'SiGithubactions' },
+      { name: 'Jenkins', icon: 'SiJenkins' },
+      { name: 'Docker', icon: 'SiDocker' },
+      { name: 'Bicep / ARM', icon: 'SiMicrosoftazure' },
+      { name: 'PowerShell', icon: 'SiPowershell' },
+      { name: 'Git / GitFlow', icon: 'SiGit' },
+      { name: 'YAML Pipelines', icon: 'SiGithubactions' },
+    ],
+  },
+  {
+    label: 'Data & Testing',
+    skills: [
+      { name: 'MS SQL Server', icon: 'SiMicrosoftsqlserver' },
+      { name: 'Oracle', icon: 'SiOracle' },
+      { name: 'SSIS', icon: 'SiMicrosoftsqlserver' },
+      { name: 'xUnit / NUnit / MSTest', icon: 'SiDotnet' },
+      { name: 'Jest', icon: 'SiJest' },
+      { name: 'Cypress', icon: 'SiCypress' },
+      { name: 'WireMock', icon: 'SiDotnet' },
+    ],
+  },
+];
