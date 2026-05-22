@@ -21,7 +21,7 @@ export default function Contact() {
     setStatus('sending');
     try {
       // Replace YOUR_FORM_ID with your Formspree form ID from formspree.io
-      const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      const res = await fetch('https://formspree.io/f/mvzyaygp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(form),
@@ -115,10 +115,6 @@ export default function Contact() {
                   Something went wrong. Please try emailing me directly.
                 </p>
               )}
-              <p className="text-xs text-center" style={{ color: 'var(--muted)' }}>
-                * Set up your <a href="https://formspree.io" target="_blank" rel="noopener noreferrer"
-                  className="underline">Formspree</a> form ID to enable sending.
-              </p>
             </form>
           </AnimatedSection>
 

@@ -4,16 +4,13 @@ import Footer from './components/layout/Footer.jsx';
 import Hero from './components/sections/Hero.jsx';
 import About from './components/sections/About.jsx';
 import Traits from './components/sections/Traits.jsx';
-import Clients from './components/sections/Clients.jsx';
-import Domains from './components/sections/Domains.jsx';
-import Methodologies from './components/sections/Methodologies.jsx';
-import Timeline from './components/sections/Timeline.jsx';
 import Experience from './components/sections/Experience.jsx';
 import Skills from './components/sections/Skills.jsx';
+import Clients from './components/sections/Clients.jsx';
+import Domains from './components/sections/Domains.jsx';
+import Timeline from './components/sections/Timeline.jsx';
 import Achievements from './components/sections/Achievements.jsx';
 import Recommendations from './components/sections/Recommendations.jsx';
-import LinkedInPosts from './components/sections/LinkedInPosts.jsx';
-import Bhutan from './components/sections/Bhutan.jsx';
 import Contact from './components/sections/Contact.jsx';
 
 export default function App() {
@@ -25,12 +22,11 @@ export default function App() {
           <Hero />
           <About />
           <Traits />
-          <Clients />
-          <Domains />
-          <Methodologies />
-          <Timeline />
           <Experience />
           <Skills />
+          <Clients />
+          <Domains />
+          <Timeline />
           <Achievements />
           <Recommendations />
           <Contact />

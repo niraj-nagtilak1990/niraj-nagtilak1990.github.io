@@ -6,24 +6,28 @@ const NAV_GROUPS = [
   {
     label: 'About',
     children: [
-      { label: 'About Me',    href: '#about' },
-      { label: 'How I Work',  href: '#traits' },
+      { label: 'About Me',   href: '#about' },
+      { label: 'How I Work', href: '#traits' },
     ],
   },
   {
-    label: 'My Work',
+    label: 'Experience',
     children: [
-      { label: 'Clients',        href: '#clients' },
-      { label: 'Domains',        href: '#domains' },
-      { label: 'Methodologies',  href: '#methodologies' },
-      { label: 'Journey',        href: '#timeline' },
-      { label: 'Experience',     href: '#experience' },
+      { label: 'Experience', href: '#experience' },
+      { label: 'Journey',    href: '#timeline' },
     ],
   },
   {
     label: 'Skills',
     children: [
-      { label: 'Skills',       href: '#skills' },
+      { label: 'Skills',  href: '#skills' },
+    ],
+  },
+  {
+    label: 'My Work',
+    children: [
+      { label: 'Clients',  href: '#clients' },
+      { label: 'Domains',  href: '#domains' },
     ],
   },
   {
