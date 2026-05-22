@@ -98,18 +98,21 @@ export default function Recommendations() {
           <AnimatedSection delay={0.3}>
             <div className="flex items-center justify-center gap-4 mt-8">
               <button
+                aria-label="Previous recommendations"
                 className="p-2 rounded-lg transition-colors disabled:opacity-30"
                 style={{ background: 'var(--card)', color: 'var(--foreground)', border: '1px solid var(--border)' }}
                 onClick={() => setPage(p => Math.max(0, p - 1))}
                 disabled={page === 0}
               >
-                <FiChevronLeft size={18} />
+                <FiChevronLeft size={18} aria-hidden="true" />
               </button>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2" role="group" aria-label="Recommendation pages">
                 {Array.from({ length: totalPages }).map((_, i) => (
                   <button
                     key={i}
+                    aria-label={`Go to page ${i + 1}`}
+                    aria-current={i === page ? 'true' : undefined}
                     className="w-2 h-2 rounded-full transition-all"
                     style={{ background: i === page ? 'var(--primary)' : 'var(--border)' }}
                     onClick={() => setPage(i)}
@@ -118,12 +121,13 @@ export default function Recommendations() {
               </div>
 
               <button
+                aria-label="Next recommendations"
                 className="p-2 rounded-lg transition-colors disabled:opacity-30"
                 style={{ background: 'var(--card)', color: 'var(--foreground)', border: '1px solid var(--border)' }}
                 onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))}
                 disabled={page === totalPages - 1}
               >
-                <FiChevronRight size={18} />
+                <FiChevronRight size={18} aria-hidden="true" />
               </button>
 
               <span className="text-xs ml-2" style={{ color: 'var(--muted)' }}>

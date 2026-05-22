@@ -42,7 +42,7 @@ export default function Traits() {
                   className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ background: 'var(--primary)15', color: 'var(--primary)' }}
                 >
-                  <Icon size={15} />
+                  <Icon size={15} aria-hidden="true" />
                 </div>
                 <p className="text-sm font-semibold leading-tight" style={{ color: 'var(--foreground)' }}>
                   {title}

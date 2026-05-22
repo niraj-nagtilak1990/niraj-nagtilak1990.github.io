@@ -164,7 +164,7 @@ export default function Skills() {
                           <div key={skill.name}
                             className="skill-badge flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium"
                             style={{ background: 'var(--surface)', color: 'var(--foreground)', border: '1px solid var(--border)', cursor: 'default' }}>
-                            {Icon && <Icon size={14} style={{ color: 'var(--primary)' }} />}
+                            {Icon && <Icon size={14} style={{ color: 'var(--primary)' }} aria-hidden="true" />}
                             {skill.name}
                           </div>
                         );

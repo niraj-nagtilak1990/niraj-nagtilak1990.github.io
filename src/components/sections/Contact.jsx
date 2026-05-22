@@ -101,7 +101,7 @@ export default function Contact() {
                 disabled={status === 'sending'}
               >
                 {status === 'sending' ? 'Sending…' : (
-                  <><FiSend size={15} /> Send Message</>
+                  <><FiSend size={15} aria-hidden="true" /> Send Message</>
                 )}
               </button>
 
@@ -136,7 +136,7 @@ export default function Contact() {
                     className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"
                     style={{ background: 'var(--surface)' }}
                   >
-                    <Icon size={18} style={{ color: 'var(--primary)' }} />
+                    <Icon size={18} style={{ color: 'var(--primary)' }} aria-hidden="true" />
                   </div>
                   <div>
                     <p className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{label}</p>

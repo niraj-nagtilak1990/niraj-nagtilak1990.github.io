@@ -48,19 +48,19 @@ function ExperienceCard({ job, index }) {
                     className="text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1"
                     style={{ background: 'var(--surface)', color: 'var(--accent)', border: '1px solid var(--accent)' }}
                   >
-                    <FiAward size={10} /> {a.title}
+                    <FiAward size={10} aria-hidden="true" /> {a.title}
                   </span>
                 ))}
               </div>
               <p className="font-semibold text-sm" style={{ color: 'var(--primary)' }}>{job.company}</p>
               <p className="text-sm italic mt-0.5" style={{ color: 'var(--muted)' }}>{job.project}</p>
               <div className="flex flex-wrap gap-4 mt-2 text-xs" style={{ color: 'var(--muted)' }}>
-                <span className="flex items-center gap-1"><FiCalendar size={11} /> {job.period}</span>
-                <span className="flex items-center gap-1"><FiMapPin size={11} /> {job.location}</span>
+                <span className="flex items-center gap-1"><FiCalendar size={11} aria-hidden="true" /> {job.period}</span>
+                <span className="flex items-center gap-1"><FiMapPin size={11} aria-hidden="true" /> {job.location}</span>
               </div>
             </div>
             <div style={{ color: 'var(--muted)', flexShrink: 0, marginTop: 4 }}>
-              {open ? <FiChevronUp size={18} /> : <FiChevronDown size={18} />}
+              {open ? <FiChevronUp size={18} aria-hidden="true" /> : <FiChevronDown size={18} aria-hidden="true" />}
             </div>
           </button>
 

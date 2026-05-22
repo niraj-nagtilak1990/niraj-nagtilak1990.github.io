@@ -84,7 +84,7 @@ export default function Hero() {
               className="flex items-center gap-2 text-sm"
               style={{ color: 'var(--muted)' }}
             >
-              <FiMapPin size={14} style={{ color: 'var(--primary)' }} />
+              <FiMapPin size={14} style={{ color: 'var(--primary)' }} aria-hidden="true" />
               Wellington, New Zealand · NZ Permanent Resident
             </motion.div>
 
@@ -106,7 +106,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="btn-outline"
               >
-                <FiLinkedin size={16} /> LinkedIn
+                <FiLinkedin size={16} aria-hidden="true" /> LinkedIn
               </a>
               <a
                 href="https://github.com/niraj-nagtilak1990"
@@ -114,7 +114,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="btn-outline"
               >
-                <FiGithub size={16} /> GitHub
+                <FiGithub size={16} aria-hidden="true" /> GitHub
               </a>
             </motion.div>
           </div>
@@ -162,7 +162,7 @@ export default function Hero() {
           transition={{ delay: 1.2 }}
         >
           <a href="#about" aria-label="Scroll down" className="animate-bounce">
-            <FiArrowDown size={20} style={{ color: 'var(--muted)' }} />
+            <FiArrowDown size={20} style={{ color: 'var(--muted)' }} aria-hidden="true" />
           </a>
         </motion.div>
       </div>

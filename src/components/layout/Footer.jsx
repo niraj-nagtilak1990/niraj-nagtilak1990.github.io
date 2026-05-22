@@ -34,7 +34,7 @@ export default function Footer() {
               onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}
             >
-              <Icon size={18} />
+              <Icon size={18} aria-hidden="true" />
             </a>
           ))}
         </div>
