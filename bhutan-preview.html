@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="en" data-theme="dark-prestige">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bhutan Trips — Layout Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Themes ────────────────────────────────────────────────── */
+    [data-theme="dark-prestige"] {
+      --background:#0D1117; --surface:#111827; --card:#161B22;
+      --primary:#C8A96E;    --accent:#E84545;  --foreground:#E6EDF3;
+      --muted:#8B949E;      --border:#30363D;
+    }
+    [data-theme="modern-light"] {
+      --background:#F8FAFC; --surface:#F1F5F9; --card:#FFFFFF;
+      --primary:#1D4ED8;    --accent:#F59E0B;  --foreground:#0F172A;
+      --muted:#64748B;      --border:#E2E8F0;
+    }
+    [data-theme="gradient-dark"] {
+      --background:#0F0F1A; --surface:#141425; --card:#1A1A2E;
+      --primary:#7C3AED;    --accent:#06B6D4;  --foreground:#F1F5F9;
+      --muted:#94A3B8;      --border:#2D2D4A;
+    }
+
+    /* ── Reset & base ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Shared helpers ────────────────────────────────────────── */
+    .font-display { font-family: 'Outfit', sans-serif; }
+
+    .section-heading::after {
+      content: ''; display: block; margin-top: 8px;
+      width: 48px; height: 3px;
+      background: var(--primary); border-radius: 2px;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--primary); color: var(--primary);
+      padding: .4rem .875rem; border-radius: .5rem;
+      font-weight: 600; font-size: .78rem; text-decoration: none;
+      display: inline-flex; align-items: center; gap: .4rem;
+      transition: background .2s, color .2s, transform .2s;
+      font-family: 'Inter', sans-serif; cursor: pointer;
+    }
+    .btn-outline:hover { background: var(--primary); color: var(--background); transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--primary); color: var(--background);
+      padding: .5rem 1.25rem; border-radius: .5rem;
+      font-weight: 600; font-size: .85rem; text-decoration: none;
+      display: inline-flex; align-items: center; gap: .4rem;
+      transition: opacity .2s, transform .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover { opacity: .85; transform: translateY(-1px); }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--background); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── Top bar ───────────────────────────────────────────────── */
+    .top-bar {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--card); border-bottom: 1px solid var(--border);
+      padding: .875rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: .875rem;
+    }
+    .top-bar-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: .95rem; color: var(--foreground); }
+    .top-bar-title span { color: var(--primary); }
+    .controls { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+
+    /* ── Tabs ──────────────────────────────────────────────────── */
+    .tabs { display: flex; gap: .375rem; }
+    .tab-btn {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); padding: .35rem .875rem; border-radius: .375rem;
+      font-size: .78rem; font-weight: 600; cursor: pointer;
+      transition: all .2s; font-family: 'Inter', sans-serif;
+    }
+    .tab-btn:hover { border-color: var(--primary); color: var(--foreground); }
+    .tab-btn.active { background: var(--primary); border-color: var(--primary); color: var(--background); }
+
+    /* ── Theme dots ────────────────────────────────────────────── */
+    .theme-switcher { display: flex; gap: .4rem; align-items: center; }
+    .theme-label { font-size: .72rem; color: var(--muted); }
+    .theme-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      cursor: pointer; border: 2px solid transparent;
+      transition: transform .2s, border-color .2s;
+    }
+    .theme-dot:hover { transform: scale(1.25); }
+    .theme-dot.active { border-color: var(--foreground); }
+
+    /* ── Panel visibility ──────────────────────────────────────── */
+    .option-panel { display: none; }
+    .option-panel.active { display: block; }
+
+    /* ── Section wrapper ───────────────────────────────────────── */
+    .section-wrap { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .section-wrap.narrow { max-width: 780px; }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.25rem);
+      font-weight: 800; color: var(--foreground); margin-bottom: 2.5rem;
+    }
+
+    .option-label {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: .5rem; padding: .55rem 1rem; font-size: .75rem;
+      color: var(--muted); margin-bottom: 2rem;
+      display: inline-flex; align-items: center; gap: .5rem;
+    }
+    .option-label strong { color: var(--primary); }
+
+    /* ── Note banner ───────────────────────────────────────────── */
+    .note-banner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--accent); border-radius: .5rem;
+      padding: .75rem 1rem; font-size: .77rem; color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       OPTION A — STATS + CARDS
+       ════════════════════════════════════════════════════════════ */
+    .stats-banner {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-bottom: 2.5rem; padding: 1.75rem 2rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; text-align: center;
+    }
+    @media (max-width: 500px) { .stats-banner { grid-template-columns: 1fr; gap: 1.25rem; } }
+    .stat-value { font-family: 'Outfit', sans-serif; font-size: 2.25rem; font-weight: 800; color: var(--primary); }
+    .stat-label { font-size: .72rem; color: var(--muted); margin-top: .2rem; }
+
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+    }
+    @media (max-width: 900px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 520px) { .cards-grid { grid-template-columns: 1fr; } }
+
+    .trip-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-top: 3px solid var(--primary); border-radius: 1rem;
+      padding: 1.5rem; display: flex; flex-direction: column; gap: .875rem;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .trip-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+
+    .trip-num { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+    .trip-heading { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--foreground); margin-top: .2rem; }
+
+    .trip-meta { display: flex; flex-direction: column; gap: .2rem; }
+    .trip-meta-row { font-size: .77rem; color: var(--muted); display: flex; align-items: center; gap: .375rem; }
+
+    .duration-badge {
+      display: inline-block; font-size: .68rem; font-weight: 700;
+      padding: .18rem .625rem; border-radius: 999px;
+      background: var(--surface); color: var(--primary); border: 1px solid var(--border);
+      align-self: flex-start;
+    }
+
+    .trip-bullets { list-style: none; display: flex; flex-direction: column; gap: .45rem; flex: 1; }
+    .trip-bullets li { font-size: .79rem; color: var(--muted); display: flex; gap: .5rem; align-items: flex-start; }
+    .trip-bullets li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0; margin-top: .45em;
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       OPTION B — PHOTO GALLERY
+       ════════════════════════════════════════════════════════════ */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 220px 220px;
+      gap: .75rem;
+    }
+    @media (max-width: 640px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+      .photo-cell.tall { aspect-ratio: 4/3; grid-row: span 1; }
+    }
+
+    .photo-cell {
+      position: relative; border-radius: .875rem; overflow: hidden; cursor: pointer;
+    }
+    .photo-cell.tall { grid-row: span 2; }
+
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+    }
+    .photo-cell:nth-child(1) .photo-placeholder { background: linear-gradient(135deg,#0e1f0e,#1a3a1a); }
+    .photo-cell:nth-child(2) .photo-placeholder { background: linear-gradient(135deg,#0e0e1f,#1a1a3a); }
+    .photo-cell:nth-child(3) .photo-placeholder { background: linear-gradient(135deg,#1f0e0e,#3a1a1a); }
+    .photo-cell:nth-child(4) .photo-placeholder { background: linear-gradient(135deg,#0e1f1f,#1a3a3a); }
+    .photo-cell:nth-child(5) .photo-placeholder { background: linear-gradient(135deg,#1f1f0e,#3a3a1a); }
+    .photo-cell:nth-child(6) .photo-placeholder { background: linear-gradient(135deg,#1a0e1f,#2d1a3a); }
+
+    .ph-watermark {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-size: .6rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      color: rgba(255,255,255,.18); text-align: center; pointer-events: none; line-height: 1.8;
+    }
+
+    .photo-hover-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.78) 0%, transparent 55%);
+      padding: 1rem; display: flex; flex-direction: column; justify-content: flex-end;
+      opacity: 0; transition: opacity .25s;
+    }
+    .photo-cell:hover .photo-hover-overlay { opacity: 1; }
+
+    .ph-badge {
+      font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--primary); background: rgba(0,0,0,.65); padding: .12rem .5rem;
+      border-radius: 999px; border: 1px solid var(--primary);
+      align-self: flex-start; margin-bottom: .3rem;
+    }
+    .ph-caption { font-size: .8rem; font-weight: 600; color: #fff; }
+    .ph-caption-sub { font-size: .7rem; color: rgba(255,255,255,.65); }
+
+    .gallery-chips {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; margin-top: 1.25rem;
+    }
+    @media (max-width: 640px) { .gallery-chips { grid-template-columns: repeat(2, 1fr); } }
+
+    .gallery-chip {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: .75rem; padding: .875rem 1rem;
+    }
+    .gc-num { font-size: .63rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); }
+    .gc-date { font-size: .82rem; font-weight: 600; color: var(--foreground); margin: .1rem 0 .1rem; }
+    .gc-dur { font-size: .72rem; color: var(--muted); }
+
+    /* ════════════════════════════════════════════════════════════
+       OPTION C — VERTICAL TIMELINE
+       ════════════════════════════════════════════════════════════ */
+    .tl-stats {
+      display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 2.75rem;
+    }
+    .tl-stat-val {
+      font-family: 'Outfit', sans-serif; font-size: 1.9rem;
+      font-weight: 800; color: var(--primary);
+    }
+    .tl-stat-lbl { font-size: .72rem; color: var(--muted); }
+
+    .tl-wrap { position: relative; padding-left: 2.75rem; }
+    .tl-rail {
+      position: absolute; left: 9px; top: 10px; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--primary), transparent);
+    }
+
+    .tl-item { position: relative; margin-bottom: 2.25rem; }
+    .tl-item:last-child { margin-bottom: 0; }
+
+    .tl-year {
+      position: absolute; left: -2.75rem; top: -1.4rem;
+      font-size: .62rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--primary); white-space: nowrap;
+    }
+    .tl-dot {
+      position: absolute; left: -2.75rem; top: 6px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--primary); border: 3px solid var(--background);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .65rem;
+    }
+
+    .tl-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; padding: 1.5rem;
+    }
+    .tl-card-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;
+    }
+    .tl-trip-num { font-size: .63rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--primary); margin-bottom: .2rem; }
+    .tl-title { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--foreground); }
+    .tl-meta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .3rem; }
+    .tl-meta-item { font-size: .76rem; color: var(--muted); }
+    .tl-dur {
+      font-size: .73rem; font-weight: 700; color: var(--primary);
+      background: var(--surface); border: 1px solid var(--border);
+      padding: .25rem .75rem; border-radius: 999px; white-space: nowrap; align-self: flex-start;
+    }
+
+    .tl-bullets { list-style: none; display: flex; flex-direction: column; gap: .45rem; margin-bottom: 1.1rem; }
+    .tl-bullets li { font-size: .82rem; color: var(--muted); display: flex; gap: .5rem; align-items: flex-start; }
+    .tl-bullets li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0; margin-top: .46em;
+    }
+
+    /* ── LinkedIn SVG icon (reusable) ──────────────────────────── */
+    .li-icon { flex-shrink: 0; }
+
+    /* ════════════════════════════════════════════════════════════
+       OPTION D — IMAGE SLIDESHOW
+       ════════════════════════════════════════════════════════════ */
+    .slideshow-wrap {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      min-height: 480px;
+    }
+    @media (max-width: 860px) {
+      .slideshow-wrap { grid-template-columns: 1fr; }
+    }
+
+    /* ── Photo side ── */
+    .slide-img-track {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+      min-height: 380px;
+    }
+
+    /* Single canvas — JS swaps background + content */
+    .slide-photo-canvas {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      transition: background .4s ease;
+    }
+
+    .slide-img-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 55%, var(--card) 100%);
+      pointer-events: none; z-index: 1;
+    }
+    @media (max-width: 860px) {
+      .slide-img-gradient { background: linear-gradient(to bottom, transparent 55%, var(--card) 100%); }
+    }
+
+    /* Trip badge top-left */
+    .slide-img-badge {
+      position: absolute; top: 1.25rem; left: 1.25rem; z-index: 3;
+      font-size: .65rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--primary);
+      background: rgba(0,0,0,.6); border: 1px solid var(--primary);
+      padding: .2rem .65rem; border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Photo caption bottom-left */
+    .slide-photo-caption {
+      position: absolute; bottom: 3.5rem; left: 1.25rem; right: 1.25rem;
+      z-index: 3; pointer-events: none;
+    }
+    .slide-photo-caption-text {
+      font-size: .82rem; font-weight: 600; color: #fff;
+      text-shadow: 0 1px 6px rgba(0,0,0,.8);
+      display: block;
+    }
+    .slide-photo-caption-sub {
+      font-size: .72rem; color: rgba(255,255,255,.65);
+      text-shadow: 0 1px 4px rgba(0,0,0,.8);
+      display: block; margin-top: .1rem;
+    }
+
+    /* ── Inner photo navigation bar ──────────────────────────── */
+    .photo-inner-nav {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 4;
+      display: flex; align-items: center; justify-content: center;
+      gap: .625rem; padding: .625rem 1rem;
+      background: linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 100%);
+    }
+
+    .photo-inner-arrow {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
+      color: #fff; cursor: pointer; font-size: .85rem; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s; flex-shrink: 0;
+    }
+    .photo-inner-arrow:hover { background: var(--primary); border-color: var(--primary); }
+
+    .photo-inner-dots { display: flex; gap: .3rem; align-items: center; }
+    .photo-inner-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,.35); cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .photo-inner-dot.active { background: var(--primary); transform: scale(1.5); }
+
+    .photo-counter-label {
+      font-size: .68rem; font-weight: 600; color: rgba(255,255,255,.55);
+      min-width: 28px; text-align: center;
+    }
+
+    /* placeholder watermark */
+    .slide-ph-label {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -60%);
+      font-size: .6rem; font-weight: 600; letter-spacing: .07em;
+      text-transform: uppercase; color: rgba(255,255,255,.15);
+      text-align: center; pointer-events: none; line-height: 1.8;
+      white-space: nowrap; z-index: 2;
+    }
+
+    /* ── Arrow buttons ── */
+    .slide-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .2s, transform .2s;
+      z-index: 10; backdrop-filter: blur(4px);
+    }
+    .slide-arrow:hover { background: var(--primary); transform: translateY(-50%) scale(1.1); }
+    .slide-arrow.prev { left: .875rem; }
+    .slide-arrow.next { right: .875rem; }
+    @media (max-width: 860px) {
+      .slide-arrow.next { right: .875rem; }
+    }
+
+    /* ── Info side ── */
+    .slide-info-panel {
+      padding: 2rem 1.75rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+      justify-content: center;
+    }
+
+    .slide-counter {
+      font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .slide-counter span { color: var(--primary); }
+
+    .slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem; font-weight: 800; color: var(--foreground);
+      line-height: 1.3;
+    }
+
+    .slide-meta {
+      display: flex; flex-direction: column; gap: .3rem;
+    }
+    .slide-meta-row {
+      font-size: .8rem; color: var(--muted);
+      display: flex; align-items: center; gap: .4rem;
+    }
+    .slide-dur-badge {
+      display: inline-block; font-size: .7rem; font-weight: 700;
+      padding: .18rem .7rem; border-radius: 999px;
+      background: var(--surface); color: var(--primary);
+      border: 1px solid var(--border); align-self: flex-start;
+    }
+
+    .slide-bullets { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .slide-bullets li {
+      font-size: .82rem; color: var(--muted);
+      display: flex; gap: .5rem; align-items: flex-start;
+    }
+    .slide-bullets li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--primary); flex-shrink: 0; margin-top: .46em;
+    }
+
+    /* ── Progress bar ── */
+    .slide-progress-bar {
+      height: 2px; background: var(--border); border-radius: 1px;
+      overflow: hidden;
+    }
+    .slide-progress-fill {
+      height: 100%; background: var(--primary);
+      transition: width .4s ease;
+    }
+
+    /* ── Thumbnail strip ── */
+    .slide-thumbs {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: .625rem; margin-top: 1.5rem;
+    }
+    .slide-thumb {
+      cursor: pointer; border-radius: .625rem; overflow: hidden;
+      border: 2px solid var(--border);
+      transition: border-color .2s, transform .2s;
+      background: var(--surface);
+    }
+    .slide-thumb:hover { border-color: var(--muted); transform: translateY(-2px); }
+    .slide-thumb.active { border-color: var(--primary); }
+
+    .slide-thumb-img {
+      height: 52px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .slide-thumb:nth-child(1) .slide-thumb-img { background: linear-gradient(135deg,#0a1a0a,#123212); }
+    .slide-thumb:nth-child(2) .slide-thumb-img { background: linear-gradient(135deg,#0a0a1a,#121232); }
+    .slide-thumb:nth-child(3) .slide-thumb-img { background: linear-gradient(135deg,#1a0a0a,#321212); }
+    .slide-thumb:nth-child(4) .slide-thumb-img { background: linear-gradient(135deg,#0a1212,#123232); }
+
+    .slide-thumb-label {
+      padding: .3rem .5rem;
+      font-size: .65rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); text-align: center;
+      transition: color .2s;
+    }
+    .slide-thumb.active .slide-thumb-label { color: var(--primary); }
+
+    /* auto-play dot indicators */
+    .slide-dots {
+      display: flex; gap: .375rem; justify-content: center; margin-top: 1rem;
+    }
+    .slide-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--border); cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .slide-dot.active { background: var(--primary); transform: scale(1.4); }
+  </style>
+</head>
+<body>
+
+<!-- ── TOP BAR ─────────────────────────────────────────────────── -->
+<div class="top-bar">
+  <div class="top-bar-title">Bhutan Trips — <span>Layout Preview</span></div>
+  <div class="controls">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('a', this)">A — Cards</button>
+      <button class="tab-btn"        onclick="switchTab('b', this)">B — Gallery</button>
+      <button class="tab-btn"        onclick="switchTab('c', this)">C — Timeline</button>
+      <button class="tab-btn"        onclick="switchTab('d', this)">D — Slideshow</button>
+    </div>
+    <div class="theme-switcher">
+      <span class="theme-label">Theme:</span>
+      <div class="theme-dot active" style="background:#C8A96E" title="Dark Prestige"  onclick="setTheme('dark-prestige',this)"></div>
+      <div class="theme-dot"        style="background:#1D4ED8" title="Modern Light"   onclick="setTheme('modern-light',this)"></div>
+      <div class="theme-dot"        style="background:#7C3AED" title="Gradient Dark"  onclick="setTheme('gradient-dark',this)"></div>
+    </div>
+  </div>
+</div>
+
+<div class="note-banner" style="max-width:1100px;margin:1rem auto 0;margin-left:auto;margin-right:auto;padding-left:1.5rem;padding-right:1.5rem; background:transparent; border:none; border-left: 3px solid var(--accent); border-radius:0;">
+  <strong style="color:var(--accent)">Note:</strong> Dates for trips 2–4 are approximate — confirm the exact months with your LinkedIn posts before going live.
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     OPTION A — STATS BANNER + 4 TRIP CARDS
+     ════════════════════════════════════════════════════════════════ -->
+<div id="panel-a" class="option-panel active" style="background:var(--background)">
+  <div class="section-wrap">
+
+    <div class="option-label">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      <strong>Option A</strong> — Stats banner + 4 trip cards + LinkedIn links. Works with or without photos.
+    </div>
+
+    <h2 class="section-title section-heading font-display">Bhutan Onsite Experience</h2>
+
+    <!-- Stats -->
+    <div class="stats-banner">
+      <div><div class="stat-value">4</div><div class="stat-label">Onsite Trips</div></div>
+      <div><div class="stat-value" style="font-size:1.9rem">2.5<span style="font-size:1.1rem">mo</span></div><div class="stat-label">Total Time In-Country</div></div>
+      <div><div class="stat-value" style="font-size:1.75rem">🇧🇹</div><div class="stat-label">Thimphu, Bhutan · BITS Project</div></div>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards-grid">
+
+      <!-- Trip 1 -->
+      <div class="trip-card">
+        <div><div class="trip-num">Trip 01</div><div class="trip-heading">GST Phase 1 — Requirements</div></div>
+        <div class="trip-meta">
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            November 2024
+          </div>
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Thimphu, Bhutan
+          </div>
+        </div>
+        <span class="duration-badge">4 weeks</span>
+        <ul class="trip-bullets">
+          <li>Led requirement elicitation for Phase 1 of Bhutan's GST project on behalf of DataTorque</li>
+          <li>Built and led the development team alongside local DRC Bhutan colleagues</li>
+          <li>Laid a strong foundation for the project's next phases</li>
+        </ul>
+        <a href="https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7272112029170081794-9OQK" target="_blank" class="btn-outline" style="margin-top:auto">
+          <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View Post
+        </a>
+      </div>
+
+      <!-- Trip 2 -->
+      <div class="trip-card">
+        <div><div class="trip-num">Trip 02</div><div class="trip-heading">Tax Transformation Delivery</div></div>
+        <div class="trip-meta">
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            April 2025
+          </div>
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Thimphu, Bhutan
+          </div>
+        </div>
+        <span class="duration-badge">2 weeks</span>
+        <ul class="trip-bullets">
+          <li>Productive project delivery sessions and strategic stakeholder discussions with DRC Bhutan</li>
+          <li>Deepened trust and collaboration with the client and in-country team</li>
+          <li>Hiked to Lungchutse Temple at 3,650 m — a reminder that transformation is about people</li>
+        </ul>
+        <a href="https://www.linkedin.com/posts/niraj-nagtilak_gratitude-bhutan-taxtransformation-activity-7339819308262313988-SrHt" target="_blank" class="btn-outline" style="margin-top:auto">
+          <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View Post
+        </a>
+      </div>
+
+      <!-- Trip 3 -->
+      <div class="trip-card">
+        <div><div class="trip-num">Trip 03</div><div class="trip-heading">Post Go-Live Support</div></div>
+        <div class="trip-meta">
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            August 2025
+          </div>
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Thimphu, Bhutan
+          </div>
+        </div>
+        <span class="duration-badge">2 weeks</span>
+        <ul class="trip-bullets">
+          <li>Post go-live support following Phase 1 soft launch of the Bhutan Tax Reform Project</li>
+          <li>Introduced sprint demos and early-feedback loops — achieved &lt;5% defect rate to production</li>
+          <li>Fostered psychological safety so the team could surface issues early and confidently</li>
+        </ul>
+        <a href="https://www.linkedin.com/posts/niraj-nagtilak_leadership-softwareengineering-govtech-activity-7406060421947949056-ZK2v" target="_blank" class="btn-outline" style="margin-top:auto">
+          <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View Post
+        </a>
+      </div>
+
+      <!-- Trip 4 -->
+      <div class="trip-card">
+        <div><div class="trip-num">Trip 04</div><div class="trip-heading">Phase 1 Live · Phase 2 Begins</div></div>
+        <div class="trip-meta">
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            October 2025
+          </div>
+          <div class="trip-meta-row">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Thimphu, Bhutan
+          </div>
+        </div>
+        <span class="duration-badge">2 weeks</span>
+        <ul class="trip-bullets">
+          <li>Supported Phase 1 GST &amp; Excise Tax system live through peak filing period</li>
+          <li>Witnessed real impact — GST letters in pharmacies, taxpayer numbers on merchant receipts</li>
+          <li>Ran UAT preparation for Phase 2 and scoped future integrations with GST &amp; Income Tax offices</li>
+        </ul>
+        <a href="https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7439454462403837953-S7mt" target="_blank" class="btn-outline" style="margin-top:auto">
+          <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View Post
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     OPTION B — PHOTO GALLERY + TRIP CHIPS
+     ════════════════════════════════════════════════════════════════ -->
+<div id="panel-b" class="option-panel" style="background:var(--background)">
+  <div class="section-wrap">
+
+    <div class="option-label">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      <strong>Option B</strong> — Photo gallery with hover overlays. Placeholders shown — drop real photos into <code style="font-size:.72rem">public/bhutan/</code> and wire up src.
+    </div>
+
+    <h2 class="section-title section-heading font-display">Bhutan Onsite Experience</h2>
+
+    <!-- Photo grid: col 1 is tall (spans 2 rows) -->
+    <div class="photo-grid">
+
+      <div class="photo-cell tall">
+        <div class="photo-placeholder">🏔️</div>
+        <div class="ph-watermark">Your photo<br>here</div>
+        <div class="photo-hover-overlay">
+          <span class="ph-badge">Trip 01 · Nov 2024</span>
+          <div class="ph-caption">Thimphu, Bhutan</div>
+          <div class="ph-caption-sub">Initial sprint delivery</div>
+        </div>
+      </div>
+
+      <div class="photo-cell">
+        <div class="photo-placeholder">🏛️</div>
+        <div class="ph-watermark">Your photo<br>here</div>
+        <div class="photo-hover-overlay">
+          <span class="ph-badge">Trip 01 · Nov 2024</span>
+          <div class="ph-caption">Ministry of Finance</div>
+          <div class="ph-caption-sub">Stakeholder workshops</div>
+        </div>
+      </div>
+
+      <div class="photo-cell">
+        <div class="photo-placeholder">🤝</div>
+        <div class="ph-watermark">Your photo<br>here</div>
+        <div class="photo-hover-overlay">
+          <span class="ph-badge">Trip 02 · Mar 2025</span>
+          <div class="ph-caption">UAT Session</div>
+          <div class="ph-caption-sub">Training revenue officers</div>
+        </div>
+      </div>
+
+      <div class="photo-cell">
+        <div class="photo-placeholder">📊</div>
+        <div class="ph-watermark">Your photo<br>here</div>
+        <div class="photo-hover-overlay">
+          <span class="ph-badge">Trip 02 · Mar 2025</span>
+          <div class="ph-caption">BITS System Demo</div>
+          <div class="ph-caption-sub">Tax module walkthrough</div>
+        </div>
+      </div>
+
+      <div class="photo-cell">
+        <div class="photo-placeholder">🎯</div>
+        <div class="ph-watermark">Your photo<br>here</div>
+        <div class="photo-hover-overlay">
+          <span class="ph-badge">Trip 03 · Jul 2025</span>
+          <div class="ph-caption">Sprint Review</div>
+          <div class="ph-caption-sub">GovTech leadership session</div>
+        </div>
+      </div>
+
+      <div class="photo-cell">
+        <div class="photo-placeholder">✅</div>
+        <div class="ph-watermark">Your photo<br>here</div>
+        <div class="photo-hover-overlay">
+          <span class="ph-badge">Trip 04 · Oct 2025</span>
+          <div class="ph-caption">Project Handover</div>
+          <div class="ph-caption-sub">Knowledge transfer &amp; sign-off</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Trip summary chips -->
+    <div class="gallery-chips">
+      <div class="gallery-chip"><div class="gc-num">Trip 01</div><div class="gc-date">November 2024</div><div class="gc-dur">4 weeks · GST Phase 1 Requirements</div></div>
+      <div class="gallery-chip"><div class="gc-num">Trip 02</div><div class="gc-date">April 2025</div><div class="gc-dur">2 weeks · Tax Transformation Delivery</div></div>
+      <div class="gallery-chip"><div class="gc-num">Trip 03</div><div class="gc-date">August 2025</div><div class="gc-dur">2 weeks · Post Go-Live Support</div></div>
+      <div class="gallery-chip"><div class="gc-num">Trip 04</div><div class="gc-date">October 2025</div><div class="gc-dur">2 weeks · Phase 1 Live · Phase 2 Begins</div></div>
+    </div>
+
+    <div style="margin-top:1.5rem; display:flex; gap:.75rem; flex-wrap:wrap;">
+      <a href="https://www.linkedin.com/in/niraj-nagtilak/" target="_blank" class="btn-primary">View all LinkedIn posts →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     OPTION C — VERTICAL DELIVERY TIMELINE
+     ════════════════════════════════════════════════════════════════ -->
+<div id="panel-c" class="option-panel" style="background:var(--background)">
+  <div class="section-wrap narrow">
+
+    <div class="option-label">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+      <strong>Option C</strong> — Vertical delivery timeline. Best for storytelling; narrow and focused.
+    </div>
+
+    <h2 class="section-title section-heading font-display">Bhutan Onsite Delivery</h2>
+
+    <!-- Stats row -->
+    <div class="tl-stats">
+      <div><div class="tl-stat-val">4</div><div class="tl-stat-lbl">Onsite Trips</div></div>
+      <div><div class="tl-stat-val">2.5<span style="font-size:1rem">mo</span></div><div class="tl-stat-lbl">In Country</div></div>
+      <div><div class="tl-stat-val">🇧🇹</div><div class="tl-stat-lbl">Thimphu, Bhutan</div></div>
+    </div>
+
+    <div class="tl-wrap">
+      <div class="tl-rail"></div>
+
+      <!-- Trip 1 -->
+      <div class="tl-item">
+        <div class="tl-year">2024</div>
+        <div class="tl-dot">✈</div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <div>
+              <div class="tl-trip-num">Trip 01</div>
+              <div class="tl-title">GST Phase 1 — Requirements</div>
+              <div class="tl-meta">
+                <span class="tl-meta-item">📅 November 2024</span>
+                <span class="tl-meta-item">📍 Thimphu, Bhutan</span>
+              </div>
+            </div>
+            <span class="tl-dur">4 weeks</span>
+          </div>
+          <ul class="tl-bullets">
+            <li>Led requirement elicitation for Phase 1 of Bhutan's GST project on behalf of DataTorque</li>
+            <li>Built and led the development team alongside local DRC Bhutan colleagues</li>
+            <li>Laid a strong foundation for the project's next phases</li>
+          </ul>
+          <a href="https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7272112029170081794-9OQK" target="_blank" class="btn-outline">
+            <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            View LinkedIn Post
+          </a>
+        </div>
+      </div>
+
+      <!-- Trip 2 -->
+      <div class="tl-item">
+        <div class="tl-year">2025</div>
+        <div class="tl-dot">✈</div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <div>
+              <div class="tl-trip-num">Trip 02</div>
+              <div class="tl-title">Tax Transformation Delivery</div>
+              <div class="tl-meta">
+                <span class="tl-meta-item">📅 April 2025</span>
+                <span class="tl-meta-item">📍 Thimphu, Bhutan</span>
+              </div>
+            </div>
+            <span class="tl-dur">2 weeks</span>
+          </div>
+          <ul class="tl-bullets">
+            <li>Productive project delivery sessions and strategic stakeholder discussions with DRC Bhutan</li>
+            <li>Deepened trust and collaboration with the client and in-country team</li>
+            <li>Hiked to Lungchutse Temple at 3,650 m — a reminder that transformation is about people</li>
+          </ul>
+          <a href="https://www.linkedin.com/posts/niraj-nagtilak_gratitude-bhutan-taxtransformation-activity-7339819308262313988-SrHt" target="_blank" class="btn-outline">
+            <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            View LinkedIn Post
+          </a>
+        </div>
+      </div>
+
+      <!-- Trip 3 -->
+      <div class="tl-item">
+        <div class="tl-dot">✈</div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <div>
+              <div class="tl-trip-num">Trip 03</div>
+              <div class="tl-title">Post Go-Live Support</div>
+              <div class="tl-meta">
+                <span class="tl-meta-item">📅 August 2025</span>
+                <span class="tl-meta-item">📍 Thimphu, Bhutan</span>
+              </div>
+            </div>
+            <span class="tl-dur">2 weeks</span>
+          </div>
+          <ul class="tl-bullets">
+            <li>Post go-live support following Phase 1 soft launch of the Bhutan Tax Reform Project</li>
+            <li>Introduced sprint demos and early-feedback loops — achieved &lt;5% defect rate to production</li>
+            <li>Fostered psychological safety so the team could surface issues early and confidently</li>
+          </ul>
+          <a href="https://www.linkedin.com/posts/niraj-nagtilak_leadership-softwareengineering-govtech-activity-7406060421947949056-ZK2v" target="_blank" class="btn-outline">
+            <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            View LinkedIn Post
+          </a>
+        </div>
+      </div>
+
+      <!-- Trip 4 -->
+      <div class="tl-item">
+        <div class="tl-dot">✈</div>
+        <div class="tl-card">
+          <div class="tl-card-head">
+            <div>
+              <div class="tl-trip-num">Trip 04</div>
+              <div class="tl-title">Phase 1 Live · Phase 2 Begins</div>
+              <div class="tl-meta">
+                <span class="tl-meta-item">📅 October 2025</span>
+                <span class="tl-meta-item">📍 Thimphu, Bhutan</span>
+              </div>
+            </div>
+            <span class="tl-dur">2 weeks</span>
+          </div>
+          <ul class="tl-bullets">
+            <li>Supported Phase 1 GST &amp; Excise Tax system live through peak filing period</li>
+            <li>Witnessed real impact — GST letters in pharmacies, taxpayer numbers on merchant receipts</li>
+            <li>Ran UAT preparation for Phase 2 and scoped future integrations with GST &amp; Income Tax offices</li>
+          </ul>
+          <a href="https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7439454462403837953-S7mt" target="_blank" class="btn-outline">
+            <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            View LinkedIn Post
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════
+     OPTION D — IMAGE SLIDESHOW
+     ════════════════════════════════════════════════════════════════ -->
+<div id="panel-d" class="option-panel" style="background:var(--background)">
+  <div class="section-wrap">
+
+    <div class="option-label">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
+      <strong>Option D</strong> — Full-bleed image slideshow with trip details panel. Auto-advances every 5 s. Swap placeholders for real photos.
+    </div>
+
+    <h2 class="section-title section-heading font-display">Bhutan Onsite Experience</h2>
+
+    <!-- Slideshow -->
+    <div class="slideshow-wrap" id="slideshow" onmouseenter="pauseSlide()" onmouseleave="resumeSlide()">
+
+      <!-- Photo track (single canvas, JS drives content) -->
+      <div class="slide-img-track">
+
+        <div class="slide-photo-canvas" id="sl-canvas">
+          <div class="slide-img-gradient"></div>
+          <span class="slide-img-badge" id="sl-photo-badge">Trip 01</span>
+          <div class="slide-ph-label" id="sl-ph-label">Drop your photo here</div>
+
+          <!-- Photo caption overlay -->
+          <div class="slide-photo-caption">
+            <span class="slide-photo-caption-text"  id="sl-caption-main"></span>
+            <span class="slide-photo-caption-sub"   id="sl-caption-sub"></span>
+          </div>
+
+          <!-- Inner photo navigation -->
+          <div class="photo-inner-nav">
+            <button class="photo-inner-arrow" onclick="movePhoto(-1)" aria-label="Previous photo">
+              <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="photo-inner-dots" id="sl-photo-dots"></div>
+            <span class="photo-counter-label" id="sl-photo-counter">1/3</span>
+            <button class="photo-inner-arrow" onclick="movePhoto(1)" aria-label="Next photo">
+              <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Trip-level arrows -->
+        <button class="slide-arrow prev" onclick="moveTrip(-1)" aria-label="Previous trip">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="slide-arrow next" onclick="moveTrip(1)" aria-label="Next trip">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
+      </div>
+
+      <!-- Info panel -->
+      <div class="slide-info-panel">
+
+        <div class="slide-counter">Trip <span id="sl-current">01</span> / 04</div>
+
+        <div>
+          <div id="sl-title" class="slide-title">Initial Onsite Delivery</div>
+          <div class="slide-meta" style="margin-top:.625rem">
+            <div class="slide-meta-row">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <span id="sl-date">November 2024</span>
+            </div>
+            <div class="slide-meta-row">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Thimphu, Bhutan
+            </div>
+          </div>
+          <span id="sl-dur" class="slide-dur-badge" style="margin-top:.625rem">4 weeks</span>
+        </div>
+
+        <ul id="sl-bullets" class="slide-bullets">
+          <li>Onsite discovery and requirements finalisation with Ministry of Finance stakeholders</li>
+          <li>Delivered first production-ready BITS sprint milestone end-to-end</li>
+          <li>Facilitated cross-functional workshops with tax officers, architects, and executives</li>
+        </ul>
+
+        <div>
+          <div class="slide-progress-bar"><div class="slide-progress-fill" id="sl-progress" style="width:25%"></div></div>
+        </div>
+
+        <a id="sl-link" href="https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7272112029170081794-9OQK" target="_blank" class="btn-outline" style="align-self:flex-start">
+          <svg class="li-icon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          View LinkedIn Post
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="slide-thumbs" id="sl-thumbs">
+      <div class="slide-thumb active" onclick="goToSlide(0)">
+        <div class="slide-thumb-img">🏔️</div>
+        <div class="slide-thumb-label">Trip 01</div>
+      </div>
+      <div class="slide-thumb" onclick="goToSlide(1)">
+        <div class="slide-thumb-img">🏛️</div>
+        <div class="slide-thumb-label">Trip 02</div>
+      </div>
+      <div class="slide-thumb" onclick="goToSlide(2)">
+        <div class="slide-thumb-img">🎯</div>
+        <div class="slide-thumb-label">Trip 03</div>
+      </div>
+      <div class="slide-thumb" onclick="goToSlide(3)">
+        <div class="slide-thumb-img">✅</div>
+        <div class="slide-thumb-label">Trip 04</div>
+      </div>
+    </div>
+
+    <!-- Dot indicators -->
+    <div class="slide-dots" id="sl-dots">
+      <div class="slide-dot active" onclick="goToSlide(0)"></div>
+      <div class="slide-dot" onclick="goToSlide(1)"></div>
+      <div class="slide-dot" onclick="goToSlide(2)"></div>
+      <div class="slide-dot" onclick="goToSlide(3)"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ── Tab / theme switching ─────────────────────────────────── */
+  function switchTab(id, btn) {
+    document.querySelectorAll('.option-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+  function setTheme(theme, dot) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('.theme-dot').forEach(d => d.classList.remove('active'));
+    dot.classList.add('active');
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     SLIDESHOW DATA  — each trip has its own photos array
+     Replace emoji/caption/bg with real <img> tags when ready
+     ══════════════════════════════════════════════════════════════ */
+  const trips = [
+    {
+      num: '01', title: 'GST Phase 1 — Requirements', date: 'November 2024', dur: '4 weeks',
+      link: 'https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7272112029170081794-9OQK',
+      bullets: [
+        'Led requirement elicitation for Phase 1 of Bhutan\'s GST project on behalf of DataTorque',
+        'Built and led the development team alongside local DRC Bhutan colleagues',
+        'Laid a strong foundation for the project\'s next phases',
+      ],
+      photos: [
+        { bg: 'linear-gradient(145deg,#0a1a0a,#123212)', emoji: '✈️', caption: 'Arriving in Thimphu',         sub: 'November 2024 · 4 weeks onsite' },
+        { bg: 'linear-gradient(145deg,#0d2a0d,#1a4a1a)', emoji: '🏔️', caption: 'Exploring Bhutan',            sub: 'Tiger\'s Nest, Paro Taktsang' },
+        { bg: 'linear-gradient(145deg,#112211,#1e3a1e)', emoji: '🏛️', caption: 'DRC Bhutan offices',          sub: 'Requirement elicitation sessions' },
+        { bg: 'linear-gradient(145deg,#0e2a0e,#163216)', emoji: '👥', caption: 'Team building with DRC',      sub: 'Collaboration with local colleagues' },
+        { bg: 'linear-gradient(145deg,#0b200b,#132813)', emoji: '🖥️', caption: 'GST Phase 1 scoping',         sub: 'Foundation set for next phases' },
+      ]
+    },
+    {
+      num: '02', title: 'Tax Transformation Delivery', date: 'April 2025', dur: '2 weeks',
+      link: 'https://www.linkedin.com/posts/niraj-nagtilak_gratitude-bhutan-taxtransformation-activity-7339819308262313988-SrHt',
+      bullets: [
+        'Productive project delivery sessions and strategic stakeholder discussions with DRC Bhutan',
+        'Deepened trust and collaboration with the client and in-country team',
+        'Hiked to Lungchutse Temple at 3,650 m — a reminder that transformation is about people',
+      ],
+      photos: [
+        { bg: 'linear-gradient(145deg,#0a0a1a,#121232)', emoji: '💼', caption: 'Project delivery sessions',   sub: 'Strategic work with DRC Bhutan' },
+        { bg: 'linear-gradient(145deg,#0d0d22,#181840)', emoji: '🤝', caption: 'Stakeholder discussions',     sub: 'Tax transformation progress' },
+        { bg: 'linear-gradient(145deg,#0c0c2a,#161650)', emoji: '⛰️', caption: 'Lungchutse Temple hike',      sub: '3,650 m above sea level' },
+        { bg: 'linear-gradient(145deg,#0a0a20,#14143a)', emoji: '🙏', caption: 'Reflection at the temple',   sub: 'Transformation is about people' },
+      ]
+    },
+    {
+      num: '03', title: 'Post Go-Live Support', date: 'August 2025', dur: '2 weeks',
+      link: 'https://www.linkedin.com/posts/niraj-nagtilak_leadership-softwareengineering-govtech-activity-7406060421947949056-ZK2v',
+      bullets: [
+        'Post go-live support following Phase 1 soft launch of the Bhutan Tax Reform Project',
+        'Introduced sprint demos and early-feedback loops — achieved <5% defect rate to production',
+        'Fostered psychological safety so the team could surface issues early and confidently',
+      ],
+      photos: [
+        { bg: 'linear-gradient(145deg,#1a0a0a,#321212)', emoji: '🚀', caption: 'Phase 1 soft launch',         sub: 'Bhutan Tax Reform Project live' },
+        { bg: 'linear-gradient(145deg,#2a0d0d,#401818)', emoji: '📊', caption: 'Sprint demo with client',     sub: 'Regular cadence established' },
+        { bg: 'linear-gradient(145deg,#220a0a,#381515)', emoji: '🛡️', caption: 'Early feedback mechanisms',  sub: '<5% defect rate to production' },
+      ]
+    },
+    {
+      num: '04', title: 'Phase 1 Live · Phase 2 Begins', date: 'October 2025', dur: '2 weeks',
+      link: 'https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7439454462403837953-S7mt',
+      bullets: [
+        'Supported Phase 1 GST & Excise Tax system live through peak filing period',
+        'Witnessed real impact — GST letters in pharmacies, taxpayer numbers on merchant receipts',
+        'Ran UAT preparation for Phase 2 and scoped future integrations with GST & Income Tax offices',
+      ],
+      photos: [
+        { bg: 'linear-gradient(145deg,#0a1212,#123232)', emoji: '🏪', caption: 'GST live in pharmacies',      sub: 'Registration letters in real use' },
+        { bg: 'linear-gradient(145deg,#0d1a1a,#1a3a3a)', emoji: '🧾', caption: 'Taxpayer numbers on receipts', sub: 'System impact visible everywhere' },
+        { bg: 'linear-gradient(145deg,#0a1818,#143030)', emoji: '📋', caption: 'Phase 2 UAT preparation',     sub: 'Next phase scoping underway' },
+        { bg: 'linear-gradient(145deg,#0c1c1c,#183030)', emoji: '🔗', caption: 'Integration scoping',         sub: 'GST & Income Tax office sessions' },
+      ]
+    },
+  ];
+
+  /* ── State ─────────────────────────────────────────────────── */
+  let curTrip  = 0;
+  let curPhoto = 0;
+  let autoTimer = null;
+
+  /* ── Render ────────────────────────────────────────────────── */
+  function render() {
+    const trip  = trips[curTrip];
+    const photo = trip.photos[curPhoto];
+
+    /* Canvas background & emoji */
+    const canvas = document.getElementById('sl-canvas');
+    canvas.style.background = photo.bg;
+    canvas.querySelector('.slide-ph-label').textContent = `Drop photo here → public/bhutan/trip-${curTrip + 1}/`;
+
+    /* Trip badge */
+    document.getElementById('sl-photo-badge').textContent = `Trip ${trip.num}`;
+
+    /* Photo caption */
+    document.getElementById('sl-caption-main').textContent = photo.caption;
+    document.getElementById('sl-caption-sub').textContent  = photo.sub;
+
+    /* Emoji (centre of canvas, behind everything) */
+    let emojiEl = canvas.querySelector('.sl-emoji');
+    if (!emojiEl) {
+      emojiEl = document.createElement('span');
+      emojiEl.className = 'sl-emoji';
+      emojiEl.style.cssText = 'font-size:4.5rem;z-index:0;position:relative;pointer-events:none;';
+      canvas.insertBefore(emojiEl, canvas.firstChild);
+    }
+    emojiEl.textContent = photo.emoji;
+
+    /* Photo dots */
+    const dotsEl = document.getElementById('sl-photo-dots');
+    dotsEl.innerHTML = trip.photos.map((_, i) =>
+      `<div class="photo-inner-dot${i === curPhoto ? ' active' : ''}" onclick="goToPhoto(${i})"></div>`
+    ).join('');
+
+    /* Photo counter */
+    document.getElementById('sl-photo-counter').textContent = `${curPhoto + 1}/${trip.photos.length}`;
+
+    /* Info panel */
+    document.getElementById('sl-current').textContent  = trip.num;
+    document.getElementById('sl-title').textContent    = trip.title;
+    document.getElementById('sl-date').textContent     = trip.date;
+    document.getElementById('sl-dur').textContent      = trip.dur;
+    document.getElementById('sl-link').href            = trip.link;
+    document.getElementById('sl-progress').style.width = ((curTrip + 1) / trips.length * 100) + '%';
+
+    const ul = document.getElementById('sl-bullets');
+    ul.innerHTML = trip.bullets.map(b => `<li>${b}</li>`).join('');
+
+    /* Trip thumbnails */
+    document.querySelectorAll('.slide-thumb').forEach((el, i) => el.classList.toggle('active', i === curTrip));
+
+    /* Outer dots */
+    document.querySelectorAll('.slide-dot').forEach((el, i) => el.classList.toggle('active', i === curTrip));
+  }
+
+  /* ── Navigation ────────────────────────────────────────────── */
+  function goToPhoto(idx) {
+    curPhoto = (idx + trips[curTrip].photos.length) % trips[curTrip].photos.length;
+    render();
+  }
+  function movePhoto(dir) { goToPhoto(curPhoto + dir); }
+
+  function goToTrip(idx) {
+    curTrip  = (idx + trips.length) % trips.length;
+    curPhoto = 0;
+    render();
+  }
+  function moveTrip(dir) { goToTrip(curTrip + dir); }
+
+  /* ── Auto-advance (cycles photos, then trips) ──────────────── */
+  function tick() {
+    const nextPhoto = curPhoto + 1;
+    if (nextPhoto < trips[curTrip].photos.length) {
+      goToPhoto(nextPhoto);
+    } else {
+      goToTrip(curTrip + 1);
+    }
+  }
+  function startAuto()  { autoTimer = setInterval(tick, 4000); }
+  function pauseSlide() { clearInterval(autoTimer); }
+  function resumeSlide(){ startAuto(); }
+
+  /* ── Keyboard ──────────────────────────────────────────────── */
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('panel-d').classList.contains('active')) return;
+    if (e.key === 'ArrowLeft')  movePhoto(-1);
+    if (e.key === 'ArrowRight') movePhoto(1);
+    if (e.key === 'ArrowUp')    moveTrip(-1);
+    if (e.key === 'ArrowDown')  moveTrip(1);
+  });
+
+  /* ── Touch swipe ───────────────────────────────────────────── */
+  (function() {
+    let sx = 0, sy = 0;
+    const track = document.querySelector('.slide-img-track');
+    track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - sx;
+      const dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) movePhoto(dx < 0 ? 1 : -1);
+    });
+  })();
+
+  /* ── Boot ──────────────────────────────────────────────────── */
+  render();
+  startAuto();
+</script>
+
+</body>
+</html>
