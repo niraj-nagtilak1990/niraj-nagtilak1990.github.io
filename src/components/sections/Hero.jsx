@@ -135,7 +135,7 @@ export default function Hero() {
                 }}
               />
               <img
-                src="/images/niraj-nagtilak-desktop.png"
+                src="/images/niraj-nagtilak-profile.jpg"
                 alt="Niraj Nagtilak"
                 className="relative z-10 w-64 h-64 lg:w-80 lg:h-80 rounded-full object-cover object-top"
                 style={{
