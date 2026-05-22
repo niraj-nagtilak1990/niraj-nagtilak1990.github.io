@@ -6,6 +6,8 @@ import About from './components/sections/About.jsx';
 import Traits from './components/sections/Traits.jsx';
 import Clients from './components/sections/Clients.jsx';
 import Domains from './components/sections/Domains.jsx';
+import Methodologies from './components/sections/Methodologies.jsx';
+import Timeline from './components/sections/Timeline.jsx';
 import Experience from './components/sections/Experience.jsx';
 import Skills from './components/sections/Skills.jsx';
 import Achievements from './components/sections/Achievements.jsx';
@@ -25,6 +27,8 @@ export default function App() {
           <Traits />
           <Clients />
           <Domains />
+          <Methodologies />
+          <Timeline />
           <Experience />
           <Skills />
           <Achievements />

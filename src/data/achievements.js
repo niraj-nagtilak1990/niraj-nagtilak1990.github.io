@@ -1,3 +1,5 @@
+import { yearsExp } from '../utils/yearsExperience.js';
+
 export const achievements = [
   {
     id: 1,
@@ -42,7 +44,7 @@ export const achievements = [
 ];
 
 export const stats = [
-  { value: '14+', label: 'Years Experience' },
+  { value: `${yearsExp}+`, label: 'Years Experience' },
   { value: '10+', label: 'Countries Served' },
   { value: '70+', label: 'Engineers Led' },
   { value: '100k', label: 'Txns/Day (BITS)' },

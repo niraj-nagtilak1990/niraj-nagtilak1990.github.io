@@ -56,4 +56,32 @@ export const skillCategories = [
       { name: 'Playwright', icon: 'SiPlaywright' },
     ],
   },
+  {
+    label: 'Architecture Patterns',
+    skills: [
+      { name: 'Event-Driven Architecture', icon: 'FiZap' },
+      { name: 'Microservices', icon: 'FiGrid' },
+      { name: 'CQRS', icon: 'FiArrowRight' },
+      { name: 'Domain-Driven Design', icon: 'FiLayers' },
+      { name: 'API-First / REST', icon: 'FiServer' },
+      { name: 'Clean Architecture', icon: 'FiCircle' },
+      { name: 'Outbox Pattern', icon: 'FiInbox' },
+      { name: 'BFF Pattern', icon: 'FiSliders' },
+      { name: 'Saga Pattern', icon: 'FiRefreshCw' },
+    ],
+  },
+  {
+    label: 'Tools & Workflow',
+    skills: [
+      { name: 'Visual Studio', icon: 'FiCode' },
+      { name: 'VS Code', icon: 'FiCode' },
+      { name: 'Azure DevOps', icon: 'SiAzuredevops' },
+      { name: 'Jira', icon: 'SiJira' },
+      { name: 'Confluence', icon: 'SiConfluence' },
+      { name: 'Postman', icon: 'SiPostman' },
+      { name: 'Swagger / OpenAPI', icon: 'SiSwagger' },
+      { name: 'SonarQube', icon: 'SiSonarqubeserver' },
+      { name: 'GitHub', icon: 'SiGit' },
+    ],
+  },
 ];

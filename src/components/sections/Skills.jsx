@@ -2,11 +2,13 @@ import {
   SiDotnet, SiTypescript, SiJavascript, SiReact, SiVuedotjs, SiRedux,
   SiKubernetes, SiDocker, SiJenkins, SiGit, SiJest,
   SiAngular, SiJquery, SiVite,
+  SiJira, SiConfluence, SiPostman, SiSwagger, SiSonarqubeserver,
 } from 'react-icons/si';
 import {
   FiCloud, FiDatabase, FiTerminal, FiGitBranch, FiCode, FiServer, FiPlay,
   FiCreditCard, FiDollarSign, FiFlag, FiBriefcase, FiPackage, FiFileText,
   FiRefreshCw, FiRotateCw, FiLayout, FiArrowDown, FiLayers, FiGitMerge,
+  FiZap, FiGrid, FiArrowRight, FiCircle, FiInbox, FiSliders,
 } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { skillCategories } from '../../data/skills.js';
@@ -34,6 +36,17 @@ const ICON_MAP = {
   SiAngular:            SiAngular,
   SiJquery:             SiJquery,
   SiVite:               SiVite,
+  SiJira:               SiJira,
+  SiConfluence:         SiConfluence,
+  SiPostman:            SiPostman,
+  SiSwagger:            SiSwagger,
+  SiSonarqubeserver:    SiSonarqubeserver,
+  FiZap:                FiZap,
+  FiGrid:               FiGrid,
+  FiArrowRight:         FiArrowRight,
+  FiCircle:             FiCircle,
+  FiInbox:              FiInbox,
+  FiSliders:            FiSliders,
   FiCreditCard:         FiCreditCard,
   FiDollarSign:         FiDollarSign,
   FiFlag:               FiFlag,

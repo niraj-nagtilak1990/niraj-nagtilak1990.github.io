@@ -1,4 +1,5 @@
 import AnimatedSection from '../ui/AnimatedSection.jsx';
+import { yearsExp } from '../../utils/yearsExperience.js';
 import { stats } from '../../data/achievements.js';
 
 export default function About() {
@@ -18,7 +19,7 @@ export default function About() {
             <div className="space-y-4 text-base leading-relaxed" style={{ color: 'var(--muted)' }}>
               <p>
                 I'm a <strong style={{ color: 'var(--foreground)' }}>Technical Lead and Software Architect</strong> with
-                14+ years shipping production systems for national governments, tier-1 banks, and large
+                {yearsExp}+ years shipping production systems for national governments, tier-1 banks, and large
                 enterprise clients across New Zealand, Australia, India, Bhutan, Guyana, Jersey, Belize,
                 and Cyprus.
               </p>

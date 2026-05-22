@@ -1,4 +1,4 @@
-import { FiEye, FiCode, FiZap, FiRepeat, FiTarget, FiUsers, FiLayers, FiGitMerge, FiPackage, FiRefreshCw } from 'react-icons/fi';
+import { FiEye, FiCode, FiZap, FiRepeat, FiTarget, FiUsers, FiLayers, FiGitMerge, FiPackage, FiRefreshCw, FiTrendingUp } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 
 const TRAITS = [
@@ -51,6 +51,11 @@ const TRAITS = [
     icon: FiRefreshCw,
     title: 'Adaptable',
     description: 'Has delivered across 10+ countries, tech stacks, and domains without missing a beat.',
+  },
+  {
+    icon: FiTrendingUp,
+    title: 'Business Mindset',
+    description: 'Comes from a business background — understands commercial context, speaks the language of stakeholders, and builds technology that solves real problems for real people.',
   },
 ];
 

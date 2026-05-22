@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { FiArrowDown, FiLinkedin, FiGithub } from 'react-icons/fi';
 import { FiMapPin } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext.jsx';
+import { yearsExp } from '../../utils/yearsExperience.js';
 
 const TITLES = ['Technical Lead', 'Software Architect', '.NET & Azure Specialist', 'Practice Lead'];
 
@@ -70,7 +71,7 @@ export default function Hero() {
               className="text-lg max-w-xl leading-relaxed"
               style={{ color: 'var(--muted)' }}
             >
-              14+ years architecting integration platforms and tax revenue systems for national
+              {yearsExp}+ years architecting integration platforms and tax revenue systems for national
               governments and tier-1 banks. Shipped production systems for{' '}
               <span style={{ color: 'var(--foreground)' }}>Bhutan, ANZ Bank, Mastercard,</span>{' '}
               Auckland Council, NZ Police and more.
@@ -147,7 +148,7 @@ export default function Hero() {
                 className="absolute -bottom-2 -right-2 z-20 glass rounded-xl px-3 py-2 text-xs font-medium shadow-lg"
                 style={{ color: 'var(--foreground)' }}
               >
-                <span style={{ color: 'var(--primary)' }}>14+</span> years
+                <span style={{ color: 'var(--primary)' }}>{yearsExp}+</span> years
               </div>
             </div>
           </motion.div>

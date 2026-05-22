@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
+import { yearsExp } from '../../utils/yearsExperience.js';
 
 const DOMAINS = [
   {
@@ -128,7 +129,7 @@ export default function Domains() {
             Industry Domains
           </h2>
           <p className="mb-12 text-base max-w-xl" style={{ color: 'var(--muted)' }}>
-            14 years across six distinct industries — each one shaping how I think about architecture, risk, and delivery.
+            {yearsExp} years across six distinct industries — each one shaping how I think about architecture, risk, and delivery.
           </p>
         </AnimatedSection>
 
