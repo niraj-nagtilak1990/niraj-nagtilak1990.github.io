@@ -47,6 +47,33 @@ export default function Hero() {
               <span className="gradient-text">Nagtilak</span>
             </motion.h1>
 
+            {/* Photo — mobile only, shown right after name */}
+            <motion.div
+              className="flex lg:hidden justify-center py-2"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+            >
+              <div className="relative">
+                <div
+                  className="absolute inset-0 rounded-full scale-105 opacity-30"
+                  style={{ background: `conic-gradient(from 0deg, var(--primary), transparent, var(--accent), transparent, var(--primary))` }}
+                />
+                <img
+                  src="/images/niraj-nagtilak-profile.jpg"
+                  alt="Niraj Nagtilak"
+                  className="relative z-10 w-48 h-48 rounded-full object-cover object-top"
+                  style={{ border: '3px solid var(--primary)', boxShadow: '0 0 40px rgba(0,0,0,0.3)' }}
+                />
+                <div
+                  className="absolute -bottom-2 -right-2 z-20 glass rounded-xl px-3 py-2 text-xs font-medium shadow-lg"
+                  style={{ color: 'var(--foreground)' }}
+                >
+                  <span style={{ color: 'var(--primary)' }}>{yearsExp}+</span> years
+                </div>
+              </div>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -119,9 +146,9 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Photo side */}
+          {/* Photo side — desktop only */}
           <motion.div
-            className="lg:col-span-2 flex justify-center"
+            className="hidden lg:flex lg:col-span-2 justify-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}

@@ -1,4 +1,5 @@
 import { ThemeProvider } from './context/ThemeContext.jsx';
+import PWAInstallPrompt from './components/ui/PWAInstallPrompt.jsx';
 import Navbar from './components/layout/Navbar.jsx';
 import Footer from './components/layout/Footer.jsx';
 import Hero from './components/sections/Hero.jsx';
@@ -34,6 +35,7 @@ export default function App() {
           <Contact />
         </main>
         <Footer />
+        <PWAInstallPrompt />
       </div>
     </ThemeProvider>
   );
