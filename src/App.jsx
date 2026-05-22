@@ -8,6 +8,7 @@ import Experience from './components/sections/Experience.jsx';
 import Skills from './components/sections/Skills.jsx';
 import Clients from './components/sections/Clients.jsx';
 import Domains from './components/sections/Domains.jsx';
+import BhutanTrips from './components/sections/BhutanTrips.jsx';
 import Timeline from './components/sections/Timeline.jsx';
 import Achievements from './components/sections/Achievements.jsx';
 import Recommendations from './components/sections/Recommendations.jsx';
@@ -26,7 +27,8 @@ export default function App() {
           <Skills />
           <Clients />
           <Domains />
-          <Timeline />
+          <BhutanTrips />
+          {/* <Timeline /> */}
           <Achievements />
           <Recommendations />
           <Contact />

@@ -31,7 +31,6 @@ export default function About() {
               <p>
                 Currently at <strong style={{ color: 'var(--foreground)' }}>DataTorque Ltd</strong> as Tech Lead on the
                 Bhutan Integrated Tax System (BITS), a national taxation platform I architected from the ground up.
-                The Payment API now handles 100k transactions per day for 200,000 Bhutanese taxpayers.
               </p>
               <p>
                 I have delivered across <strong style={{ color: 'var(--foreground)' }}>banking, payments, government, consulting, and product-based</strong> organisations,
@@ -42,14 +41,14 @@ export default function About() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-2 mt-6">
+            {/* <div className="flex flex-wrap gap-2 mt-6">
               {['C# / .NET', 'Azure', 'React', 'Vue.js', 'Microservices', 'Event-Driven', 'Bicep / IaC', 'DevOps'].map(tag => (
                 <span key={tag} className="px-3 py-1 text-xs font-medium rounded-full"
                   style={{ background: 'var(--surface)', color: 'var(--primary)', border: '1px solid var(--border)' }}>
                   {tag}
                 </span>
               ))}
-            </div>
+            </div> */}
 
           </AnimatedSection>
 

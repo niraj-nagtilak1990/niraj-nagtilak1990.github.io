@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
 
         <p className="text-xs" style={{ color: 'var(--muted)' }}>
-          Built with React · Deployed on GitHub Pages
+          Niraj.Nagtilak@gmail.com
         </p>
       </div>
     </footer>

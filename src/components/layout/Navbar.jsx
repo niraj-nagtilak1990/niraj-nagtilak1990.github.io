@@ -14,7 +14,7 @@ const NAV_GROUPS = [
     label: 'Experience',
     children: [
       { label: 'Experience', href: '#experience' },
-      { label: 'Journey',    href: '#timeline' },
+      // { label: 'Journey',    href: '#timeline' },
     ],
   },
   {

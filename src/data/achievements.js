@@ -41,6 +41,38 @@ export const achievements = [
     year: '2012–2013',
     description: 'Promoted from software trainee to Technical Lead in under a year based on consistent delivery performance.',
   },
+  {
+    id: 6,
+    icon: '🧪',
+    title: 'Introduced Web UI Testing',
+    org: 'DataTorque',
+    year: '2023',
+    description: 'Championed and led Web UI test automation — ran ~10 demos to win buy-in, then rolled out across all clients. Saves millions of dollars in manual regression testing on every build.',
+  },
+  {
+    id: 7,
+    icon: '🌐',
+    title: 'Web Guild Lead',
+    org: 'DataTorque',
+    year: '2022–present',
+    description: 'Sole web expert across the organisation — ran the Web Guild and maintained a 100% resolution rate. Every engineer who came with a web problem left with a solution.',
+  },
+  {
+    id: 8,
+    icon: '🔧',
+    title: 'Platform Health Budgeting',
+    org: 'Multiple Organisations',
+    year: 'Ongoing',
+    description: 'Convinced product owners across organisations to ring-fence 5–10% of every sprint for platform health — refactoring, debt removal, and test coverage. Kept codebases sustainable without sacrificing delivery velocity.',
+  },
+  {
+    id: 9,
+    icon: '🤖',
+    title: 'Led AI Adoption',
+    org: 'DataTorque',
+    year: '2024–present',
+    description: 'Self-taught AI tooling and built practical skills across the project team and wider organisation. Adoption drove 10–20% savings in developer effort per sprint — turning AI from a buzzword into a daily productivity multiplier.',
+  },
 ];
 
 export const stats = [
