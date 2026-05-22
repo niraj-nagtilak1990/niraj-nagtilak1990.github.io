@@ -1,18 +1,16 @@
-name: Deploy React Portfolio to GitHub Pages
+name: Build Check
 
 on:
   push:
     branches: ["master"]
-  workflow_dispatch:
-
-permissions:
-  contents: write
+  pull_request:
+    branches: ["master"]
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,10 +27,3 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: niraj.nagtilak.com
