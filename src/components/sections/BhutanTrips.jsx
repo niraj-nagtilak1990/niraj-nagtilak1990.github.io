@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { FiCalendar, FiMapPin, FiChevronLeft, FiChevronRight, FiExternalLink } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { bhutanTrips } from '../../data/bhutanTrips.js';
+import useIsMobile from '../../hooks/useIsMobile.js';
 
 function PhotoPane({ trip, photoIdx, onPhotoChange }) {
   const photo = trip.photos[photoIdx];
@@ -145,6 +146,7 @@ export default function BhutanTrips() {
   const timerRef = useRef(null);
 
   const trip = bhutanTrips[tripIdx];
+  const isMobile = useIsMobile();
 
   const goToTrip = useCallback((idx) => {
     setTripIdx((idx + bhutanTrips.length) % bhutanTrips.length);
@@ -299,34 +301,82 @@ export default function BhutanTrips() {
           </div>
         </AnimatedSection>
 
-        {/* Thumbnail strip */}
+        {/* Thumbnail strip — 4 buttons desktop/tablet, active-only on mobile */}
         <AnimatedSection delay={0.2}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginTop: '1.25rem' }}>
-            {bhutanTrips.map((t, i) => (
+          {isMobile ? (
+            /* Mobile: single active trip indicator with prev/next */
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '1.25rem' }}>
               <button
-                key={t.id}
-                onClick={() => goToTrip(i)}
+                onClick={() => goToTrip(tripIdx - 1)}
+                aria-label="Previous trip"
                 style={{
-                  background: i === tripIdx ? 'var(--card)' : 'var(--surface)',
-                  border: `2px solid ${i === tripIdx ? 'var(--primary)' : 'var(--border)'}`,
-                  borderRadius: '0.75rem', padding: '0.875rem 1rem',
-                  cursor: 'pointer', textAlign: 'left',
-                  transition: 'border-color 0.2s, transform 0.2s',
-                  transform: i === tripIdx ? 'translateY(-2px)' : 'none',
+                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  background: 'var(--surface)', border: '1px solid var(--border)',
+                  color: 'var(--foreground)', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
                 }}
               >
-                <div style={{ fontSize: '0.63rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--primary)' }}>
-                  Trip {t.num}
-                </div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--foreground)', margin: '0.1rem 0' }}>
-                  {t.date}
-                </div>
-                <div style={{ fontSize: '0.7rem', color: 'var(--muted)' }}>
-                  {t.duration} · {t.title}
-                </div>
+                <FiChevronLeft size={16} />
               </button>
-            ))}
-          </div>
+
+              <div style={{
+                flex: 1,
+                background: 'var(--card)', border: '2px solid var(--primary)',
+                borderRadius: '0.75rem', padding: '0.875rem 1rem', textAlign: 'left',
+              }}>
+                <div style={{ fontSize: '0.63rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--primary)' }}>
+                  Trip {trip.num} of {bhutanTrips.length}
+                </div>
+                <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--foreground)', margin: '0.1rem 0' }}>
+                  {trip.date}
+                </div>
+                <div style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>
+                  {trip.duration} · {trip.title}
+                </div>
+              </div>
+
+              <button
+                onClick={() => goToTrip(tripIdx + 1)}
+                aria-label="Next trip"
+                style={{
+                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  background: 'var(--surface)', border: '1px solid var(--border)',
+                  color: 'var(--foreground)', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                <FiChevronRight size={16} />
+              </button>
+            </div>
+          ) : (
+            /* Desktop/tablet: all 4 trip buttons */
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginTop: '1.25rem' }}>
+              {bhutanTrips.map((t, i) => (
+                <button
+                  key={t.id}
+                  onClick={() => goToTrip(i)}
+                  style={{
+                    background: i === tripIdx ? 'var(--card)' : 'var(--surface)',
+                    border: `2px solid ${i === tripIdx ? 'var(--primary)' : 'var(--border)'}`,
+                    borderRadius: '0.75rem', padding: '0.875rem 1rem',
+                    cursor: 'pointer', textAlign: 'left',
+                    transition: 'border-color 0.2s, transform 0.2s',
+                    transform: i === tripIdx ? 'translateY(-2px)' : 'none',
+                  }}
+                >
+                  <div style={{ fontSize: '0.63rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--primary)' }}>
+                    Trip {t.num}
+                  </div>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--foreground)', margin: '0.1rem 0' }}>
+                    {t.date}
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--muted)' }}>
+                    {t.duration} · {t.title}
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </AnimatedSection>
 
       </div>

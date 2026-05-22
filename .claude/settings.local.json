@@ -12,7 +12,8 @@
       "WebSearch",
       "PowerShell(node -e \"fetch\\('https://logo.clearbit.com/mastercard.com'\\).then\\(r => console.log\\(r.status, r.headers.get\\('content-type'\\)\\)\\).catch\\(e => console.log\\('fail', e.message\\)\\)\" 2>&1)",
       "WebFetch(domain:www.linkedin.com)",
-      "PowerShell(New-Item *)"
+      "PowerShell(New-Item *)",
+      "WebFetch(domain:niraj.nagtilak.com)"
     ]
   }
 }

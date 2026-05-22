@@ -56,9 +56,9 @@ export default function PWAInstallPrompt() {
     return (
       <div
         style={{
-          position: 'fixed', bottom: '1.25rem', left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 9999, width: 'calc(100% - 2rem)', maxWidth: '400px',
+          position: 'fixed', bottom: '1rem',
+          left: '0.75rem', right: '0.75rem',
+          zIndex: 9999, maxWidth: '420px', margin: '0 auto',
           background: 'var(--card)', border: '1px solid var(--border)',
           borderRadius: '1rem', padding: '1rem 1.25rem',
           boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
@@ -103,9 +103,9 @@ export default function PWAInstallPrompt() {
     return (
       <div
         style={{
-          position: 'fixed', bottom: '1.25rem', left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 9999, width: 'calc(100% - 2rem)', maxWidth: '400px',
+          position: 'fixed', bottom: '1rem',
+          left: '0.75rem', right: '0.75rem',
+          zIndex: 9999, maxWidth: '420px', margin: '0 auto',
           background: 'var(--card)', border: '1px solid var(--border)',
           borderRadius: '1rem', padding: '1rem 1.25rem',
           boxShadow: '0 8px 32px rgba(0,0,0,0.35)',

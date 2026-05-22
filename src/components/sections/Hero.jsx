@@ -4,7 +4,7 @@ import { FiMapPin } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { yearsExp } from '../../utils/yearsExperience.js';
 
-const TITLES = ['Technical Lead', 'Software Architect', '.NET & Azure Specialist', 'Practice Lead'];
+const TITLES = ['Software Architect', 'Engineering Leader', '.NET & Azure Specialist', 'Web Expert', 'Team Builder'];
 
 export default function Hero() {
   const { theme } = useTheme();
@@ -119,19 +119,19 @@ export default function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65 }}
-              className="flex flex-wrap gap-3 pt-2"
+              className="grid grid-cols-2 gap-3 pt-2 sm:flex sm:flex-wrap"
             >
-              <a href="#experience" className="btn-primary">
+              <a href="#experience" className="btn-primary justify-center sm:justify-start">
                 View My Work
               </a>
-              <a href="#contact" className="btn-outline">
+              <a href="#contact" className="btn-outline justify-center sm:justify-start">
                 Get In Touch
               </a>
               <a
                 href="https://www.linkedin.com/in/niraj-nagtilak/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline"
+                className="btn-outline justify-center sm:justify-start"
               >
                 <FiLinkedin size={16} aria-hidden="true" /> LinkedIn
               </a>
@@ -139,7 +139,7 @@ export default function Hero() {
                 href="https://github.com/niraj-nagtilak1990"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-outline"
+                className="btn-outline justify-center sm:justify-start"
               >
                 <FiGithub size={16} aria-hidden="true" /> GitHub
               </a>

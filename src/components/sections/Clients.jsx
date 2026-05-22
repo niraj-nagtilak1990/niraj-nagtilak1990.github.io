@@ -43,7 +43,7 @@ function MarqueeRow({ items, reverse = false }) {
       style={{ maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)', paddingTop: '12px', marginTop: '-12px' }}
     >
       <div
-        className={reverse ? 'animate-marquee-reverse' : 'animate-marquee'}
+        className={`clients-track ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}
         style={{ display: 'flex', gap: '1rem', width: 'max-content' }}
       >
         {[...items, ...items].map((client, i) => (
