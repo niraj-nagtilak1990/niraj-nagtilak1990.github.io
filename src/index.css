@@ -273,10 +273,6 @@ body {
 .client-card:hover span {
   color: var(--primary) !important;
 }
-@media (max-width: 640px) {
-  .client-card   { zoom: 0.6; }
-  .clients-track { gap: 0.625rem !important; }
-}
 
 /* ── Client marquee ───────────────────────────────────────────────────── */
 @keyframes marquee {

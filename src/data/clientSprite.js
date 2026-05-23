@@ -15,12 +15,12 @@ export const clientSprite = [
   },
   {
     "name": "Belize Tax Administration",
-    "url": "https://www.btb.gov.bz",
+    "url": "https://irisbelize.bts.gov.bz/",
     "x": 160
   },
   {
     "name": "Bhutan Revenue & Customs",
-    "url": "https://www.drcsm.gov.bt",
+    "url": "https://www.drc.gov.bt",
     "x": 240
   },
   {
@@ -30,12 +30,12 @@ export const clientSprite = [
   },
   {
     "name": "Cook Islands Revenue",
-    "url": "https://www.revenue.gov.ck",
+    "url": "https://tax.cookislands.gov.ck/",
     "x": 400
   },
   {
     "name": "Cyprus Tax Dept",
-    "url": "https://www.mof.gov.cy",
+    "url": "https://taxforall.mof.gov.cy/",
     "x": 480
   },
   {
@@ -45,7 +45,7 @@ export const clientSprite = [
   },
   {
     "name": "Guyana Revenue Authority",
-    "url": "https://www.gra.gov.gy",
+    "url": "https://eservices.gra.gov.gy/",
     "x": 640
   },
   {
@@ -54,7 +54,7 @@ export const clientSprite = [
     "x": 720
   },
   {
-    "name": "MBIE",
+    "name": "MBIE NZ",
     "url": "https://www.mbie.govt.nz",
     "x": 800
   },

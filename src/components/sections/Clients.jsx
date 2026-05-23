@@ -1,53 +1,74 @@
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { clientSprite, SLOT_W, SLOT_H, SPRITE_TOTAL_W } from '../../data/clientSprite.js';
+import useIsMobile from '../../hooks/useIsMobile.js';
 
-function SpriteCard({ client }) {
+function SpriteCard({ client, isMobile }) {
+  const scale     = isMobile ? 0.55 : 1;
+  const spriteW   = Math.round(SLOT_W * scale);
+  const spriteH   = Math.round(SLOT_H * scale);
+  const totalW    = Math.round(SPRITE_TOTAL_W * scale);
+  const posX      = Math.round(client.x * scale);
+  const cardSize  = isMobile ? 80 : 150;
+  const padding   = isMobile ? '0.5rem' : '1rem';
+
   return (
     <a
       href={client.url}
       target="_blank"
       rel="noopener noreferrer"
       title={client.name}
-      className="client-card flex-shrink-0 flex flex-col items-center justify-center gap-3 p-4 rounded-2xl glass cursor-pointer"
-      style={{ width: '150px', height: '150px', border: '1px solid var(--border)' }}
+      className="client-card flex-shrink-0 flex flex-col items-center justify-center rounded-2xl glass cursor-pointer"
+      style={{
+        width: `${cardSize}px`,
+        height: `${cardSize}px`,
+        border: '1px solid var(--border)',
+        padding,
+        gap: isMobile ? 0 : '0.75rem',
+      }}
     >
       <div
         style={{
-          width: `${SLOT_W}px`,
-          height: `${SLOT_H}px`,
+          width: `${spriteW}px`,
+          height: `${spriteH}px`,
           backgroundImage: 'url(/images/client-sprite.png)',
-          backgroundPosition: `-${client.x}px 0`,
-          backgroundSize: `${SPRITE_TOTAL_W}px ${SLOT_H}px`,
+          backgroundPosition: `-${posX}px 0`,
+          backgroundSize: `${totalW}px ${spriteH}px`,
           backgroundRepeat: 'no-repeat',
-          borderRadius: '10px',
+          borderRadius: '8px',
           overflow: 'hidden',
           flexShrink: 0,
         }}
         role="img"
         aria-label={client.name}
       />
-      <span
-        className="text-xs font-medium text-center leading-tight"
-        style={{ color: 'var(--muted)', maxWidth: '100px' }}
-      >
-        {client.name}
-      </span>
+      {!isMobile && (
+        <span
+          className="text-xs font-medium text-center leading-tight"
+          style={{ color: 'var(--muted)', maxWidth: '100px' }}
+        >
+          {client.name}
+        </span>
+      )}
     </a>
   );
 }
 
-function MarqueeRow({ items, reverse = false }) {
+function MarqueeRow({ items, reverse, isMobile }) {
   return (
     <div
       className="relative overflow-hidden"
-      style={{ maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)', paddingTop: '12px', marginTop: '-12px' }}
+      style={{
+        maskImage: 'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
+        paddingTop: '12px',
+        marginTop: '-12px',
+      }}
     >
       <div
         className={`clients-track ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}
-        style={{ display: 'flex', gap: '1rem', width: 'max-content' }}
+        style={{ display: 'flex', gap: isMobile ? '0.625rem' : '1rem', width: 'max-content' }}
       >
         {[...items, ...items].map((client, i) => (
-          <SpriteCard key={`${client.name}-${i}`} client={client} />
+          <SpriteCard key={`${client.name}-${i}`} client={client} isMobile={isMobile} />
         ))}
       </div>
     </div>
@@ -55,7 +76,8 @@ function MarqueeRow({ items, reverse = false }) {
 }
 
 export default function Clients() {
-  const mid = Math.ceil(clientSprite.length / 2);
+  const isMobile = useIsMobile();
+  const mid  = Math.ceil(clientSprite.length / 2);
   const row1 = clientSprite.slice(0, mid);
   const row2 = clientSprite.slice(mid);
 
@@ -83,8 +105,8 @@ export default function Clients() {
 
       <AnimatedSection delay={0.1}>
         <div className="flex flex-col" style={{ gap: '24px' }}>
-          <MarqueeRow items={row1} reverse={false} />
-          <MarqueeRow items={row2} reverse={true} />
+          <MarqueeRow items={row1} reverse={false} isMobile={isMobile} />
+          <MarqueeRow items={row2} reverse={true}  isMobile={isMobile} />
         </div>
       </AnimatedSection>
     </section>
