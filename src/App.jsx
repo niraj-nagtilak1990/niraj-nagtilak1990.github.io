@@ -20,7 +20,7 @@ export default function App() {
     <ThemeProvider>
       <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
         <Navbar />
-        <main>
+        <main id="main-content">
           <Hero />
           <About />
           <Traits />

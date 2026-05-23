@@ -59,12 +59,16 @@ export default function Hero() {
                   className="absolute inset-0 rounded-full scale-105 opacity-30"
                   style={{ background: `conic-gradient(from 0deg, var(--primary), transparent, var(--accent), transparent, var(--primary))` }}
                 />
-                <img
-                  src="/images/niraj-nagtilak-profile.jpg"
-                  alt="Niraj Nagtilak"
-                  className="relative z-10 w-48 h-48 rounded-full object-cover object-top"
+                <div
+                  className="relative z-10 w-48 h-48 rounded-full overflow-hidden"
                   style={{ border: '3px solid var(--primary)', boxShadow: '0 0 40px rgba(0,0,0,0.3)' }}
-                />
+                >
+                  <img
+                    src="/images/niraj-nagtilak-profile.jpg"
+                    alt="Niraj Nagtilak"
+                    className="w-full h-full object-cover object-top" style={{ transform: 'scale(1.2)' }}
+                  />
+                </div>
                 <div
                   className="absolute -bottom-2 -right-2 z-20 glass rounded-xl px-3 py-2 text-xs font-medium shadow-lg"
                   style={{ color: 'var(--foreground)' }}
@@ -98,7 +102,7 @@ export default function Hero() {
               className="text-lg max-w-xl leading-relaxed"
               style={{ color: 'var(--muted)' }}
             >
-              {yearsExp}+ years architecting integration platforms and tax revenue systems for national
+              {yearsExp}+ years architecting and building integration platforms and tax revenue systems for national
               governments and tier-1 banks. Shipped production systems for{' '}
               <span style={{ color: 'var(--foreground)' }}>Bhutan, ANZ Bank, Mastercard,</span>{' '}
               Auckland Council, NZ Police and more.
@@ -161,15 +165,16 @@ export default function Hero() {
                   background: `conic-gradient(from 0deg, var(--primary), transparent, var(--accent), transparent, var(--primary))`,
                 }}
               />
-              <img
-                src="/images/niraj-nagtilak-profile.jpg"
-                alt="Niraj Nagtilak"
-                className="relative z-10 w-64 h-64 lg:w-80 lg:h-80 rounded-full object-cover object-top"
-                style={{
-                  border: '3px solid var(--primary)',
-                  boxShadow: '0 0 60px rgba(0,0,0,0.3)',
-                }}
-              />
+              <div
+                className="relative z-10 w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden"
+                style={{ border: '3px solid var(--primary)', boxShadow: '0 0 60px rgba(0,0,0,0.3)' }}
+              >
+                <img
+                  src="/images/niraj-nagtilak-profile.jpg"
+                  alt="Niraj Nagtilak"
+                  className="w-full h-full object-cover object-top" style={{ transform: 'scale(1.5)' }}
+                />
+              </div>
               {/* Floating badge */}
               <div
                 className="absolute -bottom-2 -right-2 z-20 glass rounded-xl px-3 py-2 text-xs font-medium shadow-lg"

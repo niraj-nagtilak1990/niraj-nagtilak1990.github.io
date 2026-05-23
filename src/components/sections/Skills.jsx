@@ -9,6 +9,7 @@ import {
   FiCloud, FiDatabase, FiTerminal, FiGitBranch, FiCode, FiServer, FiPlay,
   FiRefreshCw, FiRotateCw, FiLayout, FiArrowDown, FiLayers, FiGitMerge,
   FiZap, FiGrid, FiArrowRight, FiCircle, FiInbox, FiSliders,
+  FiColumns, FiShield, FiShare2,
 } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from '../ui/AnimatedSection.jsx';

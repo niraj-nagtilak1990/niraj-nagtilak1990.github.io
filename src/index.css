@@ -190,6 +190,50 @@ body {
   border-top: 1px solid var(--border);
 }
 
+/* ── Focus visible ────────────────────────────────────────────────────── */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.form-input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 0;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .animate-bounce,
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-domain-float { animation: none !important; }
+}
+
+/* ── Skip navigation ──────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--primary);
+  color: var(--background);
+  font-weight: 700;
+  border-radius: 0 0 0.5rem 0.5rem;
+  z-index: 9999;
+  transition: top 0.2s;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+.skip-link:focus { top: 0; }
+
 /* ── Button primary ───────────────────────────────────────────────────── */
 .btn-primary {
   background: var(--primary);

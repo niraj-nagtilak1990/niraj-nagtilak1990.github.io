@@ -162,6 +162,20 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close mobile menu on Escape and return focus to toggle button
+  const menuBtnRef = useRef(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        menuBtnRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -177,6 +191,8 @@ export default function Navbar() {
   }, []);
 
   return (
+    <>
+    <a href="#main-content" className="skip-link">Skip to main content</a>
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
@@ -216,6 +232,8 @@ export default function Navbar() {
             style={{ color: 'var(--muted)' }}
             onClick={() => setMenuOpen(v => !v)}
             aria-label="Toggle menu"
+            aria-expanded={menuOpen}
+            ref={menuBtnRef}
           >
             {menuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>
@@ -249,5 +267,6 @@ export default function Navbar() {
         </div>
       )}
     </header>
+    </>
   );
 }

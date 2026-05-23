@@ -168,12 +168,13 @@ export default function Recommendations() {
 
               {/* Dots — desktop only (too many on mobile) */}
               {!isMobile && (
-                <div className="flex gap-2" role="group" aria-label="Recommendation pages">
+                <div className="flex gap-2" role="tablist" aria-label="Recommendation pages">
                   {Array.from({ length: totalPages }).map((_, i) => (
                     <button
                       key={i}
-                      aria-label={`Go to page ${i + 1}`}
-                      aria-current={i === page ? 'true' : undefined}
+                      role="tab"
+                      aria-label={`Page ${i + 1} of ${totalPages}`}
+                      aria-selected={i === page}
                       className="w-2 h-2 rounded-full transition-all"
                       style={{ background: i === page ? 'var(--primary)' : 'var(--border)' }}
                       onClick={() => setPage(i)}

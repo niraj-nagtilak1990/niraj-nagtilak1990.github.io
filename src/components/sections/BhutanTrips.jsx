@@ -104,18 +104,21 @@ function PhotoPane({ trip, photoIdx, onPhotoChange, isMobile }) {
 
         <div style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
           {trip.photos.map((_, i) => (
-            <div
+            <button
               key={i}
               onClick={() => onPhotoChange(i)}
+              aria-label={`Photo ${i + 1} of ${trip.photos.length}`}
+              aria-current={i === photoIdx ? 'true' : undefined}
               style={{
                 width: i === photoIdx ? 16 : 5,
                 height: 5, borderRadius: 999,
+                border: 'none', padding: 0, cursor: 'pointer',
                 background: i === photoIdx ? 'var(--primary)' : 'rgba(255,255,255,0.35)',
-                cursor: 'pointer',
                 transition: 'all 0.25s',
               }}
             />
           ))}
+
         </div>
 
         <span style={{ fontSize: '0.68rem', fontWeight: 600, color: 'rgba(255,255,255,0.55)', minWidth: 28, textAlign: 'center' }}>
