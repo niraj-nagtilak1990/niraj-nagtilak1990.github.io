@@ -10,7 +10,7 @@ function ExperienceCard({ job, index }) {
   return (
     <AnimatedSection delay={index * 0.08}>
       <div
-        className="relative pl-8 pb-10"
+        className="relative pl-5 sm:pl-8 pb-10"
         style={{ borderLeft: '2px solid var(--border)' }}
       >
         {/* Timeline dot */}

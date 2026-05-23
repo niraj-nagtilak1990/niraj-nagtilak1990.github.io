@@ -40,7 +40,7 @@ export default function Achievements() {
         {/* Impact numbers */}
         <AnimatedSection delay={0.3}>
           <div
-            className="rounded-2xl p-8 grid grid-cols-2 sm:grid-cols-4 gap-8 text-center"
+            className="rounded-2xl p-4 sm:p-8 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 text-center"
             style={{ background: 'var(--card)', border: '1px solid var(--border)' }}
           >
             {[

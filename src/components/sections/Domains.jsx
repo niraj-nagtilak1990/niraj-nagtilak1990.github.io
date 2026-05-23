@@ -74,7 +74,7 @@ function DomainCard({ domain, index }) {
       style={{ perspective: 800, transformStyle: 'preserve-3d' }}
     >
       <div
-        className="relative rounded-2xl p-6 h-full overflow-hidden cursor-default"
+        className="relative rounded-2xl p-4 sm:p-6 h-full overflow-hidden cursor-default"
         style={{
           background: domain.gradient,
           border: `1px solid ${domain.accent}30`,
@@ -85,7 +85,7 @@ function DomainCard({ domain, index }) {
         onMouseLeave={e => e.currentTarget.style.boxShadow = '0 4px 24px rgba(0,0,0,0.4)'}
       >
         {/* Animated floating icon */}
-        <div className="animate-domain-float mb-4 select-none" style={{ fontSize: '3rem', lineHeight: 1 }}>
+        <div className="animate-domain-float mb-4 select-none text-4xl sm:text-5xl" style={{ lineHeight: 1 }}>
           {domain.icon}
         </div>
 

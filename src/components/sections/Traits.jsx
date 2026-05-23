@@ -29,7 +29,7 @@ export default function Traits() {
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
           {TRAITS.map(({ icon: Icon, title }, i) => (
             <AnimatedSection key={title} delay={i * 0.04}>
               <div

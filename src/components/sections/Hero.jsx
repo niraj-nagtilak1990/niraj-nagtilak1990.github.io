@@ -40,7 +40,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold pb-3"
+              className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold pb-3"
               style={{ lineHeight: 1.15, color: 'var(--foreground)' }}
             >
               Niraj{' '}

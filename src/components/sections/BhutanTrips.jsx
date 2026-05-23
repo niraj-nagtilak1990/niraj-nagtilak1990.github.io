@@ -4,7 +4,7 @@ import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { bhutanTrips } from '../../data/bhutanTrips.js';
 import useIsMobile from '../../hooks/useIsMobile.js';
 
-function PhotoPane({ trip, photoIdx, onPhotoChange }) {
+function PhotoPane({ trip, photoIdx, onPhotoChange, isMobile }) {
   const photo = trip.photos[photoIdx];
   const [imgFailed, setImgFailed] = useState(false);
 
@@ -14,7 +14,7 @@ function PhotoPane({ trip, photoIdx, onPhotoChange }) {
   return (
     <div
       className="relative overflow-hidden"
-      style={{ background: trip.placeholderBg, minHeight: '420px', flexShrink: 0 }}
+      style={{ background: trip.placeholderBg, minHeight: isMobile ? '260px' : '420px', flexShrink: 0 }}
     >
       {/* Actual photo — hidden if load fails */}
       {!imgFailed && (
@@ -93,7 +93,7 @@ function PhotoPane({ trip, photoIdx, onPhotoChange }) {
           onClick={() => onPhotoChange((photoIdx - 1 + trip.photos.length) % trip.photos.length)}
           aria-label="Previous photo"
           style={{
-            width: 26, height: 26, borderRadius: '50%', cursor: 'pointer',
+            width: 44, height: 44, borderRadius: '50%', cursor: 'pointer',
             background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)',
             color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
             transition: 'background 0.2s', flexShrink: 0,
@@ -126,7 +126,7 @@ function PhotoPane({ trip, photoIdx, onPhotoChange }) {
           onClick={() => onPhotoChange((photoIdx + 1) % trip.photos.length)}
           aria-label="Next photo"
           style={{
-            width: 26, height: 26, borderRadius: '50%', cursor: 'pointer',
+            width: 44, height: 44, borderRadius: '50%', cursor: 'pointer',
             background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.25)',
             color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
             transition: 'background 0.2s', flexShrink: 0,
@@ -213,7 +213,7 @@ export default function BhutanTrips() {
                  className="bhutan-grid">
               {/* Photo pane */}
               <div style={{ position: 'relative' }}>
-                <PhotoPane trip={trip} photoIdx={photoIdx} onPhotoChange={goToPhoto} />
+                <PhotoPane trip={trip} photoIdx={photoIdx} onPhotoChange={goToPhoto} isMobile={isMobile} />
 
                 {/* Trip-level prev/next arrows */}
                 <button
@@ -221,7 +221,7 @@ export default function BhutanTrips() {
                   aria-label="Previous trip"
                   style={{
                     position: 'absolute', top: '50%', left: '0.75rem', transform: 'translateY(-50%)',
-                    width: 36, height: 36, borderRadius: '50%', zIndex: 10, cursor: 'pointer',
+                    width: 44, height: 44, borderRadius: '50%', zIndex: 10, cursor: 'pointer',
                     background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.15)',
                     color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     backdropFilter: 'blur(4px)', transition: 'background 0.2s',
@@ -234,7 +234,7 @@ export default function BhutanTrips() {
                   aria-label="Next trip"
                   style={{
                     position: 'absolute', top: '50%', right: '0.75rem', transform: 'translateY(-50%)',
-                    width: 36, height: 36, borderRadius: '50%', zIndex: 10, cursor: 'pointer',
+                    width: 44, height: 44, borderRadius: '50%', zIndex: 10, cursor: 'pointer',
                     background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.15)',
                     color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     backdropFilter: 'blur(4px)', transition: 'background 0.2s',
@@ -310,7 +310,7 @@ export default function BhutanTrips() {
                 onClick={() => goToTrip(tripIdx - 1)}
                 aria-label="Previous trip"
                 style={{
-                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
                   background: 'var(--surface)', border: '1px solid var(--border)',
                   color: 'var(--foreground)', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -339,7 +339,7 @@ export default function BhutanTrips() {
                 onClick={() => goToTrip(tripIdx + 1)}
                 aria-label="Next trip"
                 style={{
-                  width: 36, height: 36, borderRadius: '50%', flexShrink: 0,
+                  width: 44, height: 44, borderRadius: '50%', flexShrink: 0,
                   background: 'var(--surface)', border: '1px solid var(--border)',
                   color: 'var(--foreground)', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
