@@ -1,29 +1,50 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { FiMapPin, FiCalendar, FiChevronDown, FiChevronUp, FiAward } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { experience, education } from '../../data/experience.js';
 
 function ExperienceCard({ job, index }) {
   const [open, setOpen] = useState(index === 0);
+  const ref    = useRef(null);
+  // Active when card occupies the middle band of the viewport
+  const active = useInView(ref, { margin: '-10% 0px -35% 0px', once: false });
+
+  // Scroll-driven expand / collapse
+  useEffect(() => { setOpen(active); }, [active]);
 
   return (
     <AnimatedSection delay={index * 0.08}>
       <div
+        ref={ref}
         className="relative pl-5 sm:pl-8 pb-10"
-        style={{ borderLeft: '2px solid var(--border)' }}
+        style={{
+          borderLeft: `2px solid ${active ? 'var(--primary)' : 'var(--border)'}`,
+          transition: 'border-color 0.4s ease',
+        }}
       >
         {/* Timeline dot */}
-        <div
+        <motion.div
           className="absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2"
-          style={{
-            background: job.current ? 'var(--primary)' : 'var(--card)',
-            borderColor: job.current ? 'var(--primary)' : 'var(--border)',
-            boxShadow: job.current ? '0 0 0 4px rgba(var(--primary-rgb), 0.15)' : 'none',
+          animate={{
+            background:   active || job.current ? 'var(--primary)' : 'var(--card)',
+            borderColor:  active || job.current ? 'var(--primary)' : 'var(--border)',
+            boxShadow:    active ? '0 0 0 6px rgba(200,169,110,0.18)' : 'none',
           }}
+          transition={{ duration: 0.35 }}
         />
 
-        <div className="glass rounded-2xl overflow-hidden">
+        <motion.div
+          className="glass rounded-2xl overflow-hidden"
+          animate={active ? {
+            scale:     1.015,
+            boxShadow: '0 16px 48px rgba(0,0,0,0.25), 0 0 0 1.5px var(--primary)',
+          } : {
+            scale:     1,
+            boxShadow: '0 0 0 rgba(0,0,0,0)',
+          }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
+        >
           {/* Header — always visible */}
           <button
             className="w-full text-left p-5 flex items-start justify-between gap-4"
@@ -100,7 +121,7 @@ function ExperienceCard({ job, index }) {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
     </AnimatedSection>
   );
