@@ -75,6 +75,7 @@ export const experience = [
     location: 'Wellington, NZ',
     current: false,
     project: 'NZ Police — RIOD (Real-time Intelligence and Operational Deployment)',
+    awards: [{ title: 'Kudos of the Month', org: 'Capgemini NZ', date: '2022' }],
     stack: ['Azure Functions', 'Service Bus', '.NET 6', 'Cosmos DB', 'React.js', 'Redux', 'TypeScript'],
     highlights: [
       'Delivered full-stack capability across microservices, React frontend, and DevOps pipelines for 1000+ frontline officers.',

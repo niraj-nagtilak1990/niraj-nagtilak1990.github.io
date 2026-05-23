@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
-import { FiMapPin, FiCalendar, FiChevronDown, FiChevronUp, FiAward } from 'react-icons/fi';
+import { FiMapPin, FiCalendar, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { experience, education } from '../../data/experience.js';
 
@@ -66,10 +66,10 @@ function ExperienceCard({ job, index }) {
                 {job.awards?.map(a => (
                   <span
                     key={a.title}
-                    className="text-xs font-medium px-2 py-0.5 rounded-full flex items-center gap-1"
-                    style={{ background: 'var(--surface)', color: 'var(--accent)', border: '1px solid var(--accent)' }}
+                    className="text-xs font-semibold px-2 py-0.5 rounded-full flex items-center gap-1"
+                    style={{ background: '#F59E0B18', color: '#F59E0B', border: '1px solid #F59E0B60' }}
                   >
-                    <FiAward size={10} aria-hidden="true" /> {a.title}
+                    🏆 {a.title}
                   </span>
                 ))}
               </div>
