@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
 import ThemeSwitcher from '../ui/ThemeSwitcher.jsx';
+import NNLogo from '../ui/NNLogo.jsx';
 
 const NAV_GROUPS = [
   {
@@ -204,11 +205,8 @@ export default function Navbar() {
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group flex-shrink-0">
-          <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center font-display font-bold text-sm transition-transform group-hover:scale-105"
-            style={{ background: 'var(--primary)', color: 'var(--background)' }}
-          >
-            NN
+          <div className="transition-transform group-hover:scale-105">
+            <NNLogo size={36} />
           </div>
           <span className="font-display font-bold hidden sm:block" style={{ color: 'var(--foreground)' }}>
             Niraj Nagtilak

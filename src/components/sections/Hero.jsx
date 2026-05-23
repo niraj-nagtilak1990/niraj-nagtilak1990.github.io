@@ -3,6 +3,7 @@ import { FiArrowDown, FiLinkedin, FiGithub } from 'react-icons/fi';
 import { FiMapPin } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { yearsExp } from '../../utils/yearsExperience.js';
+import ShieldPhoto from '../ui/ShieldPhoto.jsx';
 
 const TITLES = ['Software Architect', 'Engineering Leader', '.NET & Azure Specialist', 'Web Expert', 'Team Builder'];
 
@@ -55,20 +56,11 @@ export default function Hero() {
               transition={{ delay: 0.3, duration: 0.6 }}
             >
               <div className="relative">
-                <div
-                  className="absolute inset-0 rounded-full scale-105 opacity-30"
-                  style={{ background: `conic-gradient(from 0deg, var(--primary), transparent, var(--accent), transparent, var(--primary))` }}
+                <ShieldPhoto
+                  src="/images/niraj-nagtilak-profile.jpg"
+                  alt="Niraj Nagtilak"
+                  size={230}
                 />
-                <div
-                  className="relative z-10 w-48 h-48 rounded-full overflow-hidden"
-                  style={{ border: '3px solid var(--primary)', boxShadow: '0 0 40px rgba(0,0,0,0.3)' }}
-                >
-                  <img
-                    src="/images/niraj-nagtilak-profile.jpg"
-                    alt="Niraj Nagtilak"
-                    className="w-full h-full object-cover object-top" style={{ transform: 'scale(1.2)' }}
-                  />
-                </div>
                 <div
                   className="absolute -bottom-2 -right-2 z-20 glass rounded-xl px-3 py-2 text-xs font-medium shadow-lg"
                   style={{ color: 'var(--foreground)' }}
@@ -158,23 +150,11 @@ export default function Hero() {
             transition={{ delay: 0.3, duration: 0.6 }}
           >
             <div className="relative">
-              {/* Decorative ring */}
-              <div
-                className="absolute inset-0 rounded-full scale-105 opacity-30"
-                style={{
-                  background: `conic-gradient(from 0deg, var(--primary), transparent, var(--accent), transparent, var(--primary))`,
-                }}
+              <ShieldPhoto
+                src="/images/niraj-nagtilak-profile.jpg"
+                alt="Niraj Nagtilak"
+                size={384}
               />
-              <div
-                className="relative z-10 w-64 h-64 lg:w-80 lg:h-80 rounded-full overflow-hidden"
-                style={{ border: '3px solid var(--primary)', boxShadow: '0 0 60px rgba(0,0,0,0.3)' }}
-              >
-                <img
-                  src="/images/niraj-nagtilak-profile.jpg"
-                  alt="Niraj Nagtilak"
-                  className="w-full h-full object-cover object-top" style={{ transform: 'scale(1.5)' }}
-                />
-              </div>
               {/* Floating badge */}
               <div
                 className="absolute -bottom-2 -right-2 z-20 glass rounded-xl px-3 py-2 text-xs font-medium shadow-lg"
