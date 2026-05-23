@@ -1,70 +1,103 @@
 import { useState, useEffect } from 'react';
 import { FiDownload, FiX, FiShare } from 'react-icons/fi';
 
+const LS_INSTALLED = 'pwa-installed';
+const LS_DISMISSED = 'pwa-prompt-dismissed';
+
 function isIOS() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
 }
-function isInStandaloneMode() {
-  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+function isStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches
+    || window.navigator.standalone === true;
+}
+function isAlreadyInstalled() {
+  return isStandalone() || localStorage.getItem(LS_INSTALLED) === '1';
+}
+function wasDismissed() {
+  return localStorage.getItem(LS_DISMISSED) === '1';
 }
 
 export default function PWAInstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState(null);  // Android
-  const [showIOS, setShowIOS]               = useState(false); // iOS
-  const [dismissed, setDismissed]           = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showIOS,        setShowIOS]        = useState(false);
+  const [hidden,         setHidden]         = useState(false);
 
   useEffect(() => {
-    // Don't show if already installed
-    if (isInStandaloneMode()) return;
-    // Don't show if user already dismissed
-    if (sessionStorage.getItem('pwa-prompt-dismissed')) return;
+    // Never show if already installed or user permanently dismissed
+    if (isAlreadyInstalled() || wasDismissed()) return;
+
+    // Mark installed whenever the app is installed in this session
+    const onInstalled = () => {
+      localStorage.setItem(LS_INSTALLED, '1');
+      setDeferredPrompt(null);
+      setHidden(true);
+    };
+    window.addEventListener('appinstalled', onInstalled);
 
     if (isIOS()) {
-      // Show iOS instruction banner after 3 s
       const t = setTimeout(() => setShowIOS(true), 3000);
-      return () => clearTimeout(t);
+      return () => {
+        clearTimeout(t);
+        window.removeEventListener('appinstalled', onInstalled);
+      };
     }
 
-    // Android / Chrome — capture the install event
-    const handler = (e) => {
+    // Android / Chrome — beforeinstallprompt only fires when NOT yet installed
+    const onPrompt = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
-    window.addEventListener('beforeinstallprompt', handler);
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    window.addEventListener('beforeinstallprompt', onPrompt);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', onPrompt);
+      window.removeEventListener('appinstalled', onInstalled);
+    };
   }, []);
 
   function dismiss() {
-    sessionStorage.setItem('pwa-prompt-dismissed', '1');
-    setDismissed(true);
+    // "Not now" → hide for this session only (use sessionStorage)
+    // so they might see it again next visit
+    sessionStorage.setItem(LS_DISMISSED, '1');
     setDeferredPrompt(null);
     setShowIOS(false);
+    setHidden(true);
+  }
+
+  function dismissForever() {
+    // "×" button → never show again on this device
+    localStorage.setItem(LS_DISMISSED, '1');
+    setDeferredPrompt(null);
+    setShowIOS(false);
+    setHidden(true);
   }
 
   async function installAndroid() {
     if (!deferredPrompt) return;
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') setDeferredPrompt(null);
-    dismiss();
+    if (outcome === 'accepted') {
+      localStorage.setItem(LS_INSTALLED, '1');
+    }
+    setDeferredPrompt(null);
+    setHidden(true);
   }
 
-  if (dismissed) return null;
+  if (hidden) return null;
 
-  // ── Android install button ───────────────────────────────────────
+  const bannerStyle = {
+    position: 'fixed', bottom: '1rem',
+    left: '0.75rem', right: '0.75rem',
+    zIndex: 9999, maxWidth: '420px', margin: '0 auto',
+    background: 'var(--card)', border: '1px solid var(--border)',
+    borderRadius: '1rem', padding: '1rem 1.25rem',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
+  };
+
+  // ── Android install button ─────────────────────────────────────
   if (deferredPrompt) {
     return (
-      <div
-        style={{
-          position: 'fixed', bottom: '1rem',
-          left: '0.75rem', right: '0.75rem',
-          zIndex: 9999, maxWidth: '420px', margin: '0 auto',
-          background: 'var(--card)', border: '1px solid var(--border)',
-          borderRadius: '1rem', padding: '1rem 1.25rem',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
-          display: 'flex', alignItems: 'center', gap: '1rem',
-        }}
-      >
+      <div style={{ ...bannerStyle, display: 'flex', alignItems: 'center', gap: '1rem' }}>
         <div style={{ fontSize: '1.75rem', flexShrink: 0 }}>📱</div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: '0.9rem', color: 'var(--foreground)' }}>
@@ -88,7 +121,7 @@ export default function PWAInstallPrompt() {
           <FiDownload size={13} /> Install
         </button>
         <button
-          onClick={dismiss}
+          onClick={dismissForever}
           style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--muted)', flexShrink: 0, padding: '0.25rem' }}
           aria-label="Dismiss"
         >
@@ -98,19 +131,10 @@ export default function PWAInstallPrompt() {
     );
   }
 
-  // ── iOS share instruction ────────────────────────────────────────
+  // ── iOS share instruction ──────────────────────────────────────
   if (showIOS) {
     return (
-      <div
-        style={{
-          position: 'fixed', bottom: '1rem',
-          left: '0.75rem', right: '0.75rem',
-          zIndex: 9999, maxWidth: '420px', margin: '0 auto',
-          background: 'var(--card)', border: '1px solid var(--border)',
-          borderRadius: '1rem', padding: '1rem 1.25rem',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
-        }}
-      >
+      <div style={{ ...bannerStyle, position: 'fixed' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.75rem' }}>
           <div style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
             <div style={{ fontSize: '1.75rem', flexShrink: 0 }}>📱</div>
@@ -134,14 +158,13 @@ export default function PWAInstallPrompt() {
             </div>
           </div>
           <button
-            onClick={dismiss}
+            onClick={dismissForever}
             style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--muted)', flexShrink: 0, padding: '0.25rem' }}
             aria-label="Dismiss"
           >
             <FiX size={16} />
           </button>
         </div>
-        {/* Arrow pointing down toward Safari toolbar */}
         <div style={{
           position: 'absolute', bottom: '-8px', left: '50%', transform: 'translateX(-50%)',
           width: 0, height: 0,

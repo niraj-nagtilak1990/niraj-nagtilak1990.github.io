@@ -65,6 +65,8 @@ export default function Recommendations() {
   const PER_PAGE = isMobile ? 1 : 3;
   const [page, setPage] = useState(0);
   const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+  const cardRef      = useRef(null);
 
   // Reset to first page when layout changes
   useEffect(() => { setPage(0); }, [isMobile]);
@@ -75,13 +77,30 @@ export default function Recommendations() {
   const prev = () => setPage(p => Math.max(0, p - 1));
   const next = () => setPage(p => Math.min(totalPages - 1, p + 1));
 
+  // Non-passive touchmove so we can preventDefault and stop page scroll
+  // during a horizontal swipe
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const onMove = (e) => {
+      if (touchStartX.current === null) return;
+      const dx = Math.abs(e.touches[0].clientX - touchStartX.current);
+      const dy = Math.abs(e.touches[0].clientY - (touchStartY.current ?? 0));
+      if (dx > dy && dx > 8) e.preventDefault();
+    };
+    el.addEventListener('touchmove', onMove, { passive: false });
+    return () => el.removeEventListener('touchmove', onMove);
+  }, []);
+
   function onTouchStart(e) {
     touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
   }
   function onTouchEnd(e) {
     if (touchStartX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     touchStartX.current = null;
+    touchStartY.current = null;
     if (Math.abs(dx) < 40) return;
     dx < 0 ? next() : prev();
   }
@@ -114,6 +133,7 @@ export default function Recommendations() {
 
         {/* Cards */}
         <div
+          ref={cardRef}
           className={`grid gap-6 min-h-[340px] ${isMobile ? 'grid-cols-1' : 'md:grid-cols-3'}`}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
