@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FiDownload, FiX, FiShare } from 'react-icons/fi';
+import { track } from '../../utils/analytics.js';
 
 const LS_INSTALLED = 'pwa-installed';
 const LS_DISMISSED = 'pwa-prompt-dismissed';
@@ -30,13 +31,17 @@ export default function PWAInstallPrompt() {
     // Mark installed whenever the app is installed in this session
     const onInstalled = () => {
       localStorage.setItem(LS_INSTALLED, '1');
+      track('pwa_install_completed');
       setDeferredPrompt(null);
       setHidden(true);
     };
     window.addEventListener('appinstalled', onInstalled);
 
     if (isIOS()) {
-      const t = setTimeout(() => setShowIOS(true), 3000);
+      const t = setTimeout(() => {
+        setShowIOS(true);
+        track('pwa_prompt_shown', { platform: 'ios' });
+      }, 3000);
       return () => {
         clearTimeout(t);
         window.removeEventListener('appinstalled', onInstalled);
@@ -47,6 +52,7 @@ export default function PWAInstallPrompt() {
     const onPrompt = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
+      track('pwa_prompt_shown', { platform: 'android' });
     };
     window.addEventListener('beforeinstallprompt', onPrompt);
     return () => {
@@ -56,8 +62,7 @@ export default function PWAInstallPrompt() {
   }, []);
 
   function dismiss() {
-    // "Not now" → hide for this session only (use sessionStorage)
-    // so they might see it again next visit
+    track('pwa_prompt_dismissed', { permanent: false });
     sessionStorage.setItem(LS_DISMISSED, '1');
     setDeferredPrompt(null);
     setShowIOS(false);
@@ -65,7 +70,7 @@ export default function PWAInstallPrompt() {
   }
 
   function dismissForever() {
-    // "×" button → never show again on this device
+    track('pwa_prompt_dismissed', { permanent: true });
     localStorage.setItem(LS_DISMISSED, '1');
     setDeferredPrompt(null);
     setShowIOS(false);
@@ -74,8 +79,10 @@ export default function PWAInstallPrompt() {
 
   async function installAndroid() {
     if (!deferredPrompt) return;
+    track('pwa_install_clicked');
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
+    track('pwa_install_outcome', { outcome });   // 'accepted' or 'dismissed'
     if (outcome === 'accepted') {
       localStorage.setItem(LS_INSTALLED, '1');
     }

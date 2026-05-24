@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext.jsx';
+import { track } from './utils/analytics.js';
 import PWAInstallPrompt from './components/ui/PWAInstallPrompt.jsx';
 import Navbar from './components/layout/Navbar.jsx';
 import Footer from './components/layout/Footer.jsx';
@@ -16,9 +18,24 @@ import Achievements from './components/sections/Achievements.jsx';
 import Recommendations from './components/sections/Recommendations.jsx';
 import Contact from './components/sections/Contact.jsx';
 
+function AppInner() {
+  // Fire once — detects if user launched from installed PWA
+  useEffect(() => {
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true;
+    if (isStandalone) {
+      const platform = /iphone|ipad|ipod/i.test(navigator.userAgent) ? 'ios' : 'android';
+      track('pwa_app_launch', { platform });
+    }
+  }, []);
+
+  return null; // logic only — rendered inside ThemeProvider below
+}
+
 export default function App() {
   return (
     <ThemeProvider>
+      <AppInner />
       <div style={{ background: 'var(--background)', minHeight: '100vh' }}>
         <Navbar />
         <main id="main-content">
