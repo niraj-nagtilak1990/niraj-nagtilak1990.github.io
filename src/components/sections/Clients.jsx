@@ -40,6 +40,7 @@ function SpriteCard({ client, isMobile }) {
         }}
         role="img"
         aria-label={client.name}
+        className="client-sprite"
       />
       {!isMobile && (
         <span
