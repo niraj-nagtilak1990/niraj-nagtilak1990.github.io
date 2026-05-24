@@ -14,24 +14,11 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
 
-const clients = [
-  { name: 'ANZ Bank',                 domain: 'anz.com',                  url: 'https://www.anz.co.nz' },
-  { name: 'Auckland Council',         domain: 'aucklandcouncil.govt.nz',  url: 'https://www.aucklandcouncil.govt.nz' },
-  { name: 'Belize Tax Administration',domain: 'btb.gov.bz',               url: 'https://www.btb.gov.bz' },
-  { name: 'Bhutan Revenue & Customs', domain: 'drcsm.gov.bt',             url: 'https://www.drcsm.gov.bt' },
-  { name: 'Capgemini',                domain: 'capgemini.com',            url: 'https://www.capgemini.com' },
-  { name: 'Cook Islands Revenue',     domain: 'revenue.gov.ck',           url: 'https://www.revenue.gov.ck' },
-  { name: 'Cyprus Tax Dept',          domain: 'mof.gov.cy',               url: 'https://www.mof.gov.cy' },
-  { name: 'DataTorque',               domain: 'datatorque.com',           url: 'https://www.datatorque.com' },
-  { name: 'Guyana Revenue Authority', domain: 'gra.gov.gy',               url: 'https://www.gra.gov.gy' },
-  { name: 'Mastercard',               domain: 'mastercard.com',           url: 'https://www.mastercard.com' },
-  { name: 'MBIE',                     domain: 'mbie.govt.nz',             url: 'https://www.mbie.govt.nz' },
-  { name: 'Ministry of Education NZ', domain: 'education.govt.nz',        url: 'https://www.education.govt.nz' },
-  { name: 'NZ Police',                domain: 'police.govt.nz',           url: 'https://www.police.govt.nz' },
-  { name: 'SMC Global',               domain: 'smcglobal.com',            url: 'https://www.smcglobal.com' },
-  { name: 'Smart Salary',             domain: 'smartsalary.com.au',       url: 'https://www.smartsalary.com.au' },
-  { name: 'Toyota NZ',                domain: 'toyota.co.nz',             url: 'https://www.toyota.co.nz' },
-];
+// Single source of truth — names & URLs come from clients.js
+import { clients as clientData } from '../src/data/clients.js';
+
+// Build the clients array for the sprite (filter out any without a LOCAL_KEY entry later)
+const clients = clientData.map(c => ({ name: c.name, url: c.url, domain: c.domain }));
 
 const SLOT_W = 80;
 const SLOT_H = 80;
@@ -73,6 +60,9 @@ const LOCAL_KEY = {
   'SMC Global':                'smc-global',
   'Smart Salary':              'smart-salary',
   'Toyota NZ':                 'toyota-orig',
+  'Perpetual Guardian':        'perpetual-guardian',
+  'Fire & Emergency NZ':       'fenz',
+  'Itemize':                   'itemize',
 };
 
 async function fetchLogos() {
