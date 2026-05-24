@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { FiMapPin, FiCalendar, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { experience, education } from '../../data/experience.js';
+import { track } from '../../utils/analytics.js';
 
 function ExperienceCard({ job, index }) {
   const [open, setOpen] = useState(index === 0);
@@ -13,7 +14,10 @@ function ExperienceCard({ job, index }) {
   // Expand on scroll-in (debounced) — never auto-collapse on scroll-out
   useEffect(() => {
     if (!active) return;
-    const t = setTimeout(() => setOpen(true), 350);
+    const t = setTimeout(() => {
+      setOpen(true);
+      track('experience_card_viewed', { company: job.company, role: job.role });
+    }, 350);
     return () => clearTimeout(t);
   }, [active]);
 
@@ -52,7 +56,12 @@ function ExperienceCard({ job, index }) {
           {/* Header — always visible */}
           <button
             className="w-full text-left p-5 flex items-start justify-between gap-4"
-            onClick={() => setOpen(v => !v)}
+            onClick={() => {
+              setOpen(v => {
+                if (!v) track('experience_card_clicked', { company: job.company, role: job.role });
+                return !v;
+              });
+            }}
           >
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1">

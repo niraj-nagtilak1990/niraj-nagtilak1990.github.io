@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiInstagram, FiSend } from 'react-icons/fi';
 import { FaTwitter, FaBlog } from 'react-icons/fa';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
+import { track } from '../../utils/analytics.js';
 
 const SOCIAL = [
   { icon: FiLinkedin,  href: 'https://www.linkedin.com/in/niraj-nagtilak/',  label: 'LinkedIn',  handle: 'niraj-nagtilak' },
@@ -29,6 +30,7 @@ export default function Contact() {
       if (res.ok) {
         setStatus('sent');
         setForm({ name: '', email: '', message: '' });
+        track('contact_form_submitted');
       } else {
         setStatus('error');
       }
@@ -131,6 +133,7 @@ export default function Contact() {
                   style={{ textDecoration: 'none' }}
                   onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--primary)'}
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
+                  onClick={() => track('social_click', { platform: label, location: 'contact' })}
                 >
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors"

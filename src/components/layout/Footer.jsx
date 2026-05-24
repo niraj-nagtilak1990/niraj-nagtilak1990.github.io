@@ -1,6 +1,7 @@
 import { FiGithub, FiLinkedin, FiMail, FiInstagram } from 'react-icons/fi';
 import { FaTwitter, FaBlog } from 'react-icons/fa';
 import NNLogo from '../ui/NNLogo.jsx';
+import { track } from '../../utils/analytics.js';
 
 const SOCIAL = [
   { icon: FiLinkedin,  href: 'https://www.linkedin.com/in/niraj-nagtilak/',         label: 'LinkedIn' },
@@ -46,6 +47,7 @@ export default function Footer() {
               style={{ color: 'var(--muted)' }}
               onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
               onMouseLeave={e => e.currentTarget.style.color = 'var(--muted)'}
+              onClick={() => track('social_click', { platform: label, location: 'footer' })}
             >
               <Icon size={18} aria-hidden="true" />
             </a>

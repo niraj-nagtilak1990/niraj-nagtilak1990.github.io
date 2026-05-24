@@ -3,6 +3,7 @@ import { FiCalendar, FiMapPin, FiChevronLeft, FiChevronRight, FiExternalLink } f
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { bhutanTrips } from '../../data/bhutanTrips.js';
 import useIsMobile from '../../hooks/useIsMobile.js';
+import { track } from '../../utils/analytics.js';
 
 function PhotoPane({ trip, photoIdx, onPhotoChange, isMobile }) {
   const photo = trip.photos[photoIdx];
@@ -155,8 +156,10 @@ export default function BhutanTrips() {
   const isMobile = useIsMobile();
 
   const goToTrip = useCallback((idx) => {
-    setTripIdx((idx + bhutanTrips.length) % bhutanTrips.length);
+    const next = (idx + bhutanTrips.length) % bhutanTrips.length;
+    setTripIdx(next);
     setPhotoIdx(0);
+    track('bhutan_trip_selected', { trip_num: bhutanTrips[next].num, trip_title: bhutanTrips[next].title });
   }, []);
 
   const goToPhoto = useCallback((idx) => {
@@ -299,6 +302,7 @@ export default function BhutanTrips() {
                   rel="noopener noreferrer"
                   className="btn-outline"
                   style={{ alignSelf: 'flex-start', fontSize: '0.78rem', padding: '0.4rem 0.875rem' }}
+                  onClick={() => track('bhutan_linkedin_click', { trip_num: trip.num, trip_title: trip.title })}
                 >
                   <FiExternalLink size={13} /> View LinkedIn Post
                 </a>

@@ -3,6 +3,7 @@ import { FiChevronLeft, FiChevronRight, FiExternalLink } from 'react-icons/fi';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { recommendations } from '../../data/recommendations.js';
 import useIsMobile from '../../hooks/useIsMobile.js';
+import { track } from '../../utils/analytics.js';
 
 function Avatar({ rec }) {
   const [imgError, setImgError] = useState(false);
@@ -125,6 +126,7 @@ export default function Recommendations() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm font-medium"
               style={{ color: 'var(--primary)' }}
+              onClick={() => track('recommendations_linkedin_click')}
             >
               View on LinkedIn <FiExternalLink size={14} />
             </a>

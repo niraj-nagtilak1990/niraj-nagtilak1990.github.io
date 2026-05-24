@@ -14,6 +14,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 import { skillCategories } from '../../data/skills.js';
+import { track } from '../../utils/analytics.js';
 
 const ICON_MAP = {
   SiDotnet: SiDotnet, SiTypescript: SiTypescript, SiJavascript: SiJavascript,
@@ -164,7 +165,8 @@ export default function Skills() {
                         return (
                           <div key={skill.name}
                             className="skill-badge flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium"
-                            style={{ background: 'var(--surface)', color: 'var(--foreground)', border: '1px solid var(--border)', cursor: 'default' }}>
+                            style={{ background: 'var(--surface)', color: 'var(--foreground)', border: '1px solid var(--border)', cursor: 'default' }}
+                            onClick={() => track('skill_click', { skill_name: skill.name, category: cat.label })}>
                             {Icon && <Icon size={14} style={{ color: 'var(--primary)' }} aria-hidden="true" />}
                             {skill.name}
                           </div>

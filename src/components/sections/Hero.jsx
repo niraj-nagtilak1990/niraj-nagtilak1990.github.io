@@ -4,6 +4,7 @@ import { FiMapPin } from 'react-icons/fi';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { yearsExp } from '../../utils/yearsExperience.js';
 import ShieldPhoto from '../ui/ShieldPhoto.jsx';
+import { track } from '../../utils/analytics.js';
 
 const TITLES = ['Software Architect', 'Engineering Leader', '.NET & Azure Specialist', 'Web Expert', 'Team Builder'];
 
@@ -117,25 +118,27 @@ export default function Hero() {
               transition={{ delay: 0.65 }}
               className="grid grid-cols-2 gap-3 pt-2 sm:flex sm:flex-wrap"
             >
-              <a href="#experience" className="btn-primary justify-center sm:justify-start">
+              <a href="#experience" className="btn-primary justify-center sm:justify-start"
+                onClick={() => track('cta_click', { button: 'view_my_work' })}>
                 View My Work
               </a>
-              <a href="#contact" className="btn-outline justify-center sm:justify-start">
+              <a href="#contact" className="btn-outline justify-center sm:justify-start"
+                onClick={() => track('cta_click', { button: 'get_in_touch' })}>
                 Get In Touch
               </a>
               <a
                 href="https://www.linkedin.com/in/niraj-nagtilak/"
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="btn-outline justify-center sm:justify-start"
+                onClick={() => track('social_click', { platform: 'LinkedIn', location: 'hero' })}
               >
                 <FiLinkedin size={16} aria-hidden="true" /> LinkedIn
               </a>
               <a
                 href="https://github.com/niraj-nagtilak1990"
-                target="_blank"
-                rel="noopener noreferrer"
+                target="_blank" rel="noopener noreferrer"
                 className="btn-outline justify-center sm:justify-start"
+                onClick={() => track('social_click', { platform: 'GitHub', location: 'hero' })}
               >
                 <FiGithub size={16} aria-hidden="true" /> GitHub
               </a>
