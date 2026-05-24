@@ -1,12 +1,13 @@
 /**
- * Push a custom event to GTM's dataLayer.
- * Safe — silently does nothing if GTM hasn't loaded yet.
+ * Send a custom event to Google Analytics GA4 via gtag().
+ * Safe — silently does nothing if GA4 hasn't loaded yet.
  */
 export function track(event, params = {}) {
   try {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event, ...params });
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', event, params);
+    }
   } catch {
-    // GTM not loaded — ignore
+    // GA4 not loaded yet — ignore
   }
 }
