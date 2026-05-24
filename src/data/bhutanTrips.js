@@ -2,7 +2,7 @@ export const bhutanTrips = [
   {
     id: 1,
     num: '01',
-    title: 'GST Phase 1 — Requirements',
+    title: 'GST Phase 1: Requirements',
     date: 'November 2024',
     duration: '4 weeks',
     linkedIn: 'https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7272112029170081794-9OQK',
@@ -32,7 +32,7 @@ export const bhutanTrips = [
     bullets: [
       'Productive project delivery sessions and strategic stakeholder discussions with DRC Bhutan',
       'Deepened trust and collaboration with the client and in-country team',
-      'Hiked to Lungchutse Temple at 3,650 m — a reminder that transformation is about people',
+      'Hiked to Lungchutse Temple at 3,650 m, a reminder that transformation is about people',
     ],
     photos: [
       { src: '/bhutan/trip-2/1.jpeg', caption: 'Lungchutse Temple hike',     sub: '3,650 m above sea level' },
@@ -49,7 +49,7 @@ export const bhutanTrips = [
     linkedIn: 'https://www.linkedin.com/posts/niraj-nagtilak_leadership-softwareengineering-govtech-activity-7406060421947949056-ZK2v',
     bullets: [
       'Post go-live support following Phase 1 soft launch of the Bhutan Tax Reform Project',
-      'Introduced sprint demos and early-feedback loops — achieved <5% defect rate to production',
+      'Introduced sprint demos and early-feedback loops, achieving under 5% defect rate to production',
       'Fostered psychological safety so the team could surface issues early and confidently',
     ],
     photos: [
@@ -67,7 +67,7 @@ export const bhutanTrips = [
     linkedIn: 'https://www.linkedin.com/posts/niraj-nagtilak_bhutan-activity-7439454462403837953-S7mt',
     bullets: [
       'Supported Phase 1 GST & Excise Tax system live through peak filing period',
-      'Witnessed real impact — GST letters in pharmacies, taxpayer numbers on merchant receipts',
+      'Witnessed real impact: GST letters in pharmacies, taxpayer numbers on merchant receipts',
       'Ran UAT preparation for Phase 2 and scoped future integrations with GST & Income Tax offices',
     ],
     photos: [

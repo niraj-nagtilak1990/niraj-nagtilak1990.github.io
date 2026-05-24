@@ -23,7 +23,7 @@ export const experience = [
     period: 'Mar 2024 – Jul 2024',
     location: 'Wellington, NZ',
     current: false,
-    project: 'SmartGroup — Government Customer Portal & Signup System',
+    project: 'SmartGroup: Government Customer Portal & Signup System',
     stack: ['.NET 6', 'React.js', 'Azure B2C', 'Optimizely CMS 12', 'Azure DevOps'],
     highlights: [
       'Led backend delivery across 2 parallel Optimizely CMS 12 / .NET 6 / React.js applications with 10+ engineers.',
@@ -40,7 +40,7 @@ export const experience = [
     period: 'Jul 2023 – Mar 2024',
     location: 'Wellington, NZ',
     current: false,
-    project: 'Toyota NZ — Customer-Facing Digital Platform',
+    project: 'Toyota NZ: Customer-Facing Digital Platform',
     stack: ['Azure Functions', 'Service Bus', '.NET 6', 'Optimizely CMS', 'Vue.JS 3', 'TypeScript', 'YAML'],
     highlights: [
       'Promoted from Senior Engineer to Team Lead within 2 months.',
@@ -57,7 +57,7 @@ export const experience = [
     period: 'Jan 2023 – Jun 2023',
     location: 'Wellington, NZ',
     current: false,
-    project: 'Auckland Council — Enterprise Integration Platform (TAU)',
+    project: 'Auckland Council: Enterprise Integration Platform (TAU)',
     stack: ['Azure Functions v4', '.NET 6', 'Service Bus', 'APIM', 'Application Insights', 'Bicep', 'Azure DevOps'],
     highlights: [
       'Architected and shipped Auckland Council\'s greenfield integration platform from empty repo to production in 4 months.',
@@ -74,7 +74,7 @@ export const experience = [
     period: 'Jul 2022 – Dec 2022',
     location: 'Wellington, NZ',
     current: false,
-    project: 'NZ Police — RIOD (Real-time Intelligence and Operational Deployment)',
+    project: 'NZ Police: RIOD (Real-time Intelligence and Operational Deployment)',
     awards: [{ title: 'Kudos of the Month', org: 'Capgemini NZ', date: '2022' }],
     stack: ['Azure Functions', 'Service Bus', '.NET 6', 'Cosmos DB', 'React.js', 'Redux', 'TypeScript'],
     highlights: [
@@ -91,7 +91,7 @@ export const experience = [
     period: 'Feb 2020 – Jun 2022',
     location: 'Wellington, NZ',
     current: false,
-    project: 'Revenue Management Systems — Guyana, Jersey, Belize, Cyprus',
+    project: 'Revenue Management Systems, Guyana, Jersey, Belize, Cyprus',
     stack: ['C#', '.NET Core 3.1', 'Web API', 'Vue.js', 'MS SQL Server', 'Cypress.IO', 'Azure DevOps YAML'],
     highlights: [
       'Practice lead across 70-80 engineers on 4 concurrent national revenue programs.',
@@ -108,7 +108,7 @@ export const experience = [
     period: 'Jun 2019 – Jan 2020',
     location: 'Wellington, NZ',
     current: false,
-    project: 'Helios — Property Management Portal for NZ Public Schools',
+    project: 'Helios: Property Management Portal for NZ Public Schools',
     stack: ['ASP.NET MVC 4', 'Web API', 'Knockout.js', 'Azure DevOps YAML', 'SQL Server', 'K2'],
     highlights: [
       'Technical lead for a cross-functional team managing property across 2,500+ NZ public schools.',
@@ -159,7 +159,7 @@ export const experience = [
     period: 'Aug 2014 – Mar 2015',
     location: 'Pune, India',
     current: false,
-    project: 'Itemize — Expense Management Platform',
+    project: 'Itemize: Expense Management Platform',
     stack: ['ASP.NET', 'C#', 'SQL Server', 'JavaScript'],
     highlights: [
       'Sole .NET engineer and technical lead for an ASP.NET expense-management platform.',

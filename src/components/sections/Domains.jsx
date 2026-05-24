@@ -35,7 +35,7 @@ const DOMAINS = [
     icon: '📊',
     title: 'Tax & Revenue',
     subtitle: 'Complex Fiscal Systems',
-    description: 'At DataTorque, architected the Bhutan Integrated Tax System (BITS) from the ground up and delivered national tax platforms for Guyana, Belize, Cyprus, and Cook Islands — covering returns, assessments, payments, and compliance across 6 jurisdictions.',
+    description: 'At DataTorque, architected the Bhutan Integrated Tax System (BITS) from the ground up and delivered national tax platforms for Guyana, Belize, Cyprus, and Cook Islands, covering returns, assessments, payments, and compliance across 6 jurisdictions.',
     gradient: 'linear-gradient(135deg, #3d2800 0%, #1f1400 100%)',
     glow: 'rgba(200, 169, 110, 0.3)',
     accent: '#C8A96E',
@@ -44,7 +44,7 @@ const DOMAINS = [
     icon: '🏢',
     title: 'Consulting',
     subtitle: 'Service-Based Delivery',
-    description: 'At Capgemini and SMC Global, embedded with enterprise clients across banking, retail, and public sector — bringing structure, technical leadership, and delivery discipline to complex multi-team engagements.',
+    description: 'At Capgemini and SMC Global, embedded with enterprise clients across banking, retail, and public sector, bringing structure, technical leadership, and delivery discipline to complex multi-team engagements.',
     gradient: 'linear-gradient(135deg, #1a2535 0%, #0d1520 100%)',
     glow: 'rgba(56, 189, 248, 0.3)',
     accent: '#38bdf8',
@@ -53,7 +53,7 @@ const DOMAINS = [
     icon: '📦',
     title: 'Product',
     subtitle: 'End-to-End Ownership',
-    description: 'Led product-focussed engineering at Smart Salary and Toyota NZ — owning the full lifecycle from requirement to release with a focus on user experience and reliability.',
+    description: 'Led product-focussed engineering at Smart Salary and Toyota NZ, owning the full lifecycle from requirement to release with a focus on user experience and reliability.',
     gradient: 'linear-gradient(135deg, #2a1a1a 0%, #180d0d 100%)',
     glow: 'rgba(251, 113, 133, 0.3)',
     accent: '#fb7185',
@@ -129,7 +129,7 @@ export default function Domains() {
             Industry Domains
           </h2>
           <p className="mb-12 text-base max-w-xl" style={{ color: 'var(--muted)' }}>
-            {yearsExp} years across six distinct industries — each one shaping how I think about architecture, risk, and delivery.
+            {yearsExp} years across six distinct industries, each one shaping how I think about architecture, risk, and delivery.
           </p>
         </AnimatedSection>
 

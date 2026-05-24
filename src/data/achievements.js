@@ -20,7 +20,7 @@ export const achievements = [
   {
     id: 3,
     icon: '💡',
-    title: 'Top 20 — All-India Hackathon',
+    title: 'Top 20: All-India Hackathon',
     org: 'Mastercard',
     year: '2017',
     description: 'Loocator app reached the top 20 from 4,000+ registrations in the Amplitude 2017 hackathon.',
@@ -47,7 +47,7 @@ export const achievements = [
     title: 'Introduced Web UI Testing',
     org: 'DataTorque',
     year: '2020-Present',
-    description: 'Championed and led Web UI test automation — ran ~10 demos to win buy-in, then rolled out across all clients. Saves millions of dollars in manual regression testing costs per year.',
+    description: 'Championed and led Web UI test automation, ran ~10 demos to win buy-in, then rolled it out across all clients. Saves millions of dollars in manual regression testing costs per year.',
   },
   {
     id: 7,
@@ -55,7 +55,7 @@ export const achievements = [
     title: 'Web Guild Lead',
     org: 'DataTorque',
     year: '2022–present',
-    description: 'Trusted web expert across the organisation — ran the Web Guild and maintained a 100% resolution rate. Every engineer who came with a web problem left with a solution.',
+    description: 'Trusted web expert across the organisation. Ran the Web Guild and maintained a 100% resolution rate. Every engineer who came with a web problem left with a solution.',
   },
   {
     id: 8,
@@ -63,7 +63,7 @@ export const achievements = [
     title: 'Platform Health Budgeting',
     org: 'Multiple Organisations',
     year: 'Ongoing',
-    description: 'Convinced product owners across organisations to ring-fence 5–10% of every sprint for platform health — refactoring, debt removal, and test coverage. Kept codebases sustainable without sacrificing delivery velocity.',
+    description: 'Convinced product owners across organisations to ring-fence 5–10% of every sprint for platform health: refactoring, debt removal, and test coverage. Kept codebases sustainable without sacrificing delivery velocity.',
   },
   {
     id: 9,
@@ -71,7 +71,7 @@ export const achievements = [
     title: 'Led AI Adoption',
     org: 'DataTorque',
     year: '2024–present',
-    description: 'Self-taught AI tooling and built practical skills across the project team and wider organisation. Adoption drove 10–20% savings in developer effort per sprint — turning AI from a buzzword into a daily productivity multiplier.',
+    description: 'Self-taught AI tooling and built practical skills across the project team and wider organisation. Adoption drove 10–20% savings in developer effort per sprint, turning AI from a buzzword into a daily productivity multiplier.',
   },
 ];
 

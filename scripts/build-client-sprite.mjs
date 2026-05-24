@@ -63,6 +63,8 @@ const LOCAL_KEY = {
   'Perpetual Guardian':        'perpetual-guardian',
   'Fire & Emergency NZ':       'fenz',
   'Itemize':                   'itemize',
+  'Barbados Revenue Authority':'barbados-bra',
+  'Isle of Man Gov':           'isle-of-man',   // uses coat of arms PNG
 };
 
 async function fetchLogos() {

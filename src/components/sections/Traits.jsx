@@ -3,7 +3,7 @@ import AnimatedSection from '../ui/AnimatedSection.jsx';
 
 const TRAITS = [
   { icon: FiEye,        title: 'Detail Oriented',          desc: 'Catches edge cases before they reach production.' },
-  { icon: FiCode,       title: 'Clean Coder',               desc: 'Code as a craft — readable, purposeful, built to last.' },
+  { icon: FiCode,       title: 'Clean Coder',               desc: 'Code as a craft: readable, purposeful, built to last.' },
   { icon: FiZap,        title: 'Innovator',                 desc: 'Finds simpler, smarter solutions to old problems.' },
   { icon: FiRepeat,     title: 'Process Champion',          desc: 'Builds processes that make teams faster to ship.' },
   { icon: FiTarget,     title: 'Requirement Challenger',    desc: 'Questions assumptions to build the right thing.' },

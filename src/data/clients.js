@@ -23,4 +23,6 @@ export const clients = [
   { name: 'Perpetual Guardian',            url: 'https://www.perpetualguardian.co.nz',  domain: 'perpetualguardian.co.nz',  category: 'client' },
   { name: 'Fire & Emergency NZ',           url: 'https://www.fireandemergency.nz',      domain: 'fireandemergency.nz',      category: 'client' },
   { name: 'Itemize',                        url: 'https://www.itemize.com',              domain: 'itemize.com',              category: 'client' },
+  { name: 'Barbados Revenue Authority',     url: 'https://tamis.bra.gov.bb',             domain: 'bra.gov.bb',               category: 'client' },
+  { name: 'Isle of Man Gov',                url: 'https://ceservices.gov.im',            domain: 'gov.im',                   category: 'client' },
 ];

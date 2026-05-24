@@ -8,6 +8,7 @@ import Traits from './components/sections/Traits.jsx';
 import Experience from './components/sections/Experience.jsx';
 import Skills from './components/sections/Skills.jsx';
 import Clients from './components/sections/Clients.jsx';
+import GlobalReach from './components/sections/GlobalReach.jsx';
 import Domains from './components/sections/Domains.jsx';
 import BhutanTrips from './components/sections/BhutanTrips.jsx';
 import Timeline from './components/sections/Timeline.jsx';
@@ -27,6 +28,7 @@ export default function App() {
           <Experience />
           <Skills />
           <Clients />
+          <GlobalReach />
           <Domains />
           <BhutanTrips />
           {/* <Timeline /> */}

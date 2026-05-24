@@ -9,7 +9,7 @@ const MILESTONES = [
     role: 'Software Trainee',
     company: 'Paragyte Technologies',
     location: 'Pune, India',
-    highlight: 'Started career as a software trainee — first professional code shipped within weeks.',
+    highlight: 'Started career as a software trainee. First professional code shipped within weeks.',
     icon: '🌱',
     color: '#34d399',
   },
@@ -18,7 +18,7 @@ const MILESTONES = [
     role: 'Technical Lead',
     company: 'Paragyte Technologies',
     location: 'Pune, India',
-    highlight: 'Promoted from trainee to Technical Lead in just 10 months — the fastest in the company.',
+    highlight: 'Promoted from trainee to Technical Lead in just 10 months, the fastest in the company.',
     icon: '⬆️',
     color: '#a78bfa',
     badge: 'Promoted in 10 months',
@@ -48,7 +48,7 @@ const MILESTONES = [
     role: 'Senior Dev / Tech Lead',
     company: 'Ministry of Education NZ',
     location: 'Wellington, NZ',
-    highlight: 'Technical lead on Helios — property management platform for 2,500+ NZ public schools.',
+    highlight: 'Technical lead on Helios, a property management platform for 2,500+ NZ public schools.',
     icon: '🏛',
     color: '#38bdf8',
   },
@@ -77,7 +77,7 @@ const MILESTONES = [
     role: 'Tech Lead',
     company: 'DataTorque Ltd',
     location: 'Wellington, NZ',
-    highlight: 'Architected the Bhutan Integrated Tax System (BITS) from scratch — now processing 100k transactions/day for 200k taxpayers.',
+    highlight: 'Architected the Bhutan Integrated Tax System (BITS) from scratch, now processing 100k transactions/day for 200k taxpayers.',
     icon: '🚀',
     color: '#34d399',
     badge: 'Current Role',
@@ -185,7 +185,7 @@ export default function Timeline() {
             Career Journey
           </h2>
           <p className="mb-16 text-base max-w-xl" style={{ color: 'var(--muted)' }}>
-            From software trainee to tech lead in {yearsExp} years — a consistent upward trajectory across 3 countries and 6 industries.
+            From software trainee to tech lead in {yearsExp} years, a consistent upward trajectory across 3 countries and 6 industries.
           </p>
         </AnimatedSection>
 

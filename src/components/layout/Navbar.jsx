@@ -27,8 +27,10 @@ const NAV_GROUPS = [
   {
     label: 'My Work',
     children: [
-      { label: 'Clients',  href: '#clients' },
-      { label: 'Domains',  href: '#domains' },
+      { label: 'Clients',      href: '#clients' },
+      { label: 'Global Reach', href: '#global-reach' },
+      { label: 'Domains',      href: '#domains' },
+      { label: 'Bhutan Onsite', href: '#bhutan' },
     ],
   },
   {
