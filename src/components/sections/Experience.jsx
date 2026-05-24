@@ -10,8 +10,12 @@ function ExperienceCard({ job, index }) {
   // Active when card occupies the middle band of the viewport
   const active = useInView(ref, { margin: '-10% 0px -35% 0px', once: false });
 
-  // Scroll-driven expand / collapse
-  useEffect(() => { setOpen(active); }, [active]);
+  // Expand on scroll-in (debounced) — never auto-collapse on scroll-out
+  useEffect(() => {
+    if (!active) return;
+    const t = setTimeout(() => setOpen(true), 350);
+    return () => clearTimeout(t);
+  }, [active]);
 
   return (
     <AnimatedSection delay={index * 0.08}>
