@@ -65,16 +65,29 @@ function findActiveChild(activeId) {
 
 function DropdownGroup({ group, activeId, onNavigate }) {
   const [open, setOpen] = useState(false);
-  const ref = useRef(null);
+  const ref       = useRef(null);
+  const closeTimer = useRef(null);
   const isGroupActive = group.children.some(c => c.href.slice(1) === activeId);
   const activeChild = isGroupActive ? findActiveChild(activeId) : null;
   const isSingle = group.children.length === 1;
+
+  function handleMouseEnter() {
+    clearTimeout(closeTimer.current);
+    setOpen(true);
+  }
+  function handleMouseLeave() {
+    // 220 ms grace period — lets the mouse travel from button to panel
+    closeTimer.current = setTimeout(() => setOpen(false), 220);
+  }
 
   // Close on outside click
   useEffect(() => {
     const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
     document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    return () => {
+      document.removeEventListener('mousedown', handler);
+      clearTimeout(closeTimer.current);
+    };
   }, []);
 
   if (isSingle) {
@@ -91,7 +104,7 @@ function DropdownGroup({ group, activeId, onNavigate }) {
   }
 
   return (
-    <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div ref={ref} className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <button
         onClick={() => setOpen(v => !v)}
         className="nav-link flex items-center gap-1 text-sm font-medium whitespace-nowrap"

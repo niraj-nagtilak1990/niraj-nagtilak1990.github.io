@@ -2,17 +2,17 @@ import { FiEye, FiCode, FiZap, FiRepeat, FiTarget, FiUsers, FiLayers, FiGitMerge
 import AnimatedSection from '../ui/AnimatedSection.jsx';
 
 const TRAITS = [
-  { icon: FiEye,        title: 'Detail Oriented',          desc: 'Catches edge cases before they reach production.' },
+  { icon: FiEye,        title: 'Detail Oriented',          desc: 'Tries to catch edge cases before they reach production.' },
   { icon: FiCode,       title: 'Clean Coder',               desc: 'Code as a craft: readable, purposeful, built to last.' },
-  { icon: FiZap,        title: 'Innovator',                 desc: 'Finds simpler, smarter solutions to old problems.' },
-  { icon: FiRepeat,     title: 'Process Champion',          desc: 'Builds processes that make teams faster to ship.' },
-  { icon: FiTarget,     title: 'Requirement Challenger',    desc: 'Questions assumptions to build the right thing.' },
+  { icon: FiZap,        title: 'Innovator',                 desc: 'Looks for simpler, smarter ways to solve old problems.' },
+  { icon: FiRepeat,     title: 'Process Champion',          desc: 'Builds lightweight processes that help teams move faster.' },
+  { icon: FiTarget,     title: 'Requirement Challenger',    desc: 'Asks questions early to make sure we\'re building the right thing.' },
   { icon: FiUsers,      title: 'Mentor',                    desc: 'Invests in people as much as in architecture.' },
-  { icon: FiLayers,     title: 'Systems Thinker',           desc: 'Sees how pieces connect before writing a line.' },
-  { icon: FiGitMerge,   title: 'Bridge Builder',            desc: 'Translates between engineers, product and business.' },
-  { icon: FiPackage,    title: 'Delivery Focused',          desc: 'Ships with low defect rates and high confidence.' },
-  { icon: FiRefreshCw,  title: 'Adaptable',                 desc: 'Delivered across 10+ countries and tech stacks.' },
-  { icon: FiTrendingUp, title: 'Business Mindset',          desc: 'Understands commercial context, not just code.' },
+  { icon: FiLayers,     title: 'Systems Thinker',           desc: 'Tries to see how the pieces connect before writing a line.' },
+  { icon: FiGitMerge,   title: 'Bridge Builder',            desc: 'Comfortable translating between engineers, product and business.' },
+  { icon: FiPackage,    title: 'Delivery Focused',          desc: 'Cares about shipping clean, not just shipping fast.' },
+  { icon: FiRefreshCw,  title: 'Adaptable',                 desc: 'Has worked across 10+ countries, tech stacks, and team cultures.' },
+  { icon: FiTrendingUp, title: 'Business Mindset',          desc: 'Tries to understand the commercial context, not just the code.' },
 ];
 
 export default function Traits() {

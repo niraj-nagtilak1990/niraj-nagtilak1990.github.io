@@ -97,7 +97,7 @@ export const recommendations = [
     profileUrl: 'https://www.linkedin.com/in/varun-samel-8159a549/',
     date: 'June 2021',
     relationship: 'Colleague',
-    text: 'This guy is amazing!! Have worked with him during a couple of Hackathons — awesome presentation skills along with great technical background. Hoping to work with you some time again :)',
+    text: 'This guy is amazing!! Have worked with him during a couple of Hackathons, awesome presentation skills along with great technical background. Hoping to work with you some time again :)',
   },
   {
     id: 11,
@@ -177,7 +177,7 @@ export const recommendations = [
     profileUrl: 'https://www.linkedin.com/in/philip-lee-7193814/',
     date: 'July 2019',
     relationship: 'Senior Colleague',
-    text: 'Niraj was a rockstar developer right from the start — we knew he would be good as soon as we first met him! Not only does he have very strong technical skills, but he is also very keen to learn — and more importantly — share his knowledge with others. He contributed a great deal to his scrum team and the wider platform community. I\'m really sad he isn\'t still with us, but fingers crossed we\'ll cross paths again.',
+    text: 'Niraj was a rockstar developer right from the start, we knew he would be good as soon as we first met him! Not only does he have very strong technical skills, but he is also very keen to learn, and more importantly, share his knowledge with others. He contributed a great deal to his scrum team and the wider platform community. I\'m really sad he isn\'t still with us, but fingers crossed we\'ll cross paths again.',
   },
   {
     id: 19,
@@ -197,7 +197,7 @@ export const recommendations = [
     profileUrl: 'https://www.linkedin.com/in/sawan-jha-2840b466/',
     date: 'May 2019',
     relationship: 'Colleague',
-    text: 'Dynamic and talented professional with a strong urge to learn new skills in no time. Great leadership skills as well as team spirit. One of the best technical skills as well as great troubleshooting on the job. Always suggests new ideas and tools to make a product better. Words are really less to express — but I would say the best bet for any company.',
+    text: 'Dynamic and talented professional with a strong urge to learn new skills in no time. Great leadership skills as well as team spirit. One of the best technical skills as well as great troubleshooting on the job. Always suggests new ideas and tools to make a product better. Words are really less to express, but I would say the best bet for any company.',
   },
   {
     id: 21,

@@ -51,9 +51,12 @@ function cssVar(name) {
 
 function GlobeWrapper() {
   const globeRef  = useRef(null);
-  const [ready, setReady]       = useState(false);
+  const [ready, setReady]         = useState(false);
   const [countries, setCountries] = useState([]);
-  const [size, setSize]         = useState({ w: 600, h: 500 });
+  const [size, setSize]           = useState({ w: 600, h: 500 });
+  const [tooltip, setTooltip]     = useState(null); // { name, work, x, y, pinned }
+  const hideTimer   = useRef(null);
+  const resumeTimer = useRef(null);
 
   // Load world topology → GeoJSON features
   useEffect(() => {
@@ -84,33 +87,50 @@ function GlobeWrapper() {
     globeRef.current.pointOfView({ lat: 10, lng: 120, altitude: 1.9 }, 0);
   }, [ready]);
 
-  function pause()  { if (globeRef.current) globeRef.current.controls().autoRotate = false; }
-  function resume() { if (globeRef.current) globeRef.current.controls().autoRotate = true; }
+  function pause() {
+    clearTimeout(resumeTimer.current);
+    if (globeRef.current) globeRef.current.controls().autoRotate = false;
+  }
+  function resume() {
+    // Debounce — covers mouse briefly leaving globe on the way to the tooltip
+    clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => {
+      if (globeRef.current) globeRef.current.controls().autoRotate = true;
+    }, 500);
+  }
 
-  // Resolve CSS variables once ready (JSDOM has them set by then)
-  const primary  = '#C8A96E';
-  const card     = '#161B22';
-  const surface  = '#111827';
-  const border   = '#30363D';
-  const muted    = '#8B949E';
-  const bg       = '#0D1117';
+  // Tooltip handlers
+  // Hover only pauses/resumes rotation — pointLabel handles the hover display
+  function handlePointHover(point) {
+    if (point) pause(); else resume();
+  }
 
-  const labelHtml = d => `
-    <div style="
-      background:rgba(22,27,34,0.96);
-      border:1px solid ${primary};
-      border-radius:8px;
-      padding:8px 12px;
-      max-width:250px;
-      pointer-events:none;
-      font-family:Inter,sans-serif;
-      box-shadow:0 8px 24px rgba(0,0,0,0.5);
-    ">
-      <div style="color:${primary};font-weight:700;font-size:13px;margin-bottom:4px">${d.name}</div>
-      <div style="color:${muted};font-size:11px;line-height:1.5;white-space:pre-line">${d.work}</div>
-    </div>`;
+  function handlePointClick(point, event) {
+    if (!point) { setTooltip(null); return; }
+    const isTouchEvt = !!(event?.changedTouches);
+    const ex = event?.clientX
+      ?? event?.changedTouches?.[0]?.clientX
+      ?? window.innerWidth  / 2;
+    const ey = event?.clientY
+      ?? event?.changedTouches?.[0]?.clientY
+      ?? window.innerHeight / 2;
+    const y = isTouchEvt ? Math.max(ey - 130, 60) : ey;
+    setTooltip(prev =>
+      prev?.pinned && prev?.name === point.name
+        ? null
+        : { name: point.name, work: point.work, x: ex, y, pinned: true }
+    );
+  }
+
+  const primary = '#C8A96E';
+  const muted   = '#8B949E';
+  const bg      = '#0D1117';
+
+  // Built-in hover label — used as primary hover tooltip (proven to work)
+  const labelHtml = d => `<div style="background:rgba(22,27,34,0.96);border:1px solid ${primary};border-radius:8px;padding:8px 12px;max-width:260px;pointer-events:none;font-family:Inter,sans-serif;box-shadow:0 8px 24px rgba(0,0,0,0.5)"><div style="color:${primary};font-weight:700;font-size:13px;margin-bottom:4px">${d.name}</div><div style="color:${muted};font-size:11px;line-height:1.5;white-space:pre-line">${d.work}</div></div>`;
 
   return (
+    <>
     <div
       onMouseEnter={pause}
       onMouseLeave={resume}
@@ -157,13 +177,64 @@ function GlobeWrapper() {
         pointLat={d => d.lat}
         pointLng={d => d.lng}
         pointColor={d => d.type === 'delivered' ? primary : muted}
-        pointRadius={d => d.type === 'delivered' ? 0.42 : 0.28}
+        pointRadius={d => d.type === 'delivered' ? 1.1 : 0.8}
         pointAltitude={d => d.type === 'delivered' ? 0.08 : 0.04}
         pointLabel={labelHtml}
 
+        onPointHover={handlePointHover}
+        onPointClick={handlePointClick}
         onGlobeReady={() => setReady(true)}
       />
     </div>
+
+    {/* Pinned tooltip — shown on click/tap only, dismissed with × */}
+    {tooltip?.pinned && (
+      <div
+        onMouseEnter={pause}
+        onMouseLeave={resume}
+        style={{
+          position: 'fixed',
+          left:   Math.min(Math.max(tooltip.x + 14, 8), window.innerWidth  - 300),
+          top:    Math.min(Math.max(tooltip.y - 10, 8), window.innerHeight - 180),
+          zIndex: 9999,
+          background: 'rgba(22,27,34,0.97)',
+          border: `1px solid ${primary}`,
+          borderRadius: '0.75rem',
+          padding: '0.875rem 1rem',
+          width: '270px',
+          maxHeight: '160px',
+          overflowY: 'auto',
+          boxShadow: '0 8px 28px rgba(0,0,0,0.55)',
+          fontFamily: 'Inter, sans-serif',
+          pointerEvents: 'auto',
+        }}
+      >
+        {/* Close button for pinned (mobile tap) */}
+        {tooltip.pinned && (
+          <button
+            onClick={() => setTooltip(null)}
+            style={{
+              position: 'absolute', top: 6, right: 8,
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: muted, fontSize: 16, lineHeight: 1, padding: 2,
+            }}
+            aria-label="Close"
+          >×</button>
+        )}
+        <div style={{ color: primary, fontWeight: 700, fontSize: 13, marginBottom: 4, paddingRight: tooltip.pinned ? 16 : 0 }}>
+          {tooltip.name}
+        </div>
+        <div style={{ color: muted, fontSize: 11, lineHeight: 1.55, whiteSpace: 'pre-line' }}>
+          {tooltip.work}
+        </div>
+        {tooltip.pinned && (
+          <div style={{ color: muted, fontSize: 10, marginTop: 6, opacity: 0.5 }}>
+            Tap × to close
+          </div>
+        )}
+      </div>
+    )}
+    </>
   );
 }
 

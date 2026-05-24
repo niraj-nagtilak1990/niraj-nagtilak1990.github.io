@@ -47,7 +47,7 @@ export const achievements = [
     title: 'Introduced Web UI Testing',
     org: 'DataTorque',
     year: '2020-Present',
-    description: 'Championed and led Web UI test automation, ran ~10 demos to win buy-in, then rolled it out across all clients. Saves millions of dollars in manual regression testing costs per year.',
+    description: 'Championed and led Web UI test automation, ran ~10 demos to win buy-in, then rolled it out across all clients. Saving NZ$100K+ per year in manual regression testing costs across the organisation.',
   },
   {
     id: 7,
@@ -55,7 +55,7 @@ export const achievements = [
     title: 'Web Guild Lead',
     org: 'DataTorque',
     year: '2022–present',
-    description: 'Trusted web expert across the organisation. Ran the Web Guild and maintained a 100% resolution rate. Every engineer who came with a web problem left with a solution.',
+    description: 'Ran the Web Guild as the go-to for web challenges across the organisation. Made it a point that no colleague left without a clear path forward on their problem.',
   },
   {
     id: 8,

@@ -11,7 +11,7 @@ export const experience = [
     highlights: [
       'Architected and delivered BITS end-to-end, a national taxation platform with a Payment API handling 100k transactions/day for 200k taxpayers.',
       'Led source-control migration from TFS to Git; cut release cycle from once a year to quarterly.',
-      'Led a production release with a defect escape rate under 5%, the lowest across all tax projects in the organisation.',
+      'Led a production release with a defect escape rate under 5%, the cleanest release the project had seen.',
       'Shipped a failed-refund recovery workflow, eliminating statutory interest exposure on late refunds.',
       'Two hackathon concepts I pitched were adopted by DataTorque for productisation and are now in client use.',
     ],
@@ -44,7 +44,7 @@ export const experience = [
     stack: ['Azure Functions', 'Service Bus', '.NET 6', 'Optimizely CMS', 'Vue.JS 3', 'TypeScript', 'YAML'],
     highlights: [
       'Promoted from Senior Engineer to Team Lead within 2 months.',
-      'Cleared a backlog of stalled Statements of Work, doubling Capgemini\'s billable revenue from the Toyota NZ engagement.',
+      'Helped clear a backlog of stalled Statements of Work, significantly growing the team\'s engagement with Toyota NZ.',
       'Built client trust through consistent on-time delivery, unlocking multiple new SOWs.',
       'Hardened platform resilience with Azure-native monitoring and alerting.',
       'Owned full delivery cycle: design, implementation, SIT, PreProd, and Production release.',
@@ -130,7 +130,7 @@ export const experience = [
     highlights: [
       'Delivered the Banker Workbench used by 500+ ANZ relationship bankers, replacing a legacy spreadsheet workflow.',
       'Introduced a full end-to-end engineering stack (Swagger, NUnit, FluentValidation, EF Core, Jest, Cypress), lifting test coverage to 80%.',
-      'Took over an offshore team of 5 devs struggling with onshore quality standards and shipped 4 production microservices.',
+      'Joined an offshore team of 5 devs, helped close the gap on quality and delivery standards, and together shipped 4 production microservices.',
       'Built a mentoring culture: pair-programmed with 4 engineers and accelerated onboarding.',
     ],
   },

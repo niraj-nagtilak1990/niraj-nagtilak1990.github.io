@@ -20,21 +20,24 @@ export default function About() {
             <div className="space-y-4 text-base leading-relaxed" style={{ color: 'var(--muted)' }}>
               <p>
                 I'm a <strong style={{ color: 'var(--foreground)' }}>Technical Lead and Software Architect</strong> with{' '}
-                {yearsExp}+ years shipping production systems for national governments, tier-1 banks, and large
+                {yearsExp}+ years helping teams ship production systems for national governments, tier-1 banks, and
                 enterprise clients across New Zealand, Australia, India, Bhutan, Guyana, Jersey, Belize, and Cyprus.
               </p>
               <p>
-                My specialty is <strong style={{ color: 'var(--foreground)' }}>event-driven architectures on Azure</strong>: Azure
-                Functions, Service Bus, and APIM, combined with clean, well-tested C# / .NET backends
-                and modern React or Vue.js frontends. I care deeply about CI/CD, test coverage, and engineering culture.
+                My focus is <strong style={{ color: 'var(--foreground)' }}>event-driven architectures on Azure</strong>: Azure
+                Functions, Service Bus, and APIM, paired with clean, well-tested C# / .NET backends
+                and modern React or Vue.js frontends. I care deeply about CI/CD, test coverage, and the kind of
+                engineering culture where people feel safe raising problems early.
               </p>
               <p>
                 Currently at <strong style={{ color: 'var(--foreground)' }}>DataTorque Ltd</strong> as Tech Lead on the
-                Bhutan Integrated Tax System (BITS), a national taxation platform I architected from the ground up.
+                Bhutan Integrated Tax System (BITS), a national taxation platform our team built from the ground up
+                , now processing 100k transactions a day for 200k taxpayers.
               </p>
               <p>
-                I have delivered across <strong style={{ color: 'var(--foreground)' }}>banking, payments, government, consulting, and product-based</strong> organisations,
-                and led teams through <strong style={{ color: 'var(--foreground)' }}>Waterfall, Agile, Scrum, and Kanban</strong> environments.
+                I've been fortunate to work across <strong style={{ color: 'var(--foreground)' }}>banking, payments, government, consulting, and product</strong> organisations
+                with talented engineers and clients who trusted us with problems that genuinely mattered. Each
+                engagement has taught me something different about people, process, and delivery.
               </p>
               <p>
                 Outside of work, I love travelling with my wife and two kids, playing table tennis and cricket.
