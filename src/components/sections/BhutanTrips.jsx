@@ -22,6 +22,9 @@ function PhotoPane({ trip, photoIdx, onPhotoChange, isMobile }) {
           key={photo.src}
           src={photo.src}
           alt={photo.caption}
+          loading="lazy"
+          width="800"
+          height="600"
           onError={() => setImgFailed(true)}
           style={{
             position: 'absolute', inset: 0,
