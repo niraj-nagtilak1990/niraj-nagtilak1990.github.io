@@ -62,15 +62,16 @@ function RecCard({ rec }) {
 }
 
 export default function Recommendations() {
-  const isMobile = useIsMobile();
-  const PER_PAGE = isMobile ? 1 : 3;
+  const isMobile  = useIsMobile(768);   // < 768 px
+  const isTablet  = useIsMobile(1024);  // < 1024 px  (tablet portrait range)
+  const PER_PAGE  = isMobile ? 1 : isTablet ? 2 : 3;
   const [page, setPage] = useState(0);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
   const cardRef      = useRef(null);
 
   // Reset to first page when layout changes
-  useEffect(() => { setPage(0); }, [isMobile]);
+  useEffect(() => { setPage(0); }, [PER_PAGE]);
 
   const totalPages = Math.ceil(recommendations.length / PER_PAGE);
   const visible = recommendations.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
@@ -136,7 +137,7 @@ export default function Recommendations() {
         {/* Cards */}
         <div
           ref={cardRef}
-          className={`grid gap-6 min-h-[340px] ${isMobile ? 'grid-cols-1' : 'md:grid-cols-3'}`}
+          className={`grid gap-6 min-h-[340px] ${isMobile ? 'grid-cols-1' : isTablet ? 'grid-cols-2' : 'grid-cols-3'}`}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
